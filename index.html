@@ -303,6 +303,38 @@ pre.protokoll{background:var(--bg2);border:1px solid var(--linie);
   .mk-preis{text-align:left}
 }
 
+/* ------------------------- Kostenprotokoll im Archiv ---------------------- */
+.kostenblock{margin-top:46px;padding-top:32px;border-top:1px solid var(--linie)}
+.kostenblock h2{font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--akzent);margin-bottom:14px}
+.kostenblock h3{font-size:16px;margin:30px 0 10px;font-weight:700}
+.kostenblock p{margin-bottom:12px;max-width:72ch}
+.kostenblock .fussnote{font-size:12.5px;margin-top:10px}
+.ksumme{background:var(--flaeche);border:1px solid var(--akzent);
+  border-radius:var(--radius);padding:22px;text-align:center;margin:18px 0 6px}
+.kbetrag{display:block;font-size:38px;font-weight:800;color:var(--akzent);
+  line-height:1;font-variant-numeric:tabular-nums}
+.klabel{display:block;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--leise);margin-top:9px}
+.ktab{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0}
+.ktab th{text-align:left;font-size:10.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--leise);font-weight:600;
+  padding:0 10px 8px 0;border-bottom:1px solid var(--linie)}
+.ktab td{padding:11px 10px 11px 0;border-bottom:1px solid var(--linie);
+  vertical-align:top}
+.ktab .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ktab td.num{font-weight:600}
+.ktab td.num.fastnull{color:var(--leise);font-weight:400}
+.ktab .menge{color:var(--leise);font-size:12.5px;white-space:nowrap}
+.ktab .stimme{color:var(--leise);font-size:13px;white-space:nowrap}
+.ktab .erkl{display:block;color:var(--leise);font-size:12.5px;margin-top:3px;
+  font-weight:400;line-height:1.45}
+.ktab tr:last-child td{border-bottom:0}
+@media(max-width:820px){
+  .ktab .menge,.ktab .stimme{display:none}
+  .ktab{font-size:13px}
+}
+
 /* -------------------------------- Slop-Meter ------------------------------
    Standardmaessig aus. Der Schalter markiert jede Stelle, die eine Regel des
    frontend-design-Skills bricht, und nennt sie im Wortlaut. */
@@ -1069,6 +1101,56 @@ body.ruhig *{animation:none !important;transition:none !important}
 <section class="seite" id="archiv">
   <div class="archivkopf">Archiv — <span id="archivZahl">0</span> Folgen</div>
   <div class="karten" id="karten"></div>
+
+  <div class="kostenblock">
+    <h2>Was bisher angefallen ist</h2>
+    <p class="leise">Jeder Aufruf an ein Modell oder an die Sprachausgabe wird
+      protokolliert — mit Schritt, Modell, Menge und Preis. Diese Tabelle ist
+      die Summe daraus, gelesen beim Bau dieser Seite. Nichts davon ist
+      geschätzt.</p>
+
+    <div class="ksumme">
+      <span class="kbetrag">5,13 €</span>
+      <span class="klabel">seit dem ersten Lauf, alles zusammen</span>
+    </div>
+
+    <h3>Wofür</h3>
+    <table class="ktab">
+      <tr><th>Schritt</th><th class="num">Aufrufe</th><th>Menge</th>
+          <th class="num">Kosten</th></tr>
+      <tr><td><strong>Vertonung</strong><span class="erkl">Das Manuskript wird gesprochen. Abgerechnet je Zeichen.</span></td><td class="num">16</td><td class="menge">127.051 Zeichen</td><td class="num">4,64 €</td></tr><tr><td><strong>Vertonung, Nachlauf</strong><span class="erkl">Einzelne Abschnitte neu gesprochen, etwa nach einer Korrektur am Manuskript.</span></td><td class="num">1</td><td class="menge">15.261 Zeichen</td><td class="num">0,46 €</td></tr><tr><td><strong>Aufbereitung</strong><span class="erkl">Aus einer Rohmeldung werden Titel, Kern und Fakten gelöst.</span></td><td class="num">201</td><td class="menge">549.492 ein / 460.225 aus</td><td class="num">0,03 €</td></tr><tr><td><strong>Themenbildung</strong><span class="erkl">Meldungen, die dasselbe Ereignis beschreiben, werden zu einem Thema zusammengefasst.</span></td><td class="num">56</td><td class="menge">27.570 ein / 3.831 aus</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>Prüfung</strong><span class="erkl">Prüflauf des Systems.</span></td><td class="num">1</td><td class="menge">46 ein / 113 aus</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>Gegenprüfung</strong><span class="erkl">Stichprobe gegen die Quelle, bevor eine Zahl ins Manuskript darf.</span></td><td class="num">97</td><td class="menge">—</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>Faktenprüfung</strong><span class="erkl">Jeder Satz des Manuskripts wird gegen die Quellen geprüft.</span></td><td class="num">26</td><td class="menge">276.562 ein / 131.328 aus</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>Manuskript</strong><span class="erkl">Der Dialog zwischen Bernhard und Lisa wird geschrieben.</span></td><td class="num">25</td><td class="menge">286.962 ein / 85.654 aus</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>Fortsetzung</strong><span class="erkl">Hat ein bekanntes Thema substanziell Neues? Nur dann darf es wieder gesendet werden.</span></td><td class="num">16</td><td class="menge">7.678 ein / 691 aus</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>Manuskript, Korrekturrunde</strong><span class="erkl">Länge, Rollen oder verbotene Wendungen stimmten nicht.</span></td><td class="num">14</td><td class="menge">130.553 ein / 49.449 aus</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>Faktenprüfung, Korrekturrunde</strong><span class="erkl">Ungedeckte Sätze gehen zurück ans Modell.</span></td><td class="num">13</td><td class="menge">130.481 ein / 38.077 aus</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>Selbsttest</strong><span class="erkl">Erreichbarkeit und Schlüssel des Anbieters.</span></td><td class="num">1</td><td class="menge">95 ein / 48 aus</td><td class="num" class="fastnull">0,00 €</td></tr>
+    </table>
+    <p class="leise fussnote">Schritte mit 0,00 € sind nicht kostenlos gearbeitet
+      worden — sie liefen über ein Modell, das derzeit nichts kostet. Der Betrag
+      wird trotzdem gezählt, damit die Zeile nicht fehlt, wenn sich das ändert.</p>
+
+    <h3>Bei welchem Anbieter</h3>
+    <table class="ktab">
+      <tr><th>Anbieter</th><th>Modell</th><th class="num">Aufrufe</th>
+          <th>Menge</th><th class="num">Kosten</th></tr>
+      <tr><td><strong>Deepgram</strong></td><td>Aura-2<span class="erkl">Sprachausgabe</span></td><td class="num">10</td><td class="menge">83.970 Zeichen</td><td class="num">2,32 €</td></tr><tr><td><strong>ElevenLabs</strong></td><td>v3<span class="erkl">Sprachausgabe, versteht Regieanweisungen</span></td><td class="num">2</td><td class="menge">18.232 Zeichen</td><td class="num">1,68 €</td></tr><tr><td><strong>Deepgram</strong></td><td>Aura-2 (Julius)<span class="erkl">Sprachausgabe</span></td><td class="num">2</td><td class="menge">23.455 Zeichen</td><td class="num">0,65 €</td></tr><tr><td><strong>Deepgram</strong></td><td>Rechnungsabgleich<span class="erkl">Nachbuchung aus der echten Abrechnung, nicht aus der Schätzung</span></td><td class="num">1</td><td class="menge">15.261 Zeichen</td><td class="num">0,46 €</td></tr><tr><td><strong>Z.ai</strong></td><td>GLM 5.3 Flash<span class="erkl">Sprachmodell, alle drei Größen</span></td><td class="num">19</td><td class="menge">40.768 ein / 110.907 aus</td><td class="num">0,03 €</td></tr><tr><td><strong>OpenRouter</strong></td><td>Ox Alpha<span class="erkl">Sprachmodell, vorheriges</span></td><td class="num">334</td><td class="menge">1.368.671 ein / 658.509 aus</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>Tavily</strong></td><td>Suche<span class="erkl">Gegenprüfung von Fakten</span></td><td class="num">97</td><td class="menge">—</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>ElevenLabs</strong></td><td>Flash v2.5<span class="erkl">Sprachausgabe, ohne Regie</span></td><td class="num">2</td><td class="menge">1.394 Zeichen</td><td class="num" class="fastnull">0,00 €</td></tr>
+    </table>
+    <p class="leise fussnote">Die Sprachausgabe rechnet je Zeichen ab, die
+      Sprachmodelle je Token. Deshalb steht in der Mengenspalte je nach Zeile
+      etwas anderes.</p>
+
+    <h3>Je Folge</h3>
+    <table class="ktab">
+      <tr><th>Sendung</th><th>gesprochen mit</th>
+          <th class="num">ausgeliefert</th>
+          <th class="num">verworfen</th><th class="num">Vertonungen</th>
+          <th class="num">gesamt</th></tr>
+      <tr><td>2026-08-26</td><td class="stimme">ElevenLabs v3</td><td class="num">1,00 €</td><td class="num">0,98 €</td><td class="num">3×</td><td class="num">1,99 €</td></tr><tr><td>2026-08-25</td><td class="stimme">Deepgram Aura-2</td><td class="num">0,28 €</td><td class="num">0,84 €</td><td class="num">5×</td><td class="num">1,12 €</td></tr><tr><td>2026-08-24</td><td class="stimme">Deepgram Aura-2</td><td class="num">0,28 €</td><td class="num">0,30 €</td><td class="num">4×</td><td class="num">0,58 €</td></tr>
+    </table>
+    <p class="leise fussnote">„Ausgeliefert“ ist die Fassung, die im Player
+      liegt: die letzte Vertonung plus die Modellschritte dieser Folge.
+      „Verworfen“ sind frühere Anläufe desselben Tages — Entwicklungsaufwand,
+      kein Preis je Folge.</p>
+
+    <p class="leise fussnote">Dazu kommen 1,44 € aus
+      289 Zeilen, die keiner Sendung zugeordnet sind:
+      Stimmproben, Handläufe und das rückwirkende Aufbereiten des Bestands.</p>
+  </div>
 </section>
 </main>
 
