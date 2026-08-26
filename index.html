@@ -303,7 +303,40 @@ pre.protokoll{background:var(--bg2);border:1px solid var(--linie);
   .mk-preis{text-align:left}
 }
 
-/* ------------------------- Kostenprotokoll im Archiv ---------------------- */
+/* ---------------------------- Modell-Steckbriefe -------------------------- */
+.mstein{background:var(--flaeche);border:1px solid var(--akzent);
+  border-radius:var(--radius);padding:22px;margin:16px 0}
+.mstein.zweit,.mstein.weg{border-color:var(--linie)}
+.mstein.weg{opacity:.72}
+.ms-kopf{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  align-items:flex-start;border-bottom:1px solid var(--linie);padding-bottom:15px}
+.ms-status{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--akzent);margin-bottom:5px}
+.ms-status.weg{color:var(--leise)}
+.mstein.zweit .ms-status{color:var(--leise)}
+.ms-kopf h3{font-size:21px;margin:0 0 4px}
+.ms-kopf code{font-size:12.5px;color:var(--leise);
+  font-family:ui-monospace,'SF Mono',Menlo,monospace}
+.ms-preis{text-align:right;font-size:12px;color:var(--leise)}
+.ms-preis span{color:var(--akzent);font-weight:700;font-size:15px;
+  font-variant-numeric:tabular-nums}
+.ms-preis div{margin-bottom:4px}
+.ms-daten{display:flex;flex-wrap:wrap;gap:24px;margin-top:15px}
+.ms-daten dt{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--leise)}
+.ms-daten dd{margin:3px 0 0;font-size:14.5px;font-weight:600;
+  font-variant-numeric:tabular-nums}
+.ms-rolle{margin:14px 0 0;font-size:14px;color:var(--leise)}
+.ms-listen{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:15px}
+.ms-listen h4{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--leise);margin-bottom:8px}
+.ms-listen ul{margin:0 0 0 17px;font-size:13.5px;line-height:1.55}
+.ms-listen li{margin-bottom:7px}
+.ms-listen code{font-size:12px;background:var(--bg2);padding:1px 4px;
+  border-radius:4px;font-family:ui-monospace,'SF Mono',Menlo,monospace}
+@media(max-width:820px){.ms-listen{grid-template-columns:1fr}.ms-preis{text-align:left}}
+
+/* ------------------------------ Kostenprotokoll --------------------------- */
 .kostenblock{margin-top:46px;padding-top:32px;border-top:1px solid var(--linie)}
 .kostenblock h2{font-size:12px;letter-spacing:.18em;text-transform:uppercase;
   color:var(--akzent);margin-bottom:14px}
@@ -398,6 +431,9 @@ body.ruhig *{animation:none !important;transition:none !important}
   <button class="railbtn" data-seite="hintergrund" aria-label="Hintergrund">
     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5"/><path d="M12 8.2v.1"/></svg>
     Warum</button>
+  <button class="railbtn" data-seite="modelle" aria-label="Modelle und Kosten">
+    <svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 3 5-7"/><path d="M3 21h18"/><path d="M17 8h4v4"/></svg>
+    Modelle</button>
   <div class="unten">
     <button class="railbtn" id="modusbtn" aria-label="Hell oder dunkel umschalten">
       <svg id="modusico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>
@@ -474,7 +510,7 @@ body.ruhig *{animation:none !important;transition:none !important}
     <h1>Was hinter slopresso steckt</h1>
     <p>Wie eine Folge entsteht, wer Bernhard und Lisa sind, welche
       Entscheidungen wir getroffen haben — und warum.</p>
-    <nav class="hgnav"><a href="#aufgabe">Die Aufgabe</a><a href="#name">Der Name</a><a href="#wer">Wer spricht</a><a href="#ablauf">Wie eine Folge entsteht</a><a href="#quellen">Woher die Meldungen kommen</a><a href="#fakten">Die Faktenprüfung</a><a href="#pruefungen">Neun Prüfungen im Code</a><a href="#entscheidungen">Entscheidungen und ihre Gründe</a><a href="#modelle">Welches Modell — und warum</a><a href="#zahlen">Das System in Zahlen</a><a href="#schiefgegangen">Was schiefgegangen ist</a><a href="#vergleich">Was uns von podpresso unterscheidet</a></nav>
+    <nav class="hgnav"><a href="#aufgabe">Die Aufgabe</a><a href="#name">Der Name</a><a href="#wer">Wer spricht</a><a href="#ablauf">Wie eine Folge entsteht</a><a href="#woher">Woher die Meldungen kommen</a><a href="#fakten">Die Faktenprüfung</a><a href="#pruefungen">Neun Prüfungen im Code</a><a href="#entscheidungen">Entscheidungen und ihre Gründe</a><a href="#modellprinzip">Welches Modell</a><a href="#zahlen">Das System in Zahlen</a><a href="#schiefgegangen">Was schiefgegangen ist</a><a href="#vergleich">Was uns von podpresso unterscheidet</a></nav>
   </div>
 
   <div class="hgab" id="aufgabe">
@@ -872,7 +908,7 @@ body.ruhig *{animation:none !important;transition:none !important}
     </div>
   </div>
 
-  <div class="hgab" id="quellen">
+  <div class="hgab" id="woher">
     <h2>Woher die Meldungen kommen</h2>
     <p><strong>30 aktive Quellen</strong>, alle über RSS. Sie sind in fünf
       Klassen eingeteilt, damit nicht jeden Tag dieselben Häuser zu Wort kommen:
@@ -954,79 +990,25 @@ body.ruhig *{animation:none !important;transition:none !important}
     </table>
   </div>
 
-  <div class="hgab" id="modelle">
+  <div class="hgab" id="modellprinzip">
     <h2>Welches Modell — und warum</h2>
     <p>Der aufrufende Code sagt nicht, <em>welches</em> Modell er will, sondern
-      <em>wie schwer</em> die Aufgabe ist: klein, mittel oder groß. Die Zuordnung steht
-      in der Konfiguration und ist eine Zeile Änderung. Das ist die direkte Antwort auf
-      Kriterium 6.</p>
-
-    <div class="modellkarte">
-      <div class="mk-kopf">
-        <div>
-          <div class="mk-label">Eingesetztes Modell</div>
-          <h3>GLM 5.3 Flash</h3>
-          <code>z-ai/glm-5.3-flash</code>
-        </div>
-        <div class="mk-preis">
-          <div><span>0,075 $</span> je 1 Mio Token Eingabe</div>
-          <div><span>0,250 $</span> je 1 Mio Token Ausgabe</div>
-        </div>
-      </div>
-      <dl class="mk-daten">
-        <div><dt>Kontextfenster</dt><dd>1.048.576 Token</dd></div>
-        <div><dt>Anbieter</dt><dd>Z.ai, über OpenRouter</dd></div>
-        <div><dt>Eingaben</dt><dd>Text, Bild, Video</dd></div>
-      </dl>
-    </div>
-
-    <p><strong>Ein Modell für alle drei Größen.</strong> Das geht, weil das
-      Kontextfenster mit gut einer Million Token groß genug für den teuersten Schritt
-      ist — die Faktenprüfung bekommt das Manuskript und sämtliche Quellentexte in
-      einen einzigen Aufruf, ohne kürzen zu müssen. Genau daran scheitern kleinere
-      Modelle, und genau dort entstehen unbelegte Zahlen.</p>
-
-    <table class="tab">
-      <tr><th>Größe</th><th>Wofür — und worauf es ankommt</th></tr>
-      <tr><td>klein</td><td class="leise">Themen zusammenführen, aufbereiten, Fakten
-        herauslösen. Was zählt: verlässliches JSON und <strong>keine erfundenen
-        Fakten</strong>.</td></tr>
-      <tr><td>mittel</td><td class="leise">Fortsetzung beurteilen und die
-        <strong>Faktenprüfung</strong>. Braucht Sorgfalt und großen Kontext.</td></tr>
-      <tr><td>groß</td><td class="leise">Das Manuskript. Hier entsteht das
-        Sprachgefühl.</td></tr>
-    </table>
+      <em>wie schwer</em> die Aufgabe ist: klein, mittel oder groß. Die
+      Zuordnung steht in der Konfiguration und ist eine Zeile Änderung. Das ist
+      die direkte Antwort auf Kriterium 6 — und der Grund, warum der Ausfall
+      eines Anbieters kein Umbau ist. Genau das ist eingetreten: Das bis zum
+      26.08. eingesetzte Modell verschwand vor dem angekündigten Termin aus der
+      Anbieterliste. Der Wechsel kostete eine Zeile.</p>
     <p><strong>Die kritischste Größe ist „mittel“, nicht „groß“.</strong> Ein
-      mittelmäßiges Manuskript ist langweilig. Eine schlampige Faktenprüfung lässt eine
-      erfundene Zahl auf Sendung gehen. Genau daran ist der Wettbewerber gescheitert.</p>
-
-    <h3>Was das kostet</h3>
-    <p class="leise">Gerechnet mit dem im Betrieb gemessenen Tagesverbrauch:
-      355.000 Token Eingabe und 58.000 Token Ausgabe je Werktag.</p>
-    <div class="kostenreihe">
-      <div><span class="kz">0,038 €</span><span class="kl">je Folge</span></div>
-      <div><span class="kz">0,79 €</span><span class="kl">je Monat</span></div>
-      <div><span class="kz">9,53 €</span><span class="kl">je Jahr</span></div>
-    </div>
-    <p class="leise">Umgerechnet mit 0,92 € je US-Dollar. Zum Vergleich: Ein
-      hochwertiges Schreibmodell für den Manuskript-Schritt hätte rund das Fünffache
-      gekostet — bei einem Podcast, den niemand daran unterscheiden würde.</p>
-
+      mittelmäßiges Manuskript ist langweilig. Eine schlampige Faktenprüfung
+      lässt eine erfundene Zahl auf Sendung gehen. Genau daran ist der
+      Wettbewerber gescheitert.</p>
     <div class="hinweisbox">
-      <strong>Was in der Kachel „Kosten dieser Folge“ steht.</strong> Gemeint ist die
-      <em>ausgelieferte</em> Fassung — die letzte Vertonung plus die Modellschritte
-      dieser Folge, gemessen am Kostenprotokoll. Wurde an einem Tag mehrfach
-      vertont, weil eine Fassung verworfen wurde, steht das unter der Kachel und
-      wird getrennt ausgewiesen. Verworfene Anläufe sind Entwicklungsaufwand, kein
-      Preis je Folge. Die Summe aller Zeilen eines Tages stünde sonst als
-      Folgenpreis da und wäre um ein Vielfaches zu hoch.
-    </div>
-
-    <div class="hinweisbox">
-      <strong>Nicht die Modelle sind der teuerste Teil, sondern das Vorlesen.</strong>
-      Die Sprachausgabe rechnet je Zeichen ab und macht den weitaus größten Teil der
-      Kosten einer Folge aus. Das ist der Grund, warum das Wortbudget im Code
-      erzwungen wird und nicht bloß im Prompt steht.
+      <strong>Welches Modell was kann und was alles gekostet hat</strong>, steht
+      auf einer eigenen Seite — <a href="#" data-zu="modelle">Modelle und
+      Kosten</a> in der Leiste links. Dort sind die Steckbriefe der
+      Sprachmodelle und der Stimmen aufgeführt und das vollständige
+      Kostenprotokoll, aufgeschlüsselt nach Zweck, Anbieter und Folge.
     </div>
   </div>
 
@@ -1101,8 +1083,119 @@ body.ruhig *{animation:none !important;transition:none !important}
 <section class="seite" id="archiv">
   <div class="archivkopf">Archiv — <span id="archivZahl">0</span> Folgen</div>
   <div class="karten" id="karten"></div>
+</section>
 
-  <div class="kostenblock">
+<section class="seite" id="modelle">
+  <div class="hgkopf">
+    <h1>Modelle und Kosten</h1>
+    <p>Welches Modell welche Aufgabe übernimmt, was es kann — und was am Ende
+      dafür bezahlt wurde. Alle Zahlen aus dem Kostenprotokoll, gelesen beim
+      Bau dieser Seite.</p>
+  </div>
+
+  <div class="hgab">
+    <h2>Das Prinzip</h2>
+    <p>Der aufrufende Code sagt nicht, <em>welches</em> Modell er will, sondern
+      <em>wie schwer</em> die Aufgabe ist: klein, mittel oder groß. Die
+      Zuordnung steht in der Konfiguration und ist eine Zeile Änderung. Das ist
+      die direkte Antwort auf Kriterium 6 der Ausschreibung — und der Grund,
+      warum der Ausfall eines Anbieters kein Umbau ist.</p>
+    <table class="tab">
+      <tr><th>Größe</th><th>Wofür — und worauf es ankommt</th></tr>
+      <tr><td>klein</td><td class="leise">Themen zusammenführen, aufbereiten,
+        Fakten herauslösen. Was zählt: verlässliches JSON und <strong>keine
+        erfundenen Fakten</strong>.</td></tr>
+      <tr><td>mittel</td><td class="leise">Fortsetzung beurteilen und die
+        <strong>Faktenprüfung</strong>. Braucht Sorgfalt und großen Kontext:
+        Manuskript und sämtliche Quellentexte müssen in einen Aufruf
+        passen.</td></tr>
+      <tr><td>groß</td><td class="leise">Das Manuskript. Hier entsteht das
+        Sprachgefühl.</td></tr>
+    </table>
+    <p><strong>Die kritischste Größe ist „mittel“, nicht „groß“.</strong> Ein
+      mittelmäßiges Manuskript ist langweilig. Eine schlampige Faktenprüfung
+      lässt eine erfundene Zahl auf Sendung gehen. Genau daran ist der
+      Wettbewerber gescheitert.</p>
+  </div>
+
+  <div class="hgab">
+    <h2>Das Sprachmodell</h2>
+    <p class="leise">Ein Modell für alle drei Größen — das geht, weil das
+      Kontextfenster für den teuersten Schritt reicht.</p>
+    <div class="mstein">
+      <div class="ms-kopf">
+        <div>
+          <div class="ms-status">im Einsatz</div>
+          <h3>Z.ai: GLM 5.3 Flash</h3>
+          <code>z-ai/glm-5.3-flash</code>
+        </div>
+        <div class="ms-preis">
+          <div><span>0,075 $</span> je 1 Mio ein</div>
+          <div><span>0,250 $</span> je 1 Mio aus</div>
+        </div>
+      </div>
+      <dl class="ms-daten">
+        <div><dt>Kontextfenster</dt><dd>1.048.576 Token</dd></div>
+        <div><dt>Antwort bis</dt><dd>131.072 Token</dd></div>
+        <div><dt>Nimmt entgegen</dt><dd>Text, Bild, Video</dd></div>
+        <div><dt>Beherrscht</dt><dd>Werkzeugaufrufe, erzwungenes JSON, Denkschritte</dd></div>
+      </dl>
+      <p class="ms-rolle">Trägt alle drei Größen: Aufbereitung, Faktenprüfung und das Manuskript.</p>
+    </div><div class="mstein weg">
+      <div class="ms-kopf"><div>
+        <div class="ms-status weg">nicht mehr verfügbar</div>
+        <h3>stealth/ox-alpha</h3></div></div>
+      <p class="leise">Steht nicht mehr in der Modellliste von OpenRouter.
+        Das Ende war für den 30.08.2026 erwartet — die API meldete allerdings
+        bis zuletzt ein Ablaufdatum im Jahr 2098. Genau deshalb wurde die
+        Modellwahl von Anfang an über eine Konfigurationszeile gelöst und
+        nicht im Code verdrahtet.</p>
+    </div>
+    <div class="kostenreihe">
+      <div><span class="kz">0,038 €</span><span class="kl">je Folge</span></div>
+      <div><span class="kz">0,79 €</span><span class="kl">je Monat</span></div>
+      <div><span class="kz">9,53 €</span><span class="kl">je Jahr</span></div>
+    </div>
+    <p class="leise">Gerechnet mit dem im Betrieb gemessenen Tagesverbrauch:
+      355.000 Token Eingabe, 58.000 Token Ausgabe, umgerechnet
+      mit 0,92 € je US-Dollar.</p>
+  </div>
+
+  <div class="hgab">
+    <h2>Die Sprachausgabe</h2>
+    <p class="leise">Hier entstehen über 99 % der laufenden Kosten. Nicht das
+      Denken ist teuer, sondern das Vorlesen.</p>
+    <div class="mstein">
+      <div class="ms-kopf">
+        <div>
+          <div class="ms-status">im Einsatz</div>
+          <h3>ElevenLabs v3</h3>
+          <code>eleven_v3</code>
+        </div>
+        <div class="ms-preis"><div>abgerechnet<br><span>je Zeichen</span></div></div>
+      </div>
+      <div class="ms-listen">
+        <div><h4>Kann</h4><ul><li>Versteht Regieanweisungen im Text — <code>[sarcastic]</code>, <code>[laughs]</code>, <code>[thoughtful]</code> und fünf weitere</li><li>Regie wirkt auch auf Deutsch. Das steht in keiner Doku — alle Beispiele dort sind englisch. Wir haben es gehört und gemessen</li><li>Drei deutsche Stimmen für Bernhard, Lisa und Elara</li></ul></div>
+        <div><h4>Kann nicht</h4><ul><li>Höchstens zwölf Anweisungen je Folge, sonst wird das Spiel zur Masche</li><li>Deutlich teurer als Deepgram — rund das Dreifache je Folge</li></ul></div>
+      </div>
+    </div><div class="mstein zweit">
+      <div class="ms-kopf">
+        <div>
+          <div class="ms-status">Rückfallebene</div>
+          <h3>Deepgram Aura-2</h3>
+          <code>aura-2</code>
+        </div>
+        <div class="ms-preis"><div>abgerechnet<br><span>je 1.000 Zeichen</span></div></div>
+      </div>
+      <div class="ms-listen">
+        <div><h4>Kann</h4><ul><li>Sieben deutsche Stimmen, davon drei weibliche</li><li>Günstig und schnell; lief bis zum 26.08. im Regelbetrieb</li></ul></div>
+        <div><h4>Kann nicht</h4><ul><li><strong>Keine Regieanweisungen.</strong> Aura-2 liest <code>[lacht]</code> wörtlich vor — „Klammer auf lacht Klammer zu“. Deshalb steht im Code die Vorgabe, dass ein Anbieter Regie erst zu sehen bekommt, wenn er sie ausdrücklich versteht</li><li>Kein Emotionsregler. Lebendigkeit entsteht im Manuskript: Auslassungspunkte als Denkpause, gelegentliche Füllwörter, kurze Sätze</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="hgab kostenblock">
     <h2>Was bisher angefallen ist</h2>
     <p class="leise">Jeder Aufruf an ein Modell oder an die Sprachausgabe wird
       protokolliert — mit Schritt, Modell, Menge und Preis. Diese Tabelle ist
@@ -1362,6 +1455,12 @@ function zeigeSeite(id) {
 }
 document.querySelectorAll('.railbtn[data-seite]').forEach(b =>
   b.onclick = () => { zeigeSeite(b.dataset.seite); window.scrollTo(0, 0); });
+/* Verweise im Fliesstext, die auf eine andere Seite zeigen */
+document.querySelectorAll('a[data-zu]').forEach(a => a.onclick = e => {
+  e.preventDefault();
+  zeigeSeite(a.dataset.zu);
+  window.scrollTo(0, 0);
+});
 document.querySelectorAll('.akkkopf').forEach(k =>
   k.onclick = () => k.parentElement.classList.toggle('zu'));
 
