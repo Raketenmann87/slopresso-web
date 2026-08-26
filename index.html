@@ -387,8 +387,6 @@ pre.protokoll{background:var(--bg2);border:1px solid var(--linie);
   font-variant-numeric:tabular-nums;min-width:44px;text-align:right}
 .ktab .ksummenzeile td{border-top:2px solid var(--linie);border-bottom:0;
   padding-top:13px}
-.kunter{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--leise);margin:26px 0 6px;font-weight:600}
 @media(max-width:820px){.ktab .anteil{display:none}}
 @media(max-width:820px){
   .ktab .menge,.ktab .stimme{display:none}
@@ -1250,15 +1248,10 @@ body.ruhig *{animation:none !important;transition:none !important}
           <td class="anteil"><em>100 %</em></td></tr>
     </table>
 
-    <h4 class="kunter">Aufgeschlüsselt nach Modell</h4>
-    <table class="ktab">
-      <tr><th>Anbieter</th><th>Modell</th><th class="num">Aufrufe</th>
-          <th>Menge</th><th class="num">Kosten</th></tr>
-      <tr><td><strong>Deepgram</strong></td><td>Aura-2<span class="erkl">Sprachausgabe</span></td><td class="num">10</td><td class="menge">83.970 Zeichen</td><td class="num">2,32 €</td></tr><tr><td><strong>ElevenLabs</strong></td><td>v3<span class="erkl">Sprachausgabe, versteht Regieanweisungen</span></td><td class="num">2</td><td class="menge">18.232 Zeichen</td><td class="num">1,68 €</td></tr><tr><td><strong>Deepgram</strong></td><td>Aura-2 (Julius)<span class="erkl">Sprachausgabe</span></td><td class="num">2</td><td class="menge">23.455 Zeichen</td><td class="num">0,65 €</td></tr><tr><td><strong>Deepgram</strong></td><td>Rechnungsabgleich<span class="erkl">Nachbuchung aus der echten Abrechnung, nicht aus der Schätzung</span></td><td class="num">1</td><td class="menge">15.261 Zeichen</td><td class="num">0,46 €</td></tr><tr><td><strong>Z.ai</strong></td><td>GLM 5.3 Flash<span class="erkl">Sprachmodell, alle drei Größen</span></td><td class="num">19</td><td class="menge">40.768 ein / 110.907 aus</td><td class="num">0,03 €</td></tr><tr><td><strong>OpenRouter</strong></td><td>Ox Alpha<span class="erkl">Sprachmodell, vorheriges</span></td><td class="num">334</td><td class="menge">1.368.671 ein / 658.509 aus</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>Tavily</strong></td><td>Suche<span class="erkl">Gegenprüfung von Fakten</span></td><td class="num">97</td><td class="menge">—</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>ElevenLabs</strong></td><td>Flash v2.5<span class="erkl">Sprachausgabe, ohne Regie</span></td><td class="num">2</td><td class="menge">1.394 Zeichen</td><td class="num" class="fastnull">0,00 €</td></tr>
-    </table>
-    <p class="leise fussnote">Die Sprachausgabe rechnet je Zeichen ab, die
-      Sprachmodelle je Token. Deshalb steht in der Mengenspalte je nach Zeile
-      etwas anderes.</p>
+    <p class="leise fussnote">Unter dem Anbieter stehen die Modelle, die dort
+      liefen. Die Sprachausgabe rechnet je Zeichen ab, die Sprachmodelle je
+      Token — deshalb steht in der Mengenspalte je nach Zeile etwas
+      anderes.</p>
 
     <h3>Je Folge</h3>
     <table class="ktab">
