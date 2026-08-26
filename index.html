@@ -981,7 +981,7 @@ body.ruhig *{animation:none !important;transition:none !important}
       gekostet — bei einem Podcast, den niemand daran unterscheiden würde.</p>
 
     <div class="hinweisbox">
-      <strong>Was in der Kachel „Kosten pro Folge“ steht.</strong> Gemeint ist die
+      <strong>Was in der Kachel „Kosten dieser Folge“ steht.</strong> Gemeint ist die
       <em>ausgelieferte</em> Fassung — die letzte Vertonung plus die Modellschritte
       dieser Folge, gemessen am Kostenprotokoll. Wurde an einem Tag mehrfach
       vertont, weil eine Fassung verworfen wurde, steht das unter der Kachel und
@@ -1116,7 +1116,7 @@ function ladeFolge(i, autoplay) {
 
   $('#kacheln').innerHTML = [
     [f.woerter, 'Wörter generiert'], [f.dauer, 'Minuten Laufzeit'],
-    [f.kosten, 'Kosten pro Folge'], [f.themenZahl, 'Kuratierte Topics'],
+    [f.kosten, 'Kosten dieser Folge'], [f.themenZahl, 'Kuratierte Topics'],
   ].map(([z, l]) => `<div class="kachel"><div class="zahl">${esc(String(z))}</div>`
     + `<div class="label">${esc(l)}</div></div>`).join('');
   $('#kostenHinweis').textContent = f.kostenHinweis || '';
