@@ -32,6 +32,7 @@ a{color:inherit}
 :focus-visible{outline:2px solid var(--akzent);outline-offset:3px;border-radius:4px}
 html[data-modus="hell"] :focus-visible{outline-color:#2F4A00}
 
+.blobs{position:fixed;inset:0;pointer-events:none;z-index:0}
 .blob{position:fixed;border-radius:50%;filter:blur(90px);opacity:.30;z-index:0;
   pointer-events:none;animation:schweben 18s ease-in-out infinite}
 html[data-modus="hell"] .blob{opacity:.12}
@@ -379,7 +380,7 @@ pre.protokoll{background:var(--bg2);border:1px solid var(--linie);
   font-weight:400;line-height:1.45}
 .ktab tr:last-child td{border-bottom:0}
 .ktab .anteil{width:150px}
-.ktab td.anteil{display:flex;align-items:center;gap:9px}
+.ktab td.anteil .zeile{display:flex;align-items:center;gap:9px}
 .ktab .balken{flex:1;height:5px;background:var(--linie);border-radius:99px;
   overflow:hidden;min-width:50px}
 .ktab .balken i{display:block;height:100%;background:var(--akzent);border-radius:99px}
@@ -392,6 +393,35 @@ pre.protokoll{background:var(--bg2);border:1px solid var(--linie);
   .ktab .menge,.ktab .stimme{display:none}
   .ktab{font-size:13px}
 }
+
+/* --------------- Nachgelegt: mehr Slop auf den Unterseiten ----------------
+   Die Seiten „Warum" und „Modelle" waren sachlicher gebaut als die
+   Startseite. Für eine Oberfläche, die vorführen soll, wie KI-Design
+   aussieht, war das inkonsequent — also überall Nummern, Emoji und
+   Hover-Effekte, auch dort, wo nichts anzuklicken ist. */
+.seite{counter-reset: abschnitt}
+.hgab > h2::before{counter-increment:abschnitt;
+  content:counter(abschnitt,decimal-leading-zero) " ";
+  color:var(--akzent);opacity:.55;font-variant-numeric:tabular-nums}
+.hgab > h2::after{content:" ✨";opacity:.8}
+
+/* Hover auf allem, was nicht anklickbar ist */
+.tab tr:hover td,.ktab tr:hover td{background:var(--bg2)}
+.tab tr,.ktab tr{transition:background .18s}
+.hinweisbox,.zitat,.person,.mstein,.diagramm,.ksumme,
+.zahlenraster > div,.kostenreihe > div{transition:transform .25s,box-shadow .25s}
+.hinweisbox:hover,.zitat:hover,.person:hover,.mstein:hover,.diagramm:hover,
+.ksumme:hover,.zahlenraster > div:hover,.kostenreihe > div:hover{
+  transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.18)}
+.hgab p:hover{color:var(--text)}
+.hgab li{transition:padding-left .18s}
+.hgab li:hover{padding-left:5px}
+.hgnav a:hover{transform:translateY(-2px)}
+.hgnav a{transition:transform .18s,color .18s,border-color .18s}
+
+/* Auszeichnungen auch dort, wo es nichts auszuzeichnen gibt */
+.seitenbadges{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
+.seitenbadges .badge{font-size:11px}
 
 /* -------------------------------- Slop-Meter ------------------------------
    Standardmaessig aus. Der Schalter markiert jede Stelle, die eine Regel des
@@ -418,7 +448,16 @@ body.slop-an [data-slop]::before{content:attr(data-nr);position:absolute;top:-9p
 .regel .num{background:#FF3B6B;color:#fff;font-size:10px;font-weight:700;
   border-radius:5px;padding:3px 6px;line-height:1;flex:none}
 .regel .name{font-size:14px;font-weight:700;flex:1}
-.regel .anz{font-size:11px;color:var(--leise)}
+.meterseite{font-size:12.5px;color:var(--leise);background:var(--bg2);
+  border-radius:8px;padding:9px 12px;margin-bottom:4px}
+.meterseite strong{color:var(--akzent)}
+.regel .zaehler{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 0 31px}
+.regel .anz{font-size:11px;color:var(--leise);border:1px solid var(--linie);
+  border-radius:999px;padding:2px 8px}
+.regel .anz.hier{color:#FF3B6B;border-color:#FF3B6B}
+.regel .anz.weg{opacity:.7}
+.regel.fern{opacity:.55}
+.regel.fern .num{background:var(--leise)}
 .regel .beleg{font-size:12.5px;color:var(--text);margin-top:7px;line-height:1.55;
   padding-left:31px;border-left:2px solid var(--linie)}
 .regel .quelle-regel{font-size:11px;color:var(--leise);margin-top:6px;line-height:1.5;
@@ -443,9 +482,9 @@ body.ruhig *{animation:none !important;transition:none !important}
 </style>
 </head>
 <body>
-<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<div class="blobs" data-slop="deko"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
 
-<nav class="rail">
+<nav class="rail" data-slop="look">
   <div class="logo">s</div>
   <button class="railbtn an" data-seite="heute" aria-label="Aktuelle Folge">
     <svg viewBox="0 0 24 24"><path d="M3 14v-2a9 9 0 0118 0v2"/><rect x="2" y="14" width="5" height="7" rx="2"/><rect x="17" y="14" width="5" height="7" rx="2"/></svg>
@@ -466,7 +505,7 @@ body.ruhig *{animation:none !important;transition:none !important}
   </div>
 </nav>
 
-<main class="wrap" data-slop="look">
+<main class="wrap">
 <section class="seite an" id="heute">
   <div class="laufband" aria-hidden="true" data-slop="mittelstand"><div><span><b>Trending</b> KI-Agenten</span><span><b>+400 %</b> Signalqualität</span><span><b>Neu</b> Realtime-Ingestion</span><span><b>Live</b> täglich um 6:54 Uhr</span><span><b>Insight</b> Was bedeutet das für den Mittelstand?</span><span><b>KI-kuratiert</b> seit 2026</span><span><b>Hot</b> Fakten gegen die Quelle geprüft</span><span><b>Trending</b> KI-Agenten</span><span><b>+400 %</b> Signalqualität</span><span><b>Neu</b> Realtime-Ingestion</span><span><b>Live</b> täglich um 6:54 Uhr</span><span><b>Insight</b> Was bedeutet das für den Mittelstand?</span><span><b>KI-kuratiert</b> seit 2026</span><span><b>Hot</b> Fakten gegen die Quelle geprüft</span></div></div>
 
@@ -478,16 +517,16 @@ body.ruhig *{animation:none !important;transition:none !important}
     <span class="badge">Enterprise-Ready</span>
   </div>
 
-  <div class="hero" data-slop="hero">
-    <h1>Deine tägliche KI-Intelligence.<br>Neu gedacht.</h1>
+  <div class="hero">
+    <h1 data-slop="denglisch">Deine tägliche KI-Intelligence.<br>Neu gedacht.</h1>
     <p data-slop="werbung">Wir kuratieren nahtlos die relevantesten Signale aus dem KI-Ökosystem —
       damit du dich auf das konzentrieren kannst, was wirklich zählt.</p>
-    <div class="kacheln" id="kacheln"></div>
+    <div class="kacheln" id="kacheln" data-slop="hero"></div>
     <p class="kostenhinweis" id="kostenHinweis"></p>
   </div>
 
   <div class="player">
-    <div class="cover">
+    <div class="cover" data-slop="motion">
       <svg viewBox="0 0 24 24"><path d="M3 14v-2a9 9 0 0118 0v2"/><rect x="2" y="14" width="5" height="7" rx="2"/><rect x="17" y="14" width="5" height="7" rx="2"/></svg>
     </div>
     <div class="pmitte">
@@ -513,19 +552,19 @@ body.ruhig *{animation:none !important;transition:none !important}
   <div class="trenner">Show Notes</div>
 
   <div class="akk">
-    <button class="akkkopf"><span class="ico">🚀</span><h3>Zusammenfassung</h3><span class="pfeil">⌄</span></button>
+    <button class="akkkopf"><span class="ico" data-slop="emoji">🚀</span><h3>Zusammenfassung</h3><span class="pfeil">⌄</span></button>
     <div class="akkinhalt"><p class="zus" id="zus" data-slop="schablone">—</p></div>
   </div>
   <div class="akk">
-    <button class="akkkopf"><span class="ico">💡</span><h3>Deep-Dive-Themen</h3><span class="pfeil">⌄</span></button>
-    <div class="akkinhalt"><div class="chips" id="chips" data-slop="nummern"></div><div style="margin-top:22px" id="themen" data-slop="nummern"></div></div>
+    <button class="akkkopf"><span class="ico" data-slop="emoji">💡</span><h3 data-slop="denglisch">Deep-Dive-Themen</h3><span class="pfeil">⌄</span></button>
+    <div class="akkinhalt"><div class="chips" id="chips"></div><div style="margin-top:22px" id="themen"></div></div>
   </div>
   <div class="akk">
-    <button class="akkkopf"><span class="ico">🔗</span><h3>Kuratierte Quellen &amp; Links</h3><span class="pfeil">⌄</span></button>
+    <button class="akkkopf"><span class="ico" data-slop="emoji">🔗</span><h3>Kuratierte Quellen &amp; Links</h3><span class="pfeil">⌄</span></button>
     <div class="akkinhalt"><div class="qgruppe">Hauptthemen</div><div id="quellen"></div></div>
   </div>
   <div class="akk zu">
-    <button class="akkkopf"><span class="ico">📝</span><h3>Volltranskript</h3><span class="pfeil">⌄</span></button>
+    <button class="akkkopf"><span class="ico" data-slop="emoji">📝</span><h3>Volltranskript</h3><span class="pfeil">⌄</span></button>
     <div class="akkinhalt"><div id="transkript"></div></div>
   </div>
 </section>
@@ -535,10 +574,16 @@ body.ruhig *{animation:none !important;transition:none !important}
     <h1>Was hinter slopresso steckt</h1>
     <p>Wie eine Folge entsteht, wer Bernhard und Lisa sind, welche
       Entscheidungen wir getroffen haben — und warum.</p>
-    <nav class="hgnav"><a href="#aufgabe">Die Aufgabe</a><a href="#name">Der Name</a><a href="#wer">Wer spricht</a><a href="#ablauf">Wie eine Folge entsteht</a><a href="#woher">Woher die Meldungen kommen</a><a href="#fakten">Die Faktenprüfung</a><a href="#pruefungen">Neun Prüfungen im Code</a><a href="#entscheidungen">Entscheidungen und ihre Gründe</a><a href="#modellprinzip">Welches Modell</a><a href="#zahlen">Das System in Zahlen</a><a href="#schiefgegangen">Was schiefgegangen ist</a><a href="#vergleich">Was uns von podpresso unterscheidet</a></nav>
+    <div class="seitenbadges" data-slop="qualitaet">
+      <span class="badge"><b>Deep Dive</b></span>
+      <span class="badge">Insights &amp; Learnings</span>
+      <span class="badge">Behind the Scenes</span>
+      <span class="badge">100 % transparent</span>
+    </div>
+    <nav class="hgnav" data-slop="schwebe"><a href="#aufgabe">Die Aufgabe</a><a href="#name">Der Name</a><a href="#wer">Wer spricht</a><a href="#ablauf">Wie eine Folge entsteht</a><a href="#woher">Woher die Meldungen kommen</a><a href="#auswahl">Warum vier bis sechs Themen</a><a href="#fakten">Die Faktenprüfung</a><a href="#pruefungen">Neun Prüfungen im Code</a><a href="#entscheidungen">Entscheidungen und ihre Gründe</a><a href="#modellprinzip">Welches Modell</a><a href="#zahlen">Das System in Zahlen</a><a href="#schiefgegangen">Was schiefgegangen ist</a><a href="#vergleich">Was uns von podpresso unterscheidet</a></nav>
   </div>
 
-  <div class="hgab" id="aufgabe">
+  <div class="hgab" id="aufgabe" data-slop="emoji">
     <h2>Die Aufgabe</h2>
     <p>Es gibt bereits einen täglichen KI-Nachrichten-Podcast: <strong>podpresso</strong>.
       Er erscheint sieben Tage die Woche, dauert 11 bis 16 Minuten und bringt 13 bis 15
@@ -952,6 +997,69 @@ body.ruhig *{animation:none !important;transition:none !important}
     </div>
   </div>
 
+  <div class="hgab" id="auswahl">
+    <h2>Warum vier bis sechs Themen</h2>
+    <p>podpresso bringt 13 bis 15 Themen je Folge, davon zehn bis zwölf in einer
+      „Schnellrunde“ von wenigen Sätzen. Wir nehmen <strong>vier bis sechs</strong>
+      und gehen dafür in die Tiefe. Freitags sind es nur drei bis vier, weil der
+      Wochenüberblick Platz braucht.</p>
+    <p class="leise">Die Zahlen stehen nicht im Text, sondern in der
+      Konfiguration: <code>themen_min = 4</code>, <code>themen_max = 6</code>.
+      Der Code zählt nach.</p>
+
+    <h3>Für wen wir auswählen</h3>
+    <p>Die Zielgruppe sind <strong>KI-Manager und solche, die es werden</strong>.
+      Das ist keine Absichtserklärung, sondern steuert die Punktevergabe. Jede
+      Meldung bekommt Punkte nach ihrer Kategorie:</p>
+    <table class="tab" data-slop="schwebe">
+      <tr><th>Kategorie</th><th class="num">Punkte</th><th>Warum</th></tr>
+      <tr><td>Werkzeuge</td><td class="num">3,0</td><td class="leise">Etwas, das
+        die Hörer selbst anfassen können</td></tr>
+      <tr><td>Modelle</td><td class="num">3,0</td><td class="leise">Was sie
+        einsetzen oder demnächst einsetzen</td></tr>
+      <tr><td>Regulierung</td><td class="num">3,0</td><td class="leise">Fristen
+        und Pflichten, die für sie gelten</td></tr>
+      <tr><td>Markt</td><td class="num">1,0</td><td class="leise">Finanzierungs­runden
+        und Bewertungen — interessant, aber selten handlungsrelevant</td></tr>
+      <tr><td>Forschung</td><td class="num">1,0</td><td class="leise">Wichtig,
+        aber selten diese Woche wichtig</td></tr>
+      <tr><td>Kurioses</td><td class="num">0,5</td><td class="leise">Darf
+        vorkommen, trägt aber keine Folge</td></tr>
+    </table>
+    <p><strong>Werkzeuge und Regulierung schlagen Markt im Verhältnis drei zu
+      eins.</strong> Deshalb landen Themen in der Sendung, die ein allgemeines
+      Publikum langweilen würden — etwa ein Vergleich der GPU-Anbieter CoreWeave,
+      Nebius, Lambda, Crusoe und Groq. Wer Rechenleistung einkauft, braucht das.
+      Wer nur mitlesen will, nicht.</p>
+
+    <h3>Drei Stränge, damit nicht alles gleich klingt</h3>
+    <table class="tab">
+      <tr><th>Strang</th><th>Inhalt</th><th class="num">je Folge</th></tr>
+      <tr><td>A — Allgemein</td><td class="leise">Was es Neues gibt: Trends,
+        Modelle, Neuerungen</td><td class="num">2–3</td></tr>
+      <tr><td>B — Recht und Datenschutz</td><td class="leise">DSGVO, AI Act,
+        Aufsichtsbehörden, Urteile, Fristen</td><td class="num">mind. 1</td></tr>
+      <tr><td>C — Deutsche Unternehmen</td><td class="leise">Praxis, Werkzeuge,
+        Markt, DACH-Bezug</td><td class="num">1–2</td></tr>
+    </table>
+    <p>Ein Thema aus Strang B <strong>verdrängt ein höher punktendes aus Strang
+      A</strong>. Die Begründung steht im Konzept und ist der Kern der
+      Zielgruppenentscheidung: Ein KI-Manager muss von einer Frist wissen, bevor
+      sie läuft — und nicht, welche Finanzierungsrunde gestern geschlossen wurde.</p>
+    <p class="leise">Genau hier ist die Lücke beim Wettbewerber am größten. In
+      20 ausgewerteten podpresso-Folgen kam <strong>keine einzige</strong>
+      EU-Quelle, keine Datenschutzbehörde, kein AI-Act-Tracker vor.</p>
+
+    <div class="hinweisbox">
+      <strong>Ein verbreitetes Missverständnis, auch bei uns:</strong> Nischige
+      Themen bekommen <em>keinen</em> Bonus. Im Gegenteil — drei oder mehr
+      unabhängige Quellen geben +3,0 Punkte, zwei geben +2,0. Mehrere Quellen
+      sind ein Beleg dafür, dass eine Meldung trägt, nicht dafür, dass sie
+      populär ist. Dass trotzdem sperrige Themen durchkommen, liegt an den
+      Kategoriegewichten und an Strang B, nicht an einem Nischen-Bonus.
+    </div>
+  </div>
+
   <div class="hgab" id="fakten">
     <h2>Die Faktenprüfung</h2>
     <p>Das ist der Kern. Jeder geschriebene Satz wird gegen die Fakten geprüft, die
@@ -1015,7 +1123,7 @@ body.ruhig *{animation:none !important;transition:none !important}
     </table>
   </div>
 
-  <div class="hgab" id="modellprinzip">
+  <div class="hgab" id="modellprinzip" data-slop="nummern">
     <h2>Welches Modell — und warum</h2>
     <p>Der aufrufende Code sagt nicht, <em>welches</em> Modell er will, sondern
       <em>wie schwer</em> die Aufgabe ist: klein, mittel oder groß. Die
@@ -1040,7 +1148,7 @@ body.ruhig *{animation:none !important;transition:none !important}
   <div class="hgab" id="zahlen">
     <h2>Das System in Zahlen</h2>
     <p class="leise">Direkt aus der Datenbank gelesen — Stand 26. August 2026.</p>
-    <div class="zahlenraster">
+    <div class="zahlenraster" data-slop="hero">
       <div><span class="zz">801</span><span class="zl">Rohmeldungen gesammelt</span></div>
       <div><span class="zz">481</span><span class="zl">davon aufbereitet</span></div>
       <div><span class="zz">170</span><span class="zl">Themen gebildet</span></div>
@@ -1116,6 +1224,11 @@ body.ruhig *{animation:none !important;transition:none !important}
     <p>Welches Modell welche Aufgabe übernimmt, was es kann — und was am Ende
       dafür bezahlt wurde. Alle Zahlen aus dem Kostenprotokoll, gelesen beim
       Bau dieser Seite.</p>
+    <div class="seitenbadges" data-slop="qualitaet">
+      <span class="badge"><b>Cost Transparency</b></span>
+      <span class="badge">Real-Time Data</span>
+      <span class="badge">Multi-Provider-Setup</span>
+    </div>
   </div>
 
   <div class="hgab">
@@ -1154,7 +1267,7 @@ body.ruhig *{animation:none !important;transition:none !important}
           <h3>Z.ai: GLM 5.3 Flash</h3>
           <code>z-ai/glm-5.3-flash</code>
         </div>
-        <div class="ms-preis">
+        <div class="ms-preis" data-slop="hero">
           <div><span>0,075 $</span> je 1 Mio ein</div>
           <div><span>0,250 $</span> je 1 Mio aus</div>
         </div>
@@ -1166,7 +1279,7 @@ body.ruhig *{animation:none !important;transition:none !important}
         <div><dt>Beherrscht</dt><dd>Werkzeugaufrufe, erzwungenes JSON, Denkschritte</dd></div>
       </dl>
       <p class="ms-rolle">Trägt alle drei Größen: Aufbereitung, Faktenprüfung und das Manuskript.</p>
-    </div><div class="mstein weg">
+    </div><div data-slop="schwebe" class="mstein weg">
       <div class="ms-kopf"><div>
         <div class="ms-status weg">nicht mehr verfügbar</div>
         <h3>stealth/ox-alpha</h3></div></div>
@@ -1176,7 +1289,7 @@ body.ruhig *{animation:none !important;transition:none !important}
         Modellwahl von Anfang an über eine Konfigurationszeile gelöst und
         nicht im Code verdrahtet.</p>
     </div>
-    <div class="kostenreihe">
+    <div class="kostenreihe" data-slop="hero">
       <div><span class="kz">0,038 €</span><span class="kl">je Folge</span></div>
       <div><span class="kz">0,79 €</span><span class="kl">je Monat</span></div>
       <div><span class="kz">9,53 €</span><span class="kl">je Jahr</span></div>
@@ -1221,13 +1334,13 @@ body.ruhig *{animation:none !important;transition:none !important}
       die Summe daraus, gelesen beim Bau dieser Seite. Nichts davon ist
       geschätzt.</p>
 
-    <div class="ksumme">
+    <div class="ksumme" data-slop="hero">
       <span class="kbetrag">5,13 €</span>
       <span class="klabel">seit dem ersten Lauf, alles zusammen</span>
     </div>
 
     <h3>Wofür</h3>
-    <table class="ktab">
+    <table class="ktab" data-slop="schwebe">
       <tr><th>Schritt</th><th class="num">Aufrufe</th><th>Menge</th>
           <th class="num">Kosten</th></tr>
       <tr><td><strong>Vertonung</strong><span class="erkl">Das Manuskript wird gesprochen. Abgerechnet je Zeichen.</span></td><td class="num">16</td><td class="menge">127.051 Zeichen</td><td class="num">4,64 €</td></tr><tr><td><strong>Vertonung, Nachlauf</strong><span class="erkl">Einzelne Abschnitte neu gesprochen, etwa nach einer Korrektur am Manuskript.</span></td><td class="num">1</td><td class="menge">15.261 Zeichen</td><td class="num">0,46 €</td></tr><tr><td><strong>Aufbereitung</strong><span class="erkl">Aus einer Rohmeldung werden Titel, Kern und Fakten gelöst.</span></td><td class="num">201</td><td class="menge">549.492 ein / 460.225 aus</td><td class="num">0,03 €</td></tr><tr><td><strong>Themenbildung</strong><span class="erkl">Meldungen, die dasselbe Ereignis beschreiben, werden zu einem Thema zusammengefasst.</span></td><td class="num">56</td><td class="menge">27.570 ein / 3.831 aus</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>Prüfung</strong><span class="erkl">Prüflauf des Systems.</span></td><td class="num">1</td><td class="menge">46 ein / 113 aus</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>Gegenprüfung</strong><span class="erkl">Stichprobe gegen die Quelle, bevor eine Zahl ins Manuskript darf.</span></td><td class="num">97</td><td class="menge">—</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>Faktenprüfung</strong><span class="erkl">Jeder Satz des Manuskripts wird gegen die Quellen geprüft.</span></td><td class="num">26</td><td class="menge">276.562 ein / 131.328 aus</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>Manuskript</strong><span class="erkl">Der Dialog zwischen Bernhard und Lisa wird geschrieben.</span></td><td class="num">25</td><td class="menge">286.962 ein / 85.654 aus</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>Fortsetzung</strong><span class="erkl">Hat ein bekanntes Thema substanziell Neues? Nur dann darf es wieder gesendet werden.</span></td><td class="num">16</td><td class="menge">7.678 ein / 691 aus</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>Manuskript, Korrekturrunde</strong><span class="erkl">Länge, Rollen oder verbotene Wendungen stimmten nicht.</span></td><td class="num">14</td><td class="menge">130.553 ein / 49.449 aus</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>Faktenprüfung, Korrekturrunde</strong><span class="erkl">Ungedeckte Sätze gehen zurück ans Modell.</span></td><td class="num">13</td><td class="menge">130.481 ein / 38.077 aus</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>Selbsttest</strong><span class="erkl">Erreichbarkeit und Schlüssel des Anbieters.</span></td><td class="num">1</td><td class="menge">95 ein / 48 aus</td><td class="num" class="fastnull">0,00 €</td></tr>
@@ -1237,15 +1350,15 @@ body.ruhig *{animation:none !important;transition:none !important}
       wird trotzdem gezählt, damit die Zeile nicht fehlt, wenn sich das ändert.</p>
 
     <h3>Bei welchem Anbieter</h3>
-    <table class="ktab">
+    <table class="ktab" data-slop="schwebe">
       <tr><th>Anbieter</th><th class="num">Aufrufe</th><th>Menge</th>
           <th class="num">Kosten</th><th class="anteil">Anteil</th></tr>
-      <tr><td><strong>Deepgram</strong><span class="erkl">Aura-2, Aura-2 (Julius), Rechnungsabgleich</span></td><td class="num">13</td><td class="menge">122.686 Zeichen</td><td class="num">3,42 €</td><td class="anteil"><span class="balken"><i style="width:66.8%"></i></span><em>66,8 %</em></td></tr><tr><td><strong>ElevenLabs</strong><span class="erkl">Flash v2.5, v3</span></td><td class="num">4</td><td class="menge">19.626 Zeichen</td><td class="num">1,68 €</td><td class="anteil"><span class="balken"><i style="width:32.7%"></i></span><em>32,7 %</em></td></tr><tr><td><strong>Z.ai</strong><span class="erkl">GLM 5.3 Flash</span></td><td class="num">19</td><td class="menge">40.768 ein / 110.907 aus</td><td class="num">0,03 €</td><td class="anteil"><span class="balken"><i style="width:0.6%"></i></span><em>0,5 %</em></td></tr><tr><td><strong>OpenRouter</strong><span class="erkl">Ox Alpha</span></td><td class="num">334</td><td class="menge">1.368.671 ein / 658.509 aus</td><td class="num">0,00 €</td><td class="anteil"><span class="balken"><i style="width:0.6%"></i></span><em>0,0 %</em></td></tr><tr><td><strong>Tavily</strong><span class="erkl">Suche</span></td><td class="num">97</td><td class="menge">—</td><td class="num">0,00 €</td><td class="anteil"><span class="balken"><i style="width:0.6%"></i></span><em>0,0 %</em></td></tr>
+      <tr><td><strong>Deepgram</strong><span class="erkl">Aura-2, Aura-2 (Julius), Rechnungsabgleich</span></td><td class="num">13</td><td class="menge">122.686 Zeichen</td><td class="num">3,42 €</td><td class="anteil"><span class="zeile"><span class="balken"><i style="width:66.8%"></i></span><em>66,8 %</em></span></td></tr><tr><td><strong>ElevenLabs</strong><span class="erkl">Flash v2.5, v3</span></td><td class="num">4</td><td class="menge">19.626 Zeichen</td><td class="num">1,68 €</td><td class="anteil"><span class="zeile"><span class="balken"><i style="width:32.7%"></i></span><em>32,7 %</em></span></td></tr><tr><td><strong>Z.ai</strong><span class="erkl">GLM 5.3 Flash</span></td><td class="num">19</td><td class="menge">40.768 ein / 110.907 aus</td><td class="num">0,03 €</td><td class="anteil"><span class="zeile"><span class="balken"><i style="width:0.6%"></i></span><em>0,5 %</em></span></td></tr><tr><td><strong>OpenRouter</strong><span class="erkl">Ox Alpha</span></td><td class="num">334</td><td class="menge">1.368.671 ein / 658.509 aus</td><td class="num">0,00 €</td><td class="anteil"><span class="zeile"><span class="balken"><i style="width:0.6%"></i></span><em>0,0 %</em></span></td></tr><tr><td><strong>Tavily</strong><span class="erkl">Suche</span></td><td class="num">97</td><td class="menge">—</td><td class="num">0,00 €</td><td class="anteil"><span class="zeile"><span class="balken"><i style="width:0.6%"></i></span><em>0,0 %</em></span></td></tr>
       <tr class="ksummenzeile"><td><strong>Zusammen</strong></td>
           <td class="num">467</td>
           <td class="menge">—</td>
           <td class="num">5,13 €</td>
-          <td class="anteil"><em>100 %</em></td></tr>
+          <td class="anteil"><span class="zeile"><em>100 %</em></span></td></tr>
     </table>
 
     <p class="leise fussnote">Unter dem Anbieter stehen die Modelle, die dort
@@ -1254,7 +1367,7 @@ body.ruhig *{animation:none !important;transition:none !important}
       anderes.</p>
 
     <h3>Je Folge</h3>
-    <table class="ktab">
+    <table class="ktab" data-slop="schwebe">
       <tr><th>Sendung</th><th>gesprochen mit</th>
           <th class="num">ausgeliefert</th>
           <th class="num">verworfen</th><th class="num">Vertonungen</th>
@@ -1277,9 +1390,12 @@ body.ruhig *{animation:none !important;transition:none !important}
 <aside class="panel" id="panel">
   <button class="zu" id="panelzu" aria-label="Schließen">×</button>
   <h2>Slop-Meter</h2>
-  <div class="unter">Diese Oberfläche bricht die Regeln absichtlich. Jede Markierung
-    nennt die Regel — erklärt auf Deutsch, darunter kursiv der Wortlaut aus dem
-    Skill <code>frontend-design</code>, mit dem wir sonst arbeiten.</div>
+  <div class="unter">Diese Oberfläche bricht die Regeln absichtlich. Jede
+    Markierung nennt die Regel — erklärt auf Deutsch, darunter kursiv der
+    Wortlaut aus dem Skill <code>frontend-design</code>, mit dem wir sonst
+    arbeiten.</div>
+  <div class="meterseite">Sie sehen gerade: <strong id="meterseite">—</strong>.
+    Was auf dieser Seite steht, kommt zuerst.</div>
   <label class="schalter"><input type="checkbox" id="ruhigbox"> Animationen anhalten</label>
   <div id="regelliste"></div>
 </aside>
@@ -1318,16 +1434,16 @@ function ladeFolge(i, autoplay) {
   $('#kacheln').innerHTML = [
     [f.woerter, 'Wörter generiert'], [f.dauer, 'Minuten Laufzeit'],
     [f.kosten, 'Kosten dieser Folge'], [f.themenZahl, 'Kuratierte Topics'],
-  ].map(([z, l]) => `<div class="kachel"><div class="zahl">${esc(String(z))}</div>`
+  ].map(([z, l]) => `<div class="kachel" data-slop="schwebe"><div class="zahl">${esc(String(z))}</div>`
     + `<div class="label">${esc(l)}</div></div>`).join('');
   $('#kostenHinweis').textContent = f.kostenHinweis || '';
   $('#kostenHinweis').style.display = f.kostenHinweis ? 'block' : 'none';
 
   $('#chips').innerHTML = f.themen.map((t, n) =>
-    `<span class="chip"><span class="nr">${String(n + 1).padStart(2, '0')}</span>${esc(t.kurz)}</span>`).join('');
+    `<span class="chip" data-slop="nummern"><span class="nr">${String(n + 1).padStart(2, '0')}</span>${esc(t.kurz)}</span>`).join('');
 
   $('#themen').innerHTML = f.themen.map((t, n) =>
-    `<div class="thema"><div class="kopf"><div class="nr">${String(n + 1).padStart(2, '0')}</div>`
+    `<div class="thema" data-slop="nummern"><div class="kopf"><div class="nr">${String(n + 1).padStart(2, '0')}</div>`
     + `<div><h4>${esc(t.titel)}</h4></div></div></div>`).join('');
 
   $('#quellen').innerHTML = f.themen.flatMap(t => t.quellen.map(q =>
@@ -1354,8 +1470,8 @@ function ladeFolge(i, autoplay) {
 function zeichneArchiv() {
   $('#archivZahl').textContent = FOLGEN.length;
   $('#karten').innerHTML = FOLGEN.map((f, i) =>
-    `<button class="karte${i === aktuell ? ' laeuft' : ''}" data-i="${i}">`
-    + `<span class="kicon">${KOPFHOERER}</span><span><h4>${esc(f.titel)}</h4>`
+    `<button class="karte${i === aktuell ? ' laeuft' : ''}" data-i="${i}" data-slop="schwebe">`
+    + `<span class="kicon">${KOPFHOERER}</span><span><h4 data-slop="schablone">${esc(f.titel)}</h4>`
     + `<span class="kmeta"><span>${esc(f.datumKurz)}</span><span>${esc(f.dauer)} Min</span>`
     + `<span>${f.themenZahl} Themen</span></span></span></button>`).join('');
   document.querySelectorAll('.karte').forEach(k => k.onclick = () => {
@@ -1478,6 +1594,7 @@ function zeigeSeite(id) {
   document.querySelectorAll('.railbtn[data-seite]').forEach(b =>
     b.classList.toggle('an', b.dataset.seite === id));
   document.querySelectorAll('.seite').forEach(s => s.classList.toggle('an', s.id === id));
+  zeichneMeter();
 }
 document.querySelectorAll('.railbtn[data-seite]').forEach(b =>
   b.onclick = () => { zeigeSeite(b.dataset.seite); window.scrollTo(0, 0); });
@@ -1502,22 +1619,53 @@ $('#modusbtn').onclick = () =>
   setzeModus(document.documentElement.dataset.modus === 'dunkel' ? 'hell' : 'dunkel');
 
 /* -------------------------------- Slop-Meter ---------------------------- */
-const REGELN = {"look": ["Vorlagen-Aussehen statt eigener Handschrift", "Der Skill nennt drei Erscheinungsbilder, die KI-Entwürfe immer wieder hervorbringen — unabhängig davon, worum es geht. Diese Seite ist das zweite davon, unverändert übernommen: fast schwarzer Grund, ein einziger greller Akzent.", "AI-generated design right now clusters around three looks … they are defaults rather than choices, and they appear regardless of subject."], "hero": ["Der Aufmacher ist die Schablonen-Antwort", "Vier große Zahlen mit kleiner Beschriftung und Farbverlauf — genau das Muster, das der Skill als die naheliegende, einfallslose Lösung benennt. Es sagt nichts über den Gegenstand aus, es sieht nur nach Produkt aus.", "a big number with a small label, supporting stats, and a gradient accent is the template answer, only use if that’s truly the best option."], "nummern": ["Nummerierung, wo es keine Reihenfolge gibt", "01, 02, 03 auf den Themen einer Folge. Die Nummern behaupten eine Abfolge, die es nicht gibt: Thema drei kommt nicht nach Thema eins, es ist nur ein weiteres Thema. Erlaubt wäre das nur bei einem echten Ablauf oder einer Zeitleiste.", "numbered markers (01 / 02 / 03) … that’s only appropriate if the content actually is a sequence."], "motion": ["Alles bewegt sich", "Laufband, wandernder Farbverlauf in der Überschrift, Glanz über dem Titelbild, pulsierender Abspielknopf. Keine dieser Bewegungen trägt etwas bei. Der Skill nennt überflüssige Animation ausdrücklich als Merkmal, an dem man KI-Entwürfe erkennt.", "extra animation contributes to the feeling that the design is AI-generated."], "verzicht": ["Nichts weggelassen", "Laufband, fünf Auszeichnungen, Farbflecken im Hintergrund und eine Kachelreihe — alles gleichzeitig, alles gleich laut. Der Skill verlangt das Gegenteil: eine auffällige Sache, der Rest ruhig. Und vor dem Rausgehen noch ein Teil ablegen.", "Spend your boldness in one place … before leaving the house, take a look in the mirror and remove one accessory."], "werbung": ["Werbetext statt Beschriftung", "„Wir kuratieren nahtlos die relevantesten Signale aus dem KI-Ökosystem“ — der Satz verkauft, statt zu sagen, was die Seite tut. Ehrlich wäre: täglicher Nachrichtenüberblick, zehn Minuten, Quellen verlinkt.", "Describe what something does in plain terms rather than selling it. Being specific is always better than being clever."], "qualitaet": ["Qualität behauptet statt geliefert", "„AI-Powered“, „Enterprise-Ready“, „Zero-Touch-Pipeline“, „100 % automatisiert“. Wer gute Arbeit liefert, muss sie nicht auf Aufkleber schreiben. Belegen würde die Folge selbst — Laufzeit, Kosten, Quellenliste, Prüfprotokoll.", "Build to a quality floor without announcing it."], "mittelstand": ["Die Floskel aus der Ausschreibung", "„Was bedeutet das für den Mittelstand?“ läuft hier im Laufband mit. Die Ausschreibung führt genau diesen Satz als Ärgernis auf, und unsere Auswertung weist ihn bei podpresso dreimal je Folge nach.", "Ausschreibung, Kriterium 1 · Wettbewerbsanalyse, Abschnitt 2"], "schablone": ["Titel und Zusammenfassung nach Schablone", "Der Titel lautet immer „Thema A, Thema B, und Thema C“, die Zusammenfassung besteht aus drei Sätzen, deren dritter mit „Und …“ beginnt. Bei podpresso trifft beides auf 20 von 20 ausgewerteten Folgen zu. Diese Seite erzeugt es absichtlich genauso.", "Wettbewerbsanalyse, Abschnitt 2 — Schablone: belegt"]};
+const REGELN = {"look": ["Vorlagen-Aussehen statt eigener Handschrift", "Der Skill nennt drei Erscheinungsbilder, die KI-Entwürfe immer wieder hervorbringen — unabhängig davon, worum es geht. Diese Seite ist das zweite davon, unverändert übernommen: fast schwarzer Grund, ein einziger greller Akzent.", "AI-generated design right now clusters around three looks … they are defaults rather than choices, and they appear regardless of subject."], "hero": ["Der Aufmacher ist die Schablonen-Antwort", "Vier große Zahlen mit kleiner Beschriftung und Farbverlauf — genau das Muster, das der Skill als die naheliegende, einfallslose Lösung benennt. Es sagt nichts über den Gegenstand aus, es sieht nur nach Produkt aus.", "a big number with a small label, supporting stats, and a gradient accent is the template answer, only use if that’s truly the best option."], "nummern": ["Nummerierung, wo es keine Reihenfolge gibt", "01, 02, 03 auf den Themen einer Folge. Die Nummern behaupten eine Abfolge, die es nicht gibt: Thema drei kommt nicht nach Thema eins, es ist nur ein weiteres Thema. Erlaubt wäre das nur bei einem echten Ablauf oder einer Zeitleiste.", "numbered markers (01 / 02 / 03) … that’s only appropriate if the content actually is a sequence."], "motion": ["Alles bewegt sich", "Laufband, wandernder Farbverlauf in der Überschrift, Glanz über dem Titelbild, pulsierender Abspielknopf. Keine dieser Bewegungen trägt etwas bei. Der Skill nennt überflüssige Animation ausdrücklich als Merkmal, an dem man KI-Entwürfe erkennt.", "extra animation contributes to the feeling that the design is AI-generated."], "verzicht": ["Nichts weggelassen", "Laufband, fünf Auszeichnungen, Farbflecken im Hintergrund und eine Kachelreihe — alles gleichzeitig, alles gleich laut. Der Skill verlangt das Gegenteil: eine auffällige Sache, der Rest ruhig. Und vor dem Rausgehen noch ein Teil ablegen.", "Spend your boldness in one place … before leaving the house, take a look in the mirror and remove one accessory."], "werbung": ["Werbetext statt Beschriftung", "„Wir kuratieren nahtlos die relevantesten Signale aus dem KI-Ökosystem“ — der Satz verkauft, statt zu sagen, was die Seite tut. Ehrlich wäre: täglicher Nachrichtenüberblick, zehn Minuten, Quellen verlinkt.", "Describe what something does in plain terms rather than selling it. Being specific is always better than being clever."], "qualitaet": ["Qualität behauptet statt geliefert", "„AI-Powered“, „Enterprise-Ready“, „Zero-Touch-Pipeline“, „100 % automatisiert“. Wer gute Arbeit liefert, muss sie nicht auf Aufkleber schreiben. Belegen würde die Folge selbst — Laufzeit, Kosten, Quellenliste, Prüfprotokoll.", "Build to a quality floor without announcing it."], "mittelstand": ["Die Floskel aus der Ausschreibung", "„Was bedeutet das für den Mittelstand?“ läuft hier im Laufband mit. Die Ausschreibung führt genau diesen Satz als Ärgernis auf, und unsere Auswertung weist ihn bei podpresso dreimal je Folge nach.", "Ausschreibung, Kriterium 1 · Wettbewerbsanalyse, Abschnitt 2"], "emoji": ["Emoji tragen die Struktur", "🚀, 💡, 🔗, 📝 als Abschnittssymbole. Sie sagen nichts über den Abschnitt aus — eine Rakete steht vor der Zusammenfassung, weil irgendein Symbol hin musste. Gliederung soll etwas über den Inhalt aussagen, nicht ihn schmücken.", "Structural devices, numbering, eyebrows, dividers, labels, should encode something true about the content, not decorate it."], "denglisch": ["Englisch, wo Deutsch genügt", "„Deep-Dive-Themen“, „Kuratierte Topics“, „AI-Powered“, „Zero-Touch-Pipeline“, „Realtime-Ingestion“. Gemeint sind Themen, eine Sendung und ein Ablauf. Die englischen Wörter machen nichts klarer — sie sollen nach Produkt klingen.", "Keep the register conversational and tuned: plain verbs, sentence case, no filler."], "deko": ["Dekoration, die nichts trägt", "Drei animierte Farbflecken hinter jeder Seite. Sie zeigen nichts an, gliedern nichts und ändern sich nicht mit dem Inhalt. Sie sind da, damit die Fläche nicht leer wirkt.", "cut any decoration that does not serve the brief."], "schwebe": ["Alles hebt sich beim Überfahren", "Jede Kachel und jede Karte springt unter dem Zeiger nach oben und wirft einen Schatten. Bei einer anklickbaren Karte ist das eine Rückmeldung; bei einer Zahlenkachel, die nichts tut, ist es eine Behauptung von Interaktivität.", "Let each element do exactly one job."], "bruch": ["Fremdkörper im Dunkelmodus", "Die beiden Ablaufdiagramme sind für hellen Grund gezeichnet und stehen als weiße Fläche mitten in einer fast schwarzen Seite. Ehrlicher wäre, sie für beide Modi zu zeichnen — das war uns die Zeit vor der Vorführung nicht wert. Ein bewusst in Kauf genommener Mangel ist immer noch ein Mangel.", "Build to a quality floor without announcing it: responsive down to mobile, visible keyboard focus, reduced motion respected."], "schablone": ["Titel und Zusammenfassung nach Schablone", "Der Titel lautet immer „Thema A, Thema B, und Thema C“, die Zusammenfassung besteht aus drei Sätzen, deren dritter mit „Und …“ beginnt. Bei podpresso trifft beides auf 20 von 20 ausgewerteten Folgen zu. Diese Seite erzeugt es absichtlich genauso.", "Wettbewerbsanalyse, Abschnitt 2 — Schablone: belegt"]};
+/* Die Nummern sind fest je Regel, nicht laufend je Seite: Sonst hiesse
+   dieselbe Markierung auf jeder Seite anders, und wer zwischen den Seiten
+   vergleicht, verliert den Faden. */
+const REGELNUMMER = {};
+Object.keys(REGELN).forEach((k, i) => REGELNUMMER[k] = i + 1);
+
 function zeichneMeter() {
-  const treffer = {};
+  const aktiveSeite = document.querySelector('.seite.an');
+  const gesamt = {}, hier = {};
   document.querySelectorAll('[data-slop]').forEach(el => {
-    treffer[el.dataset.slop] = (treffer[el.dataset.slop] || 0) + 1;
+    const k = el.dataset.slop;
+    el.dataset.nr = REGELNUMMER[k];
+    el.title = REGELN[k] ? REGELN[k][0] : k;
+    gesamt[k] = (gesamt[k] || 0) + 1;
+    // Zaehlt als "auf dieser Seite", wenn es in der sichtbaren Seite liegt
+    // oder zum Rahmen gehoert, der auf allen Seiten steht.
+    const imRahmen = !el.closest('.seite');
+    if (imRahmen || (aktiveSeite && aktiveSeite.contains(el))) {
+      hier[k] = (hier[k] || 0) + 1;
+    }
   });
-  const reihen = Object.keys(REGELN).filter(k => treffer[k]);
-  reihen.forEach((k, i) => document.querySelectorAll('[data-slop="' + k + '"]')
-    .forEach(el => { el.dataset.nr = i + 1; el.title = REGELN[k][0]; }));
-  $('#regelliste').innerHTML = reihen.map((k, i) =>
-    '<div class="regel"><div class="kopf"><span class="num">' + (i + 1) + '</span>'
-    + '<span class="name">' + REGELN[k][0] + '</span>'
-    + '<span class="anz">' + treffer[k] + '×</span></div>'
-    + '<div class="beleg">' + REGELN[k][1] + '</div>'
-    + '<div class="quelle-regel">Im Original: „' + REGELN[k][2] + '“</div>'
-    + '</div>').join('');
+
+  const sortiert = Object.keys(REGELN)
+    .filter(k => gesamt[k])
+    .sort((a, b) => (hier[b] || 0) - (hier[a] || 0) || REGELNUMMER[a] - REGELNUMMER[b]);
+
+  const seitenname = {heute: 'Aktuelle Folge', archiv: 'Archiv',
+                      hintergrund: 'Warum', modelle: 'Modelle'};
+  $('#meterseite').textContent = seitenname[aktiveSeite ? aktiveSeite.id : ''] || '';
+
+  $('#regelliste').innerHTML = sortiert.map(k => {
+    const h = hier[k] || 0;
+    const wo = h
+      ? '<span class="anz hier">' + h + '× hier</span>'
+      : '<span class="anz weg">nicht auf dieser Seite</span>';
+    const rest = gesamt[k] - h;
+    const gesamttext = rest > 0
+      ? '<span class="anz gesamt">' + gesamt[k] + '× insgesamt</span>' : '';
+    return '<div class="regel' + (h ? '' : ' fern') + '">'
+      + '<div class="kopf"><span class="num">' + REGELNUMMER[k] + '</span>'
+      + '<span class="name">' + REGELN[k][0] + '</span></div>'
+      + '<div class="zaehler">' + wo + gesamttext + '</div>'
+      + '<div class="beleg">' + REGELN[k][1] + '</div>'
+      + '<div class="quelle-regel">Im Original: „' + REGELN[k][2] + '“</div>'
+      + '</div>';
+  }).join('');
 }
 $('#meterbtn').onclick = () => {
   const an = document.body.classList.toggle('slop-an');
