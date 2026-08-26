@@ -271,8 +271,10 @@ body.slop-an [data-slop]::before{content:attr(data-nr);position:absolute;top:-9p
   border-radius:5px;padding:3px 6px;line-height:1;flex:none}
 .regel .name{font-size:14px;font-weight:700;flex:1}
 .regel .anz{font-size:11px;color:var(--leise)}
-.regel .beleg{font-size:12.5px;color:var(--leise);margin-top:7px;line-height:1.55;
+.regel .beleg{font-size:12.5px;color:var(--text);margin-top:7px;line-height:1.55;
   padding-left:31px;border-left:2px solid var(--linie)}
+.regel .quelle-regel{font-size:11px;color:var(--leise);margin-top:6px;line-height:1.5;
+  padding-left:31px;font-style:italic;opacity:.85}
 body.ruhig *{animation:none !important;transition:none !important}
 
 @media(prefers-reduced-motion:reduce){
@@ -854,7 +856,8 @@ body.ruhig *{animation:none !important;transition:none !important}
   <button class="zu" id="panelzu" aria-label="Schließen">×</button>
   <h2>Slop-Meter</h2>
   <div class="unter">Diese Oberfläche bricht die Regeln absichtlich. Jede Markierung
-    nennt die Regel im Wortlaut.</div>
+    nennt die Regel — erklärt auf Deutsch, darunter kursiv der Wortlaut aus dem
+    Skill <code>frontend-design</code>, mit dem wir sonst arbeiten.</div>
   <label class="schalter"><input type="checkbox" id="ruhigbox"> Animationen anhalten</label>
   <div id="regelliste"></div>
 </aside>
@@ -1069,7 +1072,7 @@ $('#modusbtn').onclick = () =>
   setzeModus(document.documentElement.dataset.modus === 'dunkel' ? 'hell' : 'dunkel');
 
 /* -------------------------------- Slop-Meter ---------------------------- */
-const REGELN = {"look": ["Default-Look statt eigener Identität", "frontend-design: „AI-generated design right now clusters around three looks … they are defaults rather than choices, and they appear regardless of subject.“ Diese Seite ist Muster zwei, unverändert."], "hero": ["Die Schablonen-Antwort als Hero", "frontend-design: „a big number with a small label, supporting stats, and a gradient accent is the template answer, only use if that’s truly the best option.“"], "nummern": ["Nummerierung ohne Reihenfolge", "frontend-design: „numbered markers (01 / 02 / 03) … that’s only appropriate if the content actually is a sequence.“ Die Themen einer Folge sind keine Sequenz."], "motion": ["Animation auf allem", "frontend-design: „extra animation contributes to the feeling that the design is AI-generated.“"], "verzicht": ["Nichts weggelassen", "frontend-design: „Spend your boldness in one place … before leaving the house, take a look in the mirror and remove one accessory.“ Hier laufen Laufband, Badges, Verlaufsflecken und Kachelreihe gleichzeitig."], "werbung": ["Werbesprech statt Beschriftung", "frontend-design: „Describe what something does in plain terms rather than selling it. Being specific is always better than being clever.“"], "qualitaet": ["Qualität angekündigt statt geliefert", "frontend-design: „Build to a quality floor without announcing it.“ Hier steht sie auf Badges."], "mittelstand": ["Die Floskel aus der Ausschreibung", "Ausschreibung, Kriterium 1: „Was bedeutet das für einen deutschen Mittelständler?“ — in der Wettbewerbsanalyse dreimal je podpresso-Folge belegt."], "schablone": ["Titel- und Zusammenfassungs-Schablone", "Wettbewerbsanalyse, Abschnitt 2: 20 von 20 podpresso-Folgen heissen „Thema A, Thema B, und Thema C“, und 20 von 20 Zusammenfassungen bestehen aus drei Sätzen, deren dritter mit „Und …“ beginnt. Beides wird hier erzeugt."]};
+const REGELN = {"look": ["Vorlagen-Aussehen statt eigener Handschrift", "Der Skill nennt drei Erscheinungsbilder, die KI-Entwürfe immer wieder hervorbringen — unabhängig davon, worum es geht. Diese Seite ist das zweite davon, unverändert übernommen: fast schwarzer Grund, ein einziger greller Akzent.", "AI-generated design right now clusters around three looks … they are defaults rather than choices, and they appear regardless of subject."], "hero": ["Der Aufmacher ist die Schablonen-Antwort", "Vier große Zahlen mit kleiner Beschriftung und Farbverlauf — genau das Muster, das der Skill als die naheliegende, einfallslose Lösung benennt. Es sagt nichts über den Gegenstand aus, es sieht nur nach Produkt aus.", "a big number with a small label, supporting stats, and a gradient accent is the template answer, only use if that’s truly the best option."], "nummern": ["Nummerierung, wo es keine Reihenfolge gibt", "01, 02, 03 auf den Themen einer Folge. Die Nummern behaupten eine Abfolge, die es nicht gibt: Thema drei kommt nicht nach Thema eins, es ist nur ein weiteres Thema. Erlaubt wäre das nur bei einem echten Ablauf oder einer Zeitleiste.", "numbered markers (01 / 02 / 03) … that’s only appropriate if the content actually is a sequence."], "motion": ["Alles bewegt sich", "Laufband, wandernder Farbverlauf in der Überschrift, Glanz über dem Titelbild, pulsierender Abspielknopf. Keine dieser Bewegungen trägt etwas bei. Der Skill nennt überflüssige Animation ausdrücklich als Merkmal, an dem man KI-Entwürfe erkennt.", "extra animation contributes to the feeling that the design is AI-generated."], "verzicht": ["Nichts weggelassen", "Laufband, fünf Auszeichnungen, Farbflecken im Hintergrund und eine Kachelreihe — alles gleichzeitig, alles gleich laut. Der Skill verlangt das Gegenteil: eine auffällige Sache, der Rest ruhig. Und vor dem Rausgehen noch ein Teil ablegen.", "Spend your boldness in one place … before leaving the house, take a look in the mirror and remove one accessory."], "werbung": ["Werbetext statt Beschriftung", "„Wir kuratieren nahtlos die relevantesten Signale aus dem KI-Ökosystem“ — der Satz verkauft, statt zu sagen, was die Seite tut. Ehrlich wäre: täglicher Nachrichtenüberblick, zehn Minuten, Quellen verlinkt.", "Describe what something does in plain terms rather than selling it. Being specific is always better than being clever."], "qualitaet": ["Qualität behauptet statt geliefert", "„AI-Powered“, „Enterprise-Ready“, „Zero-Touch-Pipeline“, „100 % automatisiert“. Wer gute Arbeit liefert, muss sie nicht auf Aufkleber schreiben. Belegen würde die Folge selbst — Laufzeit, Kosten, Quellenliste, Prüfprotokoll.", "Build to a quality floor without announcing it."], "mittelstand": ["Die Floskel aus der Ausschreibung", "„Was bedeutet das für den Mittelstand?“ läuft hier im Laufband mit. Die Ausschreibung führt genau diesen Satz als Ärgernis auf, und unsere Auswertung weist ihn bei podpresso dreimal je Folge nach.", "Ausschreibung, Kriterium 1 · Wettbewerbsanalyse, Abschnitt 2"], "schablone": ["Titel und Zusammenfassung nach Schablone", "Der Titel lautet immer „Thema A, Thema B, und Thema C“, die Zusammenfassung besteht aus drei Sätzen, deren dritter mit „Und …“ beginnt. Bei podpresso trifft beides auf 20 von 20 ausgewerteten Folgen zu. Diese Seite erzeugt es absichtlich genauso.", "Wettbewerbsanalyse, Abschnitt 2 — Schablone: belegt"]};
 function zeichneMeter() {
   const treffer = {};
   document.querySelectorAll('[data-slop]').forEach(el => {
@@ -1082,7 +1085,9 @@ function zeichneMeter() {
     '<div class="regel"><div class="kopf"><span class="num">' + (i + 1) + '</span>'
     + '<span class="name">' + REGELN[k][0] + '</span>'
     + '<span class="anz">' + treffer[k] + '×</span></div>'
-    + '<div class="beleg">' + REGELN[k][1] + '</div></div>').join('');
+    + '<div class="beleg">' + REGELN[k][1] + '</div>'
+    + '<div class="quelle-regel">Im Original: „' + REGELN[k][2] + '“</div>'
+    + '</div>').join('');
 }
 $('#meterbtn').onclick = () => {
   const an = document.body.classList.toggle('slop-an');
