@@ -245,6 +245,59 @@ body.laeuft .tbtn.gross{animation:ring 2.6s ease-out infinite}
 .fehlt{color:#FF6B6B;font-size:13px}
 @media(max-width:820px){.personen{grid-template-columns:1fr}}
 
+.hgnav{display:flex;flex-wrap:wrap;gap:7px;margin-top:22px}
+.hgnav a{font-size:12.5px;color:var(--leise);text-decoration:none;background:var(--bg2);
+  border:1px solid var(--linie);border-radius:999px;padding:5px 12px;transition:.18s}
+.hgnav a:hover{color:var(--akzent);border-color:var(--akzent)}
+.hgab p.warnung{border-left:3px solid #E8A33D;padding:4px 0 4px 15px;color:var(--leise)}
+.hinweisbox{background:var(--bg2);border:1px solid var(--linie);
+  border-radius:var(--radius);padding:16px 20px;margin:18px 0;font-size:14.5px;
+  color:var(--leise);max-width:72ch}
+.hinweisbox strong{color:var(--text)}
+.tab-nr td.knr{width:34px;color:var(--akzent);font-weight:800;
+  font-variant-numeric:tabular-nums}
+.tab-nr td:nth-child(2){width:30%;font-weight:600;color:var(--text)}
+pre.protokoll{background:var(--bg2);border:1px solid var(--linie);
+  border-radius:var(--radius);padding:14px 16px;overflow-x:auto;font-size:12.5px;
+  font-family:ui-monospace,'SF Mono',Menlo,monospace;color:var(--text);margin:12px 0}
+.modellkarte{background:var(--flaeche);border:1px solid var(--akzent);
+  border-radius:var(--radius);padding:22px;margin:18px 0}
+.mk-kopf{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  align-items:flex-start;border-bottom:1px solid var(--linie);padding-bottom:16px}
+.mk-label{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--akzent);margin-bottom:5px}
+.mk-kopf h3{font-size:23px;margin:0 0 4px}
+.mk-kopf code{font-size:12.5px;color:var(--leise);
+  font-family:ui-monospace,'SF Mono',Menlo,monospace}
+.mk-preis{text-align:right;font-size:12.5px;color:var(--leise)}
+.mk-preis span{color:var(--akzent);font-weight:700;font-size:16px;
+  font-variant-numeric:tabular-nums}
+.mk-preis div{margin-bottom:4px}
+.mk-daten{display:flex;flex-wrap:wrap;gap:26px;margin-top:16px}
+.mk-daten dt{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--leise)}
+.mk-daten dd{margin:3px 0 0;font-size:15px;font-weight:600;
+  font-variant-numeric:tabular-nums}
+.kostenreihe{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.kostenreihe > div{background:var(--bg2);border:1px solid var(--linie);
+  border-radius:var(--radius);padding:16px;text-align:center}
+.kostenreihe .kz{display:block;font-size:24px;font-weight:800;color:var(--akzent);
+  font-variant-numeric:tabular-nums}
+.kostenreihe .kl{display:block;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--leise);margin-top:6px}
+.zahlenraster{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+.zahlenraster > div{background:var(--flaeche);border:1px solid var(--linie);
+  border-radius:var(--radius);padding:16px 12px;text-align:center}
+.zahlenraster .zz{display:block;font-size:23px;font-weight:800;color:var(--akzent);
+  font-variant-numeric:tabular-nums;line-height:1}
+.zahlenraster .zl{display:block;font-size:10.5px;color:var(--leise);margin-top:8px;
+  line-height:1.35}
+@media(max-width:820px){
+  .zahlenraster{grid-template-columns:1fr 1fr}
+  .kostenreihe{grid-template-columns:1fr}
+  .mk-preis{text-align:left}
+}
+
 /* -------------------------------- Slop-Meter ------------------------------
    Standardmaessig aus. Der Schalter markiert jede Stelle, die eine Regel des
    frontend-design-Skills bricht, und nennt sie im Wortlaut. */
@@ -381,24 +434,38 @@ body.ruhig *{animation:none !important;transition:none !important}
 <section class="seite" id="hintergrund">
   <div class="hgkopf">
     <h1>Was hinter slopresso steckt</h1>
-    <p>Wie eine Folge entsteht, wer Bernhard und Lisa sind, welche Entscheidungen
-      wir getroffen haben — und warum.</p>
+    <p>Wie eine Folge entsteht, wer Bernhard und Lisa sind, welche
+      Entscheidungen wir getroffen haben — und warum.</p>
+    <nav class="hgnav"><a href="#aufgabe">Die Aufgabe</a><a href="#name">Der Name</a><a href="#wer">Wer spricht</a><a href="#ablauf">Wie eine Folge entsteht</a><a href="#quellen">Woher die Meldungen kommen</a><a href="#fakten">Die Faktenprüfung</a><a href="#pruefungen">Neun Prüfungen im Code</a><a href="#entscheidungen">Entscheidungen und ihre Gründe</a><a href="#modelle">Welches Modell — und warum</a><a href="#zahlen">Das System in Zahlen</a><a href="#schiefgegangen">Was schiefgegangen ist</a><a href="#vergleich">Was uns von podpresso unterscheidet</a></nav>
   </div>
 
-  <div class="hgab">
+  <div class="hgab" id="aufgabe">
+    <h2>Die Aufgabe</h2>
+    <p>Es gibt bereits einen täglichen KI-Nachrichten-Podcast: <strong>podpresso</strong>.
+      Er erscheint sieben Tage die Woche, dauert 11 bis 16 Minuten und bringt 13 bis 15
+      Themen je Folge. Die Aufgabe lautet, es besser zu machen — und „besser“ ist nicht
+      Geschmackssache, sondern in sechs Kriterien festgeschrieben.</p>
+    <table class="tab tab-nr"><tr><td class="knr">1</td><td>Keine Schablone</td><td class="leise">Kein Gerüst, das sich Folge für Folge wiederholt. Keine Standardsätze wie „Was bedeutet das für einen deutschen Mittelständler?“</td></tr><tr><td class="knr">2</td><td>Keine Wiederholung ohne Neuigkeit</td><td class="leise">Ein Thema kommt nur wieder, wenn es substanziell neue Fakten gibt. Eine tiefere Erklärung zählt nicht.</td></tr><tr><td class="knr">3</td><td>Richtiger Rückbezug</td><td class="leise">Wer auf früher verweist, verweist auf den letzten Stand — nicht auf irgendeinen.</td></tr><tr><td class="knr">4</td><td>Aufrufbare Quellen</td><td class="leise">Jedes Thema nennt Quellen, die man anklicken kann.</td></tr><tr><td class="knr">5</td><td>Keine unbelegten Zahlen</td><td class="leise">Jede Zahl und jeder Eigenname steht in einer der gelisteten Quellen.</td></tr><tr><td class="knr">6</td><td>Nachgewiesene Kosten</td><td class="leise">Bei gleicher Qualität gewinnt die günstigere Lösung. Nicht jede Aufgabe braucht das teuerste Modell.</td></tr></table>
+    <p class="leise">Wir haben 20 Folgen des Amtsinhabers ausgewertet, zwei davon mit
+      vollständigem Transkript. Jedes der sechs Kriterien ließ sich dort als verletzt
+      belegen. Was daraus folgte, steht weiter unten unter
+      <a href="#vergleich">Was uns unterscheidet</a>.</p>
+  </div>
+
+  <div class="hgab" id="name">
     <h2>Der Name</h2>
     <p><strong>slopresso</strong> ist ein Eingeständnis und ein Seitenhieb zugleich.
       „Slop“ ist das Wort für die Flut automatisch erzeugter Inhalte, die gerade jede
       Plattform verstopft. „podpresso“ heißt der Anbieter, den wir ablösen wollen.</p>
     <p>Bernhard und Lisa wissen, dass sie selbst KI-Slop sind: Eine Maschine schreibt
-      ihr Manuskript, zwei synthetische Stimmen sprechen es. Sie finden das lustig und
+      ihr Manuskript, drei synthetische Stimmen sprechen es. Sie finden das lustig und
       manchmal etwas unheimlich. Das darf höchstens einmal pro Folge vorkommen, nie im
       Einstieg und nie im Schluss — sonst wird aus der Pointe eine Kennmelodie.</p>
     <div class="zitat">„Diese Sendung ist auch maschinell gebaut. Wir prüfen
       trotzdem.“ — aus dem Vorspann</div>
   </div>
 
-  <div class="hgab">
+  <div class="hgab" id="wer">
     <h2>Wer spricht</h2>
     <div class="personen">
       <div class="person">
@@ -448,8 +515,8 @@ body.ruhig *{animation:none !important;transition:none !important}
     <ul>
       <li><strong>Sie mögen sich wirklich.</strong> Beide. Sie würden es nie zugeben,
         aber es steht in jeder Zeile.</li>
-      <li><strong>Sie brauchen sich.</strong> Bernhard ohne Lisa ist eine Vorlesung vor
-        leerem Saal. Lisa ohne Bernhard ein Monolog ins Leere.</li>
+      <li><strong>Sie brauchen sich.</strong> Bernhard ohne Lisa ist eine Vorlesung
+        vor leerem Saal. Lisa ohne Bernhard ein Monolog ins Leere.</li>
       <li><strong>Sie zoffen sich über Meinungen, nie über Fakten.</strong> Die Zahlen
         gehören beiden.</li>
       <li><strong>Niemand gewinnt dauerhaft.</strong> Lisa trumpft inhaltlich öfter,
@@ -466,9 +533,21 @@ body.ruhig *{animation:none !important;transition:none !important}
     <p>Die dritte Stimme rahmt die Folge. Sie nennt keinen Namen, verabschiedet sich
       nicht und spricht 15 % schneller als die beiden anderen. Sie ist die einzige,
       die „Willkommen zu“ sagen darf.</p>
+
+    <h3>Wie die drei klingen</h3>
+    <p>Gesprochen wird über <strong>ElevenLabs</strong> mit drei deutschen Stimmen,
+      Sprechtempo +12 % gegenüber der Rohausgabe. Regieanweisungen wie
+      <code>[sarcastic]</code>, <code>[laughs]</code> oder <code>[thoughtful]</code>
+      landen automatisch im Manuskript, höchstens zwölf je Folge, über die Folge
+      verteilt und je Figur zugeordnet.</p>
+    <p class="warnung">Anbieter, die solche Anweisungen <em>nicht</em> verstehen,
+      bekommen sie gar nicht erst zu sehen. Sonst läse die Stimme wörtlich „Klammer auf
+      sarcastic Klammer zu“ vor — und das fiele erst beim Hören auf, wenn die Folge
+      schon bezahlt ist. Die Voreinstellung im Code lautet deshalb: versteht keine
+      Regie. Ein neuer Anbieter ist damit von sich aus sicher.</p>
   </div>
 
-  <div class="hgab">
+  <div class="hgab" id="ablauf">
     <h2>Wie eine Folge entsteht</h2>
     <p>Jeden Werktag um 6 Uhr startet der Lauf auf GitHub Actions. Ohne einen
       Handgriff. Neun Schritte von der Meldung bis zur fertigen MP3:</p>
@@ -755,71 +834,193 @@ body.ruhig *{animation:none !important;transition:none !important}
     </div>
   </div>
 
-  <div class="hgab">
+  <div class="hgab" id="quellen">
+    <h2>Woher die Meldungen kommen</h2>
+    <p><strong>30 aktive Quellen</strong>, alle über RSS. Sie sind in fünf
+      Klassen eingeteilt, damit nicht jeden Tag dieselben Häuser zu Wort kommen:
+      <em>Kern</em> (täglich gelesen), <em>Rotation</em> (mit Bonus, wenn lange nicht
+      verwendet), <em>Primärquellen</em> (Firmen- und Behördenmeldungen aus erster
+      Hand), <em>Regulierung</em> und <em>Forschung</em>.</p>
+    <p class="leise">Ein Feed, der zweimal hintereinander leer bleibt, wird als
+      vermutlich defekt gemeldet, statt still zu verschwinden. Quellen hinter einer
+      Bezahlschranke sind als solche markiert und liefern <strong>keine Fakten</strong>
+      — aus einem Anrisstext lässt sich nichts belegen.</p>
+    <div class="hinweisbox">
+      <strong>Auch der Amtsinhaber liest nur RSS.</strong> Nachweisbar an den
+      utm-Parametern seiner verlinkten Artikel (<code>utm_medium=feed</code>,
+      <code>utm_source=rss</code>). Der Unterschied liegt also nicht im Zugang zu
+      Nachrichten, sondern darin, was danach mit ihnen passiert.
+    </div>
+  </div>
+
+  <div class="hgab" id="fakten">
+    <h2>Die Faktenprüfung</h2>
+    <p>Das ist der Kern. Jeder geschriebene Satz wird gegen die Fakten geprüft, die
+      vorher aus den Quellen gelöst wurden. Was nicht gedeckt ist, wird korrigiert oder
+      fliegt raus. Das Protokoll liegt jeder Folge bei — mit einer Zeile je Satz,
+      Urteil und Begründung.</p>
+    <p>Bis heute sind so <strong>969 Einzelprüfungen</strong> an
+      <strong>1.556 Fakten</strong> gelaufen.</p>
+
+    <h3>Ein Fall aus dem Betrieb</h3>
+    <p>Zwei Quellen nannten für denselben Firmenkauf verschiedene Summen — sechs gegen
+      sieben Milliarden Dollar, 16,7 % Abweichung. Das System hat den Widerspruch von
+      selbst gefunden, im Protokoll als <em>strittig</em> vermerkt und
+      <strong>nicht</strong> als neue Tatsache gewertet:</p>
+    <pre class="protokoll">2026-08-26 | betrag | substanziell: nein | ⚠ Widerspruch | 6 Mrd USD → 7 Mrd USD</pre>
+    <p class="leise">Zum Vergleich: podpresso sendete denselben Kauf dreimal in fünf
+      Tagen — erst sieben Milliarden, dann acht, dann wieder sieben. Die acht
+      Milliarden stehen in keiner der dort gelisteten Quellen, und der Widerspruch
+      wurde nie aufgelöst.</p>
+  </div>
+
+  <div class="hgab" id="pruefungen">
+    <h2>Neun Prüfungen im Code</h2>
+    <p>Der Prompt allein reicht nicht. Was hier steht, hat das Modell mindestens
+      einmal falsch gemacht — jede Prüfung hat einen echten Auslöser:</p>
+    <table class="tab">
+      <tr><th>Prüfung</th><th>Der Fall, der sie ausgelöst hat</th></tr>
+      <tr><td>Vorspann</td><td class="leise">Eröffnet die Ansagerin die Folge überhaupt?</td></tr><tr><td>Namen</td><td class="leise">Stellen sich beide mit Namen vor?</td></tr><tr><td>Vertauschte Rollen</td><td class="leise">„ERZÄHLER: Ich bin Lisa“ — eine männliche Stimme stellte sich als Lisa vor.</td></tr><tr><td>Erfundene Namensform</td><td class="leise">„Elisabeth hat recht“ — gemeint war Lisa.</td></tr><tr><td>Verabschiedung</td><td class="leise">Werden die Hörer am Schluss angesprochen?</td></tr><tr><td>Verbotene Wendungen</td><td class="leise">„Willkommen zu“ (nur die Ansagerin darf es), „Gamechanger“ und 14 weitere.</td></tr><tr><td>Kapitulation</td><td class="leise">Nachgeben und sofortiger Themenwechsel in derselben Zeile.</td></tr><tr><td>Ziffern</td><td class="leise">„2026“ statt „zweitausendsechsundzwanzig“ — die Sprachausgabe liest Ziffern unvorhersagbar.</td></tr><tr><td>Bezeichnungen und Namenslisten</td><td class="leise">„B200-Tarif“, „t3n“; fünf Anbieternamen in einer Zeile.</td></tr>
+    </table>
+    <p class="leise">Zwei davon reparieren, statt zu melden: Zahlen und
+      Nachkommastellen werden deterministisch ausgeschrieben — und zwar
+      <em>nach</em> der Faktenprüfung, weil deren Korrekturrunden sonst wieder
+      Ziffern einschleppen.</p>
+  </div>
+
+  <div class="hgab" id="entscheidungen">
     <h2>Entscheidungen und ihre Gründe</h2>
     <table class="tab">
       <tr><th>Frage</th><th>Entscheidung und warum</th></tr>
       <tr><td>Themenauswahl</td><td class="leise">Deterministisches Punktesystem,
         <strong>kein Modellaufruf</strong>. Was ausgewählt wird, muss nachvollziehbar
         und wiederholbar sein — ein Modell würde jeden Tag anders entscheiden.</td></tr>
-      <tr><td>Wiederholungen</td><td class="leise">Jedes gesendete Thema wird in der
-        Datenbank gesperrt, mit Sendezähler und Kernsatz. Ein Thema kommt nur wieder,
-        wenn es <em>substanziell neue</em> Fakten gibt — eine tiefere Erklärung zählt
-        nicht.</td></tr>
-      <tr><td>Zahlen und Namen</td><td class="leise">Jeder Satz wird gegen die eigenen
-        Quellen geprüft. Ungedeckte Sätze werden korrigiert oder fliegen raus. Das
-        Prüfprotokoll liegt bei jeder Folge im Manuskript.</td></tr>
-      <tr><td>Widersprüche</td><td class="leise">Wenn zwei Quellen verschiedene Zahlen
-        nennen, wird das als <em>strittig</em> vermerkt und <strong>nicht</strong> als
-        neue Tatsache gewertet.</td></tr>
-      <tr><td>Ziffern im Manuskript</td><td class="leise">Werden deterministisch
-        ausgeschrieben — „zweitausendsechsundzwanzig“ statt „2026“. Die Sprachausgabe
-        liest Ziffern sonst unvorhersagbar.</td></tr>
+      <tr><td>Wiederholungen</td><td class="leise">Jedes gesendete Thema wird gesperrt,
+        mit Sendezähler und Kernsatz. Es kommt nur wieder, wenn es <em>substanziell
+        neue</em> Fakten gibt — eine tiefere Erklärung zählt nicht.</td></tr>
+      <tr><td>Widersprüche</td><td class="leise">Nennen zwei Quellen verschiedene
+        Zahlen, wird das als <em>strittig</em> vermerkt und nicht als neue Tatsache
+        gewertet.</td></tr>
+      <tr><td>Ziffern im Manuskript</td><td class="leise">Werden ausgeschrieben —
+        „zweitausendsechsundzwanzig“ statt „2026“. Die Sprachausgabe liest Ziffern
+        sonst unvorhersagbar.</td></tr>
       <tr><td>Englische Begriffe</td><td class="leise">Normale Schreibweise, keine
         Lautumschrift. Lautschrift wurde getestet: klingt katastrophal.</td></tr>
       <tr><td>Länge</td><td class="leise">Wortbudget 1.700, Ziel 9 bis 11 Minuten. Der
         Code zählt nach; Über- und Unterschreitung geht zurück an das Modell.</td></tr>
       <tr><td>Lautstärke</td><td class="leise">Gemessen und um einen festen Betrag
-        angehoben statt dynamisch normiert. Ein einzelner Durchgang verfehlte sein
-        Ziel um 3,4 dB.</td></tr>
+        angehoben statt dynamisch normiert. Ein einzelner Normierungsdurchgang
+        verfehlte sein Ziel um 3,4 dB.</td></tr>
+      <tr><td>Betrieb</td><td class="leise">GitHub Actions, werktags. Kein Rechner,
+        der laufen muss, keine Person, die etwas anstoßen muss.</td></tr>
     </table>
   </div>
 
-  <div class="hgab">
-    <h2>Welche Modelle — und warum nicht immer das teuerste</h2>
+  <div class="hgab" id="modelle">
+    <h2>Welches Modell — und warum</h2>
     <p>Der aufrufende Code sagt nicht, <em>welches</em> Modell er will, sondern
       <em>wie schwer</em> die Aufgabe ist: klein, mittel oder groß. Die Zuordnung steht
-      in einer Konfigurationsdatei und ist eine Zeile Änderung.</p>
+      in der Konfiguration und ist eine Zeile Änderung. Das ist die direkte Antwort auf
+      Kriterium 6.</p>
+
+    <div class="modellkarte">
+      <div class="mk-kopf">
+        <div>
+          <div class="mk-label">Eingesetztes Modell</div>
+          <h3>GLM 5.3 Flash</h3>
+          <code>z-ai/glm-5.3-flash</code>
+        </div>
+        <div class="mk-preis">
+          <div><span>0,075 $</span> je 1 Mio Token Eingabe</div>
+          <div><span>0,250 $</span> je 1 Mio Token Ausgabe</div>
+        </div>
+      </div>
+      <dl class="mk-daten">
+        <div><dt>Kontextfenster</dt><dd>1.048.576 Token</dd></div>
+        <div><dt>Anbieter</dt><dd>Z.ai, über OpenRouter</dd></div>
+        <div><dt>Eingaben</dt><dd>Text, Bild, Video</dd></div>
+      </dl>
+    </div>
+
+    <p><strong>Ein Modell für alle drei Größen.</strong> Das geht, weil das
+      Kontextfenster mit gut einer Million Token groß genug für den teuersten Schritt
+      ist — die Faktenprüfung bekommt das Manuskript und sämtliche Quellentexte in
+      einen einzigen Aufruf, ohne kürzen zu müssen. Genau daran scheitern kleinere
+      Modelle, und genau dort entstehen unbelegte Zahlen.</p>
+
     <table class="tab">
-      <tr><th>Größe</th><th>Wofür und was zählt</th></tr>
+      <tr><th>Größe</th><th>Wofür — und worauf es ankommt</th></tr>
       <tr><td>klein</td><td class="leise">Themen zusammenführen, aufbereiten, Fakten
         herauslösen. Was zählt: verlässliches JSON und <strong>keine erfundenen
         Fakten</strong>.</td></tr>
       <tr><td>mittel</td><td class="leise">Fortsetzung beurteilen und die
-        <strong>Faktenprüfung</strong>. Braucht Sorgfalt und großen Kontext —
-        Manuskript und alle Quellentexte müssen gleichzeitig hineinpassen.</td></tr>
+        <strong>Faktenprüfung</strong>. Braucht Sorgfalt und großen Kontext.</td></tr>
       <tr><td>groß</td><td class="leise">Das Manuskript. Hier entsteht das
         Sprachgefühl.</td></tr>
     </table>
     <p><strong>Die kritischste Größe ist „mittel“, nicht „groß“.</strong> Ein
       mittelmäßiges Manuskript ist langweilig. Eine schlampige Faktenprüfung lässt eine
       erfundene Zahl auf Sendung gehen. Genau daran ist der Wettbewerber gescheitert.</p>
-    <p class="leise">Die Sprachausgabe läuft über ElevenLabs mit drei deutschen
-      Stimmen. Regieanweisungen wie <code>[sarcastic]</code> landen automatisch im
-      Manuskript, höchstens zwölf je Folge. Anbieter, die solche Anweisungen nicht
-      verstehen, bekommen sie gar nicht erst zu sehen — sonst läse die Stimme
-      „Klammer auf sarcastic Klammer zu“ vor.</p>
+
+    <h3>Was das kostet</h3>
+    <p class="leise">Gerechnet mit dem im Betrieb gemessenen Tagesverbrauch:
+      355.000 Token Eingabe und 58.000 Token Ausgabe je Werktag.</p>
+    <div class="kostenreihe">
+      <div><span class="kz">0,038 €</span><span class="kl">je Folge</span></div>
+      <div><span class="kz">0,79 €</span><span class="kl">je Monat</span></div>
+      <div><span class="kz">9,53 €</span><span class="kl">je Jahr</span></div>
+    </div>
+    <p class="leise">Umgerechnet mit 0,92 € je US-Dollar. Zum Vergleich: Ein
+      hochwertiges Schreibmodell für den Manuskript-Schritt hätte rund das Fünffache
+      gekostet — bei einem Podcast, den niemand daran unterscheiden würde.</p>
+
+    <div class="hinweisbox">
+      <strong>Nicht die Modelle sind der teuerste Teil, sondern das Vorlesen.</strong>
+      Die Sprachausgabe rechnet je Zeichen ab und macht den weitaus größten Teil der
+      Kosten einer Folge aus. Das ist der Grund, warum das Wortbudget im Code
+      erzwungen wird und nicht bloß im Prompt steht.
+    </div>
   </div>
 
-  <div class="hgab">
-    <h2>Was die Kosten angeht</h2>
-    <p>Jede Folge wird mit ihren Kosten protokolliert, aufgeschlüsselt nach
-      Verarbeitungsschritt. Die Zahl steht oben auf dieser Seite bei jeder Folge — sie
-      ist gemessen, nicht geschätzt. Der weitaus größte Anteil entfällt auf die
-      Sprachausgabe, nicht auf das Denken.</p>
+  <div class="hgab" id="zahlen">
+    <h2>Das System in Zahlen</h2>
+    <p class="leise">Direkt aus der Datenbank gelesen, beim Bau dieser Seite.</p>
+    <div class="zahlenraster">
+      <div><span class="zz">754</span><span class="zl">Rohmeldungen gesammelt</span></div>
+      <div><span class="zz">467</span><span class="zl">davon aufbereitet</span></div>
+      <div><span class="zz">156</span><span class="zl">Themen gebildet</span></div>
+      <div><span class="zz">136</span><span class="zl">davon nie gesendet</span></div>
+      <div><span class="zz">1.556</span><span class="zl">Fakten aus Quellen gelöst</span></div>
+      <div><span class="zz">969</span><span class="zl">Einzelprüfungen gelaufen</span></div>
+      <div><span class="zz">30</span><span class="zl">aktive Quellen</span></div>
+      <div><span class="zz">790</span><span class="zl">Testfunktionen im Code</span></div>
+    </div>
+    <p class="leise">Die Zahl der nie gesendeten Themen ist die wichtigste davon: Sie
+      ist der Vorrat, aus dem die Auswahl schöpft. Solange er wächst, muss kein Thema
+      zweimal ran.</p>
   </div>
 
-  <div class="hgab">
+  <div class="hgab" id="schiefgegangen">
+    <h2>Was schiefgegangen ist</h2>
+    <p class="leise">Ein Showroom, der nur Erfolge zeigt, ist eine Broschüre. Diese
+      drei Fehler haben das System geprägt:</p>
+    <table class="tab">
+      <tr><th>Was passierte</th><th>Was daraus wurde</th></tr>
+      <tr><td>Die fertige Folge verließ den Server nie</td><td class="leise">Der
+        Morgenlauf erzeugte die Sendung, bezahlte dafür — und schrieb die MP3 nicht
+        zurück. Sie ging als Anhang irgendwohin, wo niemand sie sucht. Der Ausschluss
+        war bewusst gesetzt, um die Ablage klein zu halten. Der Preis war zu hoch.</td></tr>
+      <tr><td>Dieselben Themen zweimal</td><td class="leise">Probeläufe liefen auf
+        Kopien der Datenbank, damit sie den Betrieb nicht stören. Die echte Datenbank
+        erfuhr nie, dass diese Themen schon gesendet waren. Die Lehre: Wer eine Folge
+        ablegt, muss den Bestand nachziehen.</td></tr>
+      <tr><td>Eine Stimme fehlte im Ablauf</td><td class="leise">Beim Anbieterwechsel
+        kannte der neue Code die Ansagerin nicht — der nächste Lauf wäre beim Vorspann
+        abgebrochen. Gefunden vor dem ersten Lauf, nicht danach.</td></tr>
+    </table>
+  </div>
+
+  <div class="hgab" id="vergleich">
     <h2>Was uns von podpresso unterscheidet</h2>
     <p class="leise">Aus der Auswertung von 20 Folgen des Wettbewerbers, belegt an
       zwei vollständigen Transkripten:</p>
@@ -830,18 +1031,22 @@ body.ruhig *{animation:none !important;transition:none !important}
         Begründung je Tag. Zahlkonflikte werden erkannt und als strittig vermerkt,
         statt gesendet zu werden.</td></tr>
       <tr><td>„Was bedeutet das für einen deutschen Mittelständler?“ — dreimal je
-        Folge</td><td class="leise">Steht auf der Verbotsliste, zusammen mit 15 weiteren
-        Wendungen. Der Code prüft nach.</td></tr>
-      <tr><td>Titel-Schablone in 20 von 20 Folgen, Zusammenfassung immer drei Sätze mit
-        „Und …“</td><td class="leise">Die letzten fünf Manuskripte gehen als
+        Folge</td><td class="leise">Steht auf der Verbotsliste, zusammen mit 15
+        weiteren Wendungen. Der Code prüft nach.</td></tr>
+      <tr><td>Titel-Schablone in 20 von 20 Folgen, Zusammenfassung immer drei Sätze
+        mit „Und …“</td><td class="leise">Die letzten fünf Manuskripte gehen als
         Negativbeispiele in den Prompt.</td></tr>
       <tr><td>Zahlen ohne Beleg in der eigenen Quellenliste</td><td class="leise">Jeder
         Satz wird gegen die gelisteten Quellen geprüft, das Protokoll liegt der Folge
         bei.</td></tr>
+      <tr><td>Rückbezug auf einen überholten Stand</td><td class="leise">Der Rückverweis
+        kommt aus der Datenbank — aus dem Kernsatz der letzten Sendung zum Thema, nicht
+        aus dem Gedächtnis des Modells.</td></tr>
     </table>
     <p class="leise" style="margin-top:18px">Und ja — diese Oberfläche hier ist
       absichtlich gebaut wie eine KI sie baut. Der Schalter unten rechts zeigt, an
-      welcher Stelle welche Regel gebrochen wird.</p>
+      welcher Stelle welche Regel gebrochen wird. Das ist der einzige Teil des
+      Projekts, bei dem Schlampigkeit Absicht ist.</p>
   </div>
 </section>
 
