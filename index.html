@@ -539,7 +539,10 @@ body.slop-an [data-slop]{outline:1.5px dashed #FF3B6B;outline-offset:5px}
 body.slop-an [data-slop].slop-rel{position:relative}
 body.slop-an [data-slop]::before{content:attr(data-nr);position:absolute;top:-9px;
   left:-9px;z-index:30;background:#FF3B6B;color:#fff;font-size:10px;font-weight:700;
-  line-height:1;padding:4px 6px;border-radius:5px;letter-spacing:0}
+  line-height:1;padding:4px 6px;border-radius:5px;letter-spacing:0;white-space:nowrap}
+/* Bei Elementen, die ihren Inhalt beschneiden (scrollbare Diagramme, das
+   Laufband), laege die Nummer ausserhalb und waere weggeschnitten. */
+body.slop-an [data-slop].slop-innen::before{top:4px;left:4px}
 .panel{position:fixed;top:0;right:0;bottom:0;width:430px;max-width:92vw;z-index:70;
   background:var(--flaeche);border-left:1px solid var(--linie);transform:translateX(101%);
   transition:transform .32s cubic-bezier(.2,.7,.3,1);overflow-y:auto;padding:26px 24px 90px}
@@ -589,9 +592,9 @@ body.ruhig *{animation:none !important;transition:none !important}
 </style>
 </head>
 <body>
-<div class="blobs" data-slop="deko"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+<div class="blobs" data-slop="deko motion"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
 
-<nav class="rail" data-slop="look">
+<nav class="rail" data-slop="look glow">
   <div class="logo">s</div>
   <button class="railbtn an" data-seite="heute" aria-label="Aktuelle Folge">
     <svg viewBox="0 0 24 24"><path d="M3 14v-2a9 9 0 0118 0v2"/><rect x="2" y="14" width="5" height="7" rx="2"/><rect x="17" y="14" width="5" height="7" rx="2"/></svg>
@@ -614,9 +617,9 @@ body.ruhig *{animation:none !important;transition:none !important}
 
 <main class="wrap">
 <section class="seite an" id="heute">
-  <div class="laufband" aria-hidden="true" data-slop="laufband"><div><span><b>Trending</b> KI-Agenten</span><span><b>+400 %</b> Signalqualität</span><span><b>Neu</b> Realtime-Ingestion</span><span><b>Live</b> täglich um 6:54 Uhr</span><span><b>Insight</b> <i data-slop="mittelstand">Was bedeutet das für den Mittelstand?</i></span><span><b>KI-kuratiert</b> seit 2026</span><span><b>Hot</b> Fakten gegen die Quelle geprüft</span><span><b>Trending</b> KI-Agenten</span><span><b>+400 %</b> Signalqualität</span><span><b>Neu</b> Realtime-Ingestion</span><span><b>Live</b> täglich um 6:54 Uhr</span><span><b>Insight</b> <i data-slop="mittelstand">Was bedeutet das für den Mittelstand?</i></span><span><b>KI-kuratiert</b> seit 2026</span><span><b>Hot</b> Fakten gegen die Quelle geprüft</span></div></div>
+  <div class="laufband" aria-hidden="true" data-slop="laufband motion denglisch"><div><span><b>Trending</b> KI-Agenten</span><span><b>+400 %</b> Signalqualität</span><span><b>Neu</b> Realtime-Ingestion</span><span><b>Live</b> täglich um 6:54 Uhr</span><span><b>Insight</b> <i data-slop="mittelstand">Was bedeutet das für den Mittelstand?</i></span><span><b>KI-kuratiert</b> seit 2026</span><span><b>Hot</b> Fakten gegen die Quelle geprüft</span><span><b>Trending</b> KI-Agenten</span><span><b>+400 %</b> Signalqualität</span><span><b>Neu</b> Realtime-Ingestion</span><span><b>Live</b> täglich um 6:54 Uhr</span><span><b>Insight</b> <i data-slop="mittelstand">Was bedeutet das für den Mittelstand?</i></span><span><b>KI-kuratiert</b> seit 2026</span><span><b>Hot</b> Fakten gegen die Quelle geprüft</span></div></div>
 
-  <div class="badges" data-slop="qualitaet">
+  <div class="badges" data-slop="qualitaet denglisch glow">
     <span class="badge"><i class="punkt"></i> <span id="badgeDatum">—</span></span>
     <span class="badge"><b>AI-Powered</b></span>
     <span class="badge">100 % automatisiert</span>
@@ -624,21 +627,21 @@ body.ruhig *{animation:none !important;transition:none !important}
     <span class="badge">Enterprise-Ready</span>
   </div>
 
-  <div class="marke" data-slop="glow">
-    <div class="wortmarke"><span class="slop" data-slop="serif">slop</span>resso</div>
+  <div class="marke" data-slop="glow motion">
+    <div class="wortmarke"><span class="slop" data-slop="serif glow">slop</span>resso</div>
     <div class="markenzeile">Der Morgen&#8209;Überblick über die Tech&#8209;Nachrichten
       <span class="punkt2"></span> täglich ab 6:54 Uhr</div>
   </div>
 
-  <div class="hero" data-slop="verzicht">
-    <h1 data-slop="denglisch">Deine tägliche KI-Intelligence.<br>Neu gedacht.</h1>
+  <div class="hero" data-slop="verzicht glow">
+    <h1 data-slop="denglisch glow motion">Deine tägliche KI-Intelligence.<br>Neu gedacht.</h1>
     <p data-slop="werbung">Wir kuratieren nahtlos die relevantesten Signale aus dem KI-Ökosystem —
       damit du dich auf das konzentrieren kannst, was wirklich zählt.</p>
-    <div class="kacheln" id="kacheln" data-slop="hero"></div>
+    <div class="kacheln" id="kacheln" data-slop="hero glas"></div>
   </div>
 
-  <div class="player" data-slop="glas">
-    <div class="cover" data-slop="motion">
+  <div class="player" data-slop="glas glow">
+    <div class="cover" data-slop="motion glow">
       <svg viewBox="0 0 24 24"><path d="M3 14v-2a9 9 0 0118 0v2"/><rect x="2" y="14" width="5" height="7" rx="2"/><rect x="17" y="14" width="5" height="7" rx="2"/></svg>
     </div>
     <div class="pmitte">
@@ -661,7 +664,7 @@ body.ruhig *{animation:none !important;transition:none !important}
     </div>
   </div>
 
-  <div class="dreier" data-slop="dreier">
+  <div class="dreier" data-slop="dreier glas schwebe">
     <div class="fkarte">
       <div class="fikon">🔍</div>
       <h3>Geprüfte Fakten</h3>
@@ -682,7 +685,7 @@ body.ruhig *{animation:none !important;transition:none !important}
     </div>
   </div>
 
-  <div class="vertrauen" data-slop="logos">
+  <div class="vertrauen" data-slop="logos glas">
     <div class="vlabel">Vertraut von führenden Organisationen</div>
     <div class="vlogos"><span class="vlogo vlogo-amt"><svg viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="g0" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4A6FA5"/><stop offset="1" stop-color="#2E4A73"/></linearGradient></defs><circle cx="20" cy="20" r="18" fill="none" stroke="url(#g0)" stroke-width="1.4"/><circle cx="20" cy="20" r="15.2" fill="none" stroke="url(#g0)" stroke-width=".9" stroke-dasharray="1.2 2.6" opacity=".85"/><path d="M13.5 14.5h13a1.8 1.8 0 011.8 1.8v6.4a1.8 1.8 0 01-1.8 1.8h-6.6L16 28v-3.5h-2.5a1.8 1.8 0 01-1.8-1.8v-6.4a1.8 1.8 0 011.8-1.8z" fill="url(#g0)"/><path d="M15.6 18.2h8.8M15.6 21h5.6" stroke="var(--flaeche)" stroke-width="1.3" stroke-linecap="round"/></svg><span class="vtext"><b>BFS</b><em>Bundesamt für Schlagworte</em><i>Amt für Begriffspflege</i></span></span><span class="vlogo vlogo-institut"><svg viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8B6BB1"/><stop offset="1" stop-color="#5C4482"/></linearGradient></defs><circle cx="20" cy="20" r="16" fill="none" stroke="url(#g1)" stroke-width="2"/><circle cx="20" cy="20" r="11" fill="none" stroke="url(#g1)" stroke-width="2" opacity=".75"/><circle cx="20" cy="20" r="6.5" fill="none" stroke="url(#g1)" stroke-width="2" opacity=".5"/><circle cx="20" cy="20" r="2.5" fill="url(#g1)" opacity=".35"/></svg><span class="vtext"><b>IFAR</b><em>Institut für angewandte Redundanz</em><i>Forschung, Forschung</i></span></span><span class="vlogo vlogo-kg"><svg viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C99A3F"/><stop offset="1" stop-color="#8A6620"/></linearGradient></defs><path d="M20 5c-6 0-11 4.5-11 10s5 10 11 10" fill="none" stroke="url(#g2)" stroke-width="3.4" stroke-linecap="round"/><path d="M20 15c6 0 11 4.5 11 10s-5 10-11 10" fill="none" stroke="url(#g2)" stroke-width="3.4" stroke-linecap="round" opacity=".7"/></svg><span class="vtext"><b>S&amp;S</b><em>Synergie &amp; Söhne</em><i>seit 1987</i></span></span><span class="vlogo vlogo-ag"><svg viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6E7B8B"/><stop offset="1" stop-color="#464F5A"/></linearGradient></defs><rect x="5" y="8" width="30" height="24" rx="2" fill="none" stroke="url(#g3)" stroke-width="2"/><path d="M5 8l30 24M35 8L5 32" stroke="url(#g3)" stroke-width="1.6" opacity=".55"/></svg><span class="vtext"><b>VP</b><em>Vereinigte Platzhalter</em><i>AG &amp; Co. KGaA</i></span></span><span class="vlogo vlogo-holding"><svg viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="g4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3E9C8F"/><stop offset="1" stop-color="#256B61"/></linearGradient></defs><circle cx="20" cy="20" r="15.5" fill="none" stroke="url(#g4)" stroke-width="2"/><path d="M4.5 20h31M20 4.5c4.6 4.6 4.6 26.4 0 31M20 4.5c-4.6 4.6-4.6 26.4 0 31" fill="none" stroke="url(#g4)" stroke-width="1.3" opacity=".65"/><circle cx="20" cy="20" r="3.6" fill="var(--flaeche)"/><circle cx="20" cy="20" r="3.6" fill="none" stroke="url(#g4)" stroke-width="1.1" stroke-dasharray="1 1.8"/></svg><span class="vtext"><b>GNH</b><em>Global Nichts Holding</em><i>worldwide</i></span></span></div>
   </div>
@@ -706,7 +709,7 @@ body.ruhig *{animation:none !important;transition:none !important}
     <div class="akkinhalt"><div id="transkript"></div></div>
   </div>
 
-  <div class="faq" data-slop="faq">
+  <div class="faq" data-slop="faq schwebe">
     <h3>Häufig gestellte Fragen</h3>
     <div class="fitem zu">
       <button class="fkopf">Ist das hier ernst gemeint?<span class="pfeil">⌄</span></button>
@@ -740,17 +743,17 @@ body.ruhig *{animation:none !important;transition:none !important}
     <h1>Was hinter slopresso steckt</h1>
     <p>Wie eine Folge entsteht, wer Bernhard und Lisa sind, welche
       Entscheidungen wir getroffen haben — und warum.</p>
-    <div class="seitenbadges" data-slop="denglisch">
+    <div class="seitenbadges" data-slop="denglisch glow">
       <span class="badge"><b>Deep Dive</b></span>
       <span class="badge">Insights &amp; Learnings</span>
       <span class="badge">Behind the Scenes</span>
       <span class="badge" data-slop="qualitaet">100 % transparent</span>
     </div>
-    <nav class="hgnav" data-slop="schwebe"><a href="#aufgabe">Die Aufgabe</a><a href="#name">Der Name</a><a href="#wer">Wer spricht</a><a href="#ablauf">Wie eine Folge entsteht</a><a href="#woher">Woher die Meldungen kommen</a><a href="#auswahl">Warum vier bis sechs Themen</a><a href="#fakten">Die Faktenprüfung</a><a href="#pruefungen">Neun Prüfungen im Code</a><a href="#entscheidungen">Entscheidungen und ihre Gründe</a><a href="#modellprinzip">Welches Modell</a><a href="#zahlen">Das System in Zahlen</a><a href="#schiefgegangen">Was schiefgegangen ist</a><a href="#vergleich">Was uns von podpresso unterscheidet</a></nav>
+    <nav class="hgnav" data-slop="schwebe glas"><a href="#aufgabe">Die Aufgabe</a><a href="#name">Der Name</a><a href="#wer">Wer spricht</a><a href="#ablauf">Wie eine Folge entsteht</a><a href="#woher">Woher die Meldungen kommen</a><a href="#auswahl">Warum vier bis sechs Themen</a><a href="#fakten">Die Faktenprüfung</a><a href="#pruefungen">Neun Prüfungen im Code</a><a href="#entscheidungen">Entscheidungen und ihre Gründe</a><a href="#modellprinzip">Welches Modell</a><a href="#zahlen">Das System in Zahlen</a><a href="#schiefgegangen">Was schiefgegangen ist</a><a href="#vergleich">Was uns von podpresso unterscheidet</a></nav>
   </div>
 
   <div class="hgab" id="aufgabe">
-    <h2 data-slop="nummern">Die Aufgabe</h2>
+    <h2 data-slop="nummern emoji glow">Die Aufgabe</h2>
     <p>Es gibt bereits einen täglichen KI-Nachrichten-Podcast: <strong>podpresso</strong>.
       Er erscheint sieben Tage die Woche, dauert 11 bis 16 Minuten und bringt 13 bis 15
       Themen je Folge. Die Aufgabe lautet, es besser zu machen — und „besser“ ist nicht
@@ -763,7 +766,7 @@ body.ruhig *{animation:none !important;transition:none !important}
   </div>
 
   <div class="hgab" id="name">
-    <h2 data-slop="emoji">Der Name</h2>
+    <h2 data-slop="emoji nummern glow">Der Name</h2>
     <p><strong>slopresso</strong> ist ein Eingeständnis und ein Seitenhieb zugleich.
       „Slop“ ist das Wort für die Flut automatisch erzeugter Inhalte, die gerade jede
       Plattform verstopft. „podpresso“ heißt der Anbieter, den wir ablösen wollen.</p>
@@ -771,13 +774,13 @@ body.ruhig *{animation:none !important;transition:none !important}
       ihr Manuskript, drei synthetische Stimmen sprechen es. Sie finden das lustig und
       manchmal etwas unheimlich. Das darf höchstens einmal pro Folge vorkommen, nie im
       Einstieg und nie im Schluss — sonst wird aus der Pointe eine Kennmelodie.</p>
-    <div class="zitat" data-slop="serif">„Diese Sendung ist auch maschinell gebaut. Wir prüfen
+    <div class="zitat" data-slop="serif schwebe">„Diese Sendung ist auch maschinell gebaut. Wir prüfen
       trotzdem.“ — aus dem Vorspann</div>
   </div>
 
   <div class="hgab" id="wer">
-    <h2 data-slop="glow">Wer spricht</h2>
-    <div class="personen">
+    <h2 data-slop="glow nummern emoji">Wer spricht</h2>
+    <div class="personen" data-slop="dreier schwebe">
       <div class="person">
         <div class="rolle">Erzähler — trägt die Fakten</div>
         <h3>Bernhard</h3>
@@ -861,7 +864,7 @@ body.ruhig *{animation:none !important;transition:none !important}
     <h2>Wie eine Folge entsteht</h2>
     <p>Jeden Werktag um 6 Uhr startet der Lauf auf GitHub Actions. Ohne einen
       Handgriff. Neun Schritte von der Meldung bis zur fertigen MP3:</p>
-    <div class="diagramm" data-slop="bruch"><svg viewBox="0 0 1176 456" role="img" aria-labelledby="ablauf-title ablauf-desc" xmlns="http://www.w3.org/2000/svg">
+    <div class="diagramm" data-slop="bruch schwebe"><svg viewBox="0 0 1176 456" role="img" aria-labelledby="ablauf-title ablauf-desc" xmlns="http://www.w3.org/2000/svg">
   <title id="ablauf-title">Wie eine slopresso-Folge entsteht</title>
   <desc id="ablauf-desc">Ablauf in neun Schritten über vier Beteiligte: Quellen liefern Meldungen, der Code sichtet und wählt aus, das Sprachmodell löst Fakten heraus und schreibt das Manuskript, neun Filter im Code prüfen es, dann sprechen drei Stimmen und der Schnitt legt Musik darunter.</desc>
   <defs>
@@ -1057,7 +1060,7 @@ body.ruhig *{animation:none !important;transition:none !important}
         sprechen drei Stimmen, und der Schnitt legt Musik darunter.</div>
     </div>
     <h3>Aufbau einer Folge</h3>
-    <div class="diagramm" data-slop="bruch"><svg viewBox="0 0 1176 460" role="img" aria-labelledby="folge-title folge-desc" xmlns="http://www.w3.org/2000/svg">
+    <div class="diagramm" data-slop="bruch schwebe"><svg viewBox="0 0 1176 460" role="img" aria-labelledby="folge-title folge-desc" xmlns="http://www.w3.org/2000/svg">
   <title id="folge-title">Wie eine slopresso-Folge klingt</title>
   <desc id="folge-desc">Zeitachse über elf Minuten: Jingle, vier Floskeln der Ansagerin, die Selbstvorstellungen von Bernhard und Lisa, der Themenüberblick, neun Minuten Themen und die Verabschiedung. Darunter eine Spur, die zeigt, wann Musik läuft und wie leise sie unter der Sprache liegt.</desc>
   <defs>
@@ -1155,7 +1158,7 @@ body.ruhig *{animation:none !important;transition:none !important}
       vermutlich defekt gemeldet, statt still zu verschwinden. Quellen hinter einer
       Bezahlschranke sind als solche markiert und liefern <strong>keine Fakten</strong>
       — aus einem Anrisstext lässt sich nichts belegen.</p>
-    <div class="hinweisbox" data-slop="glas">
+    <div class="hinweisbox" data-slop="glas schwebe">
       <strong>Auch der Amtsinhaber liest nur RSS.</strong> Nachweisbar an den
       utm-Parametern seiner verlinkten Artikel (<code>utm_medium=feed</code>,
       <code>utm_source=rss</code>). Der Unterschied liegt also nicht im Zugang zu
@@ -1216,7 +1219,7 @@ body.ruhig *{animation:none !important;transition:none !important}
       20 ausgewerteten podpresso-Folgen kam <strong>keine einzige</strong>
       EU-Quelle, keine Datenschutzbehörde, kein AI-Act-Tracker vor.</p>
 
-    <div class="hinweisbox" data-slop="schwebe">
+    <div class="hinweisbox" data-slop="schwebe glas">
       <strong>Ein verbreitetes Missverständnis, auch bei uns:</strong> Nischige
       Themen bekommen <em>keinen</em> Bonus. Im Gegenteil — drei oder mehr
       unabhängige Quellen geben +3,0 Punkte, zwei geben +2,0. Mehrere Quellen
@@ -1227,7 +1230,7 @@ body.ruhig *{animation:none !important;transition:none !important}
   </div>
 
   <div class="hgab" id="fakten">
-    <h2 data-slop="glow">Die Faktenprüfung</h2>
+    <h2 data-slop="glow nummern emoji">Die Faktenprüfung</h2>
     <p>Das ist der Kern. Jeder geschriebene Satz wird gegen die Fakten geprüft, die
       vorher aus den Quellen gelöst wurden. Was nicht gedeckt ist, wird korrigiert oder
       fliegt raus. Das Protokoll liegt jeder Folge bei — mit einer Zeile je Satz,
@@ -1312,9 +1315,9 @@ body.ruhig *{animation:none !important;transition:none !important}
   </div>
 
   <div class="hgab" id="zahlen">
-    <h2 data-slop="nummern">Das System in Zahlen</h2>
+    <h2 data-slop="nummern emoji glow">Das System in Zahlen</h2>
     <p class="leise">Direkt aus der Datenbank gelesen — Stand 26. August 2026.</p>
-    <div class="zahlenraster" data-slop="hero">
+    <div class="zahlenraster" data-slop="hero schwebe glow">
       <div><span class="zz">801</span><span class="zl">Rohmeldungen gesammelt</span></div>
       <div><span class="zz">481</span><span class="zl">davon aufbereitet</span></div>
       <div><span class="zz">170</span><span class="zl">Themen gebildet</span></div>
@@ -1330,7 +1333,7 @@ body.ruhig *{animation:none !important;transition:none !important}
   </div>
 
   <div class="hgab" id="schiefgegangen">
-    <h2 data-slop="emoji">Was schiefgegangen ist</h2>
+    <h2 data-slop="emoji nummern glow">Was schiefgegangen ist</h2>
     <p class="leise">Ein Showroom, der nur Erfolge zeigt, ist eine Broschüre. Diese
       drei Fehler haben das System geprägt:</p>
     <table class="tab">
@@ -1390,7 +1393,7 @@ body.ruhig *{animation:none !important;transition:none !important}
     <p>Welches Modell welche Aufgabe übernimmt, was es kann — und was am Ende
       dafür bezahlt wurde. Alle Zahlen aus dem Kostenprotokoll, gelesen beim
       Bau dieser Seite.</p>
-    <div class="seitenbadges" data-slop="denglisch">
+    <div class="seitenbadges" data-slop="denglisch glow">
       <span class="badge"><b>Cost Transparency</b></span>
       <span class="badge" data-slop="qualitaet">Real-Time Data</span>
       <span class="badge">Multi-Provider-Setup</span>
@@ -1423,17 +1426,17 @@ body.ruhig *{animation:none !important;transition:none !important}
   </div>
 
   <div class="hgab">
-    <h2 data-slop="emoji">Das Sprachmodell</h2>
+    <h2 data-slop="emoji nummern glow">Das Sprachmodell</h2>
     <p class="leise">Ein Modell für alle drei Größen — das geht, weil das
       Kontextfenster für den teuersten Schritt reicht.</p>
-    <div class="mstein" data-slop="glas">
+    <div class="mstein" data-slop="glas schwebe glow">
       <div class="ms-kopf">
         <div>
           <div class="ms-status">im Einsatz</div>
           <h3>Z.ai: GLM 5.3 Flash</h3>
           <code>z-ai/glm-5.3-flash</code>
         </div>
-        <div class="ms-preis" data-slop="hero">
+        <div class="ms-preis" data-slop="hero glow">
           <div><span>0,075 $</span> je 1 Mio ein</div>
           <div><span>0,250 $</span> je 1 Mio aus</div>
         </div>
@@ -1445,7 +1448,7 @@ body.ruhig *{animation:none !important;transition:none !important}
         <div><dt>Beherrscht</dt><dd>Werkzeugaufrufe, erzwungenes JSON, Denkschritte</dd></div>
       </dl>
       <p class="ms-rolle">Trägt alle drei Größen: Aufbereitung, Faktenprüfung und das Manuskript.</p>
-    </div><div data-slop="schwebe" class="mstein weg">
+    </div><div data-slop="schwebe glas" class="mstein weg">
       <div class="ms-kopf"><div>
         <div class="ms-status weg">nicht mehr verfügbar</div>
         <h3>stealth/ox-alpha</h3></div></div>
@@ -1455,7 +1458,7 @@ body.ruhig *{animation:none !important;transition:none !important}
         Modellwahl von Anfang an über eine Konfigurationszeile gelöst und
         nicht im Code verdrahtet.</p>
     </div>
-    <div class="kostenreihe" data-slop="hero">
+    <div class="kostenreihe" data-slop="hero schwebe glow">
       <div><span class="kz">0,038 €</span><span class="kl">je Folge</span></div>
       <div><span class="kz">0,79 €</span><span class="kl">je Monat</span></div>
       <div><span class="kz">9,53 €</span><span class="kl">je Jahr</span></div>
@@ -1466,10 +1469,10 @@ body.ruhig *{animation:none !important;transition:none !important}
   </div>
 
   <div class="hgab">
-    <h2 data-slop="glow">Die Sprachausgabe</h2>
+    <h2 data-slop="glow nummern emoji">Die Sprachausgabe</h2>
     <p class="leise">Hier entstehen über 99 % der laufenden Kosten. Nicht das
       Denken ist teuer, sondern das Vorlesen.</p>
-    <div class="mstein">
+    <div class="mstein" data-slop="glas schwebe">
       <div class="ms-kopf">
         <div>
           <div class="ms-status">im Einsatz</div>
@@ -1479,7 +1482,7 @@ body.ruhig *{animation:none !important;transition:none !important}
         <div class="ms-preis"><div>abgerechnet<br><span>je Zeichen</span></div></div>
       </div>
       <div class="ms-listen drei"><div class="ms-kann"><h4>Kann</h4><ul><li>Versteht <strong>Regieanweisungen im Text</strong> — Audio-Tags wie <code>[laughs]</code> oder <code>[sighs]</code> werden gespielt, nicht vorgelesen</li><li>Regler für Stabilität und Stil (<code>stability</code>, <code>style</code>)</li><li>Öffentliche Stimmbibliothek: Die drei genutzten Stimmen ließen sich direkt ansprechen, ohne sie ins Konto zu übernehmen</li></ul></div><div class="ms-nicht"><h4>Kann nicht</h4><ul><li>Rund das <strong>Dreifache</strong> von Deepgram je Folge — 1,12 $ gegenüber 0,34 $ bei gleicher Textlänge</li><li>Die Verbrauchsanzeige des Kontos hinkt nach; sie taugt nicht zur Kostenkontrolle während eines Laufs</li></ul></div><div class="ms-wir"><h4>So setzen wir es ein</h4><ul><li>Acht Anweisungen zugelassen: <code>[sarcastic]</code>, <code>[laughs]</code>, <code>[chuckles]</code>, <code>[sighs]</code>, <code>[curious]</code>, <code>[thoughtful]</code>, <code>[annoyed]</code>, <code>[short pause]</code></li><li>Höchstens zwölf je Folge (<code>REGIE_MAX</code> in <code>script.py</code>) — sonst wird das Spiel zur Masche. Unsere Regel, keine Grenze des Anbieters</li><li><strong>Dass die Regie auf Deutsch wirkt, steht in keiner Doku</strong> — alle Beispiele dort sind englisch. Wir haben es gehört und festgehalten</li></ul></div></div>
-    </div><div class="mstein zweit">
+    </div><div class="mstein zweit" data-slop="glas schwebe">
       <div class="ms-kopf">
         <div>
           <div class="ms-status">Rückfallebene</div>
@@ -1494,13 +1497,13 @@ body.ruhig *{animation:none !important;transition:none !important}
 
   
   <div class="hgab kostenblock">
-    <h2 data-slop="nummern">Was bisher angefallen ist</h2>
+    <h2 data-slop="nummern emoji glow">Was bisher angefallen ist</h2>
     <p class="leise">Jeder Aufruf an ein Modell oder an die Sprachausgabe wird
       protokolliert — mit Schritt, Modell, Menge und Preis. Diese Tabelle ist
       die Summe daraus, gelesen beim Bau dieser Seite. Nichts davon ist
       geschätzt.</p>
 
-    <div class="ksumme" data-slop="glow">
+    <div class="ksumme" data-slop="glow hero glas schwebe">
       <span class="kbetrag">5,13 €</span>
       <span class="klabel">seit dem ersten Lauf, alles zusammen</span>
     </div>
@@ -1599,14 +1602,14 @@ function ladeFolge(i, autoplay) {
   $('#kacheln').innerHTML = [
     [f.woerter, 'Wörter generiert'], [f.dauer, 'Minuten Laufzeit'],
     [f.kosten, 'Kosten dieser Folge'], [f.themenZahl, 'Kuratierte Topics'],
-  ].map(([z, l]) => `<div class="kachel" data-slop="schwebe"><div class="zahl">${esc(String(z))}</div>`
+  ].map(([z, l]) => `<div class="kachel" data-slop="schwebe glas glow"><div class="zahl">${esc(String(z))}</div>`
     + `<div class="label">${esc(l)}</div></div>`).join('');
 
   $('#chips').innerHTML = f.themen.map((t, n) =>
-    `<span class="chip" data-slop="nummern"><span class="nr">${String(n + 1).padStart(2, '0')}</span>${esc(t.kurz)}</span>`).join('');
+    `<span class="chip" data-slop="nummern glow"><span class="nr">${String(n + 1).padStart(2, '0')}</span>${esc(t.kurz)}</span>`).join('');
 
   $('#themen').innerHTML = f.themen.map((t, n) =>
-    `<div class="thema" data-slop="nummern"><div class="kopf"><div class="nr">${String(n + 1).padStart(2, '0')}</div>`
+    `<div class="thema" data-slop="nummern glow"><div class="kopf"><div class="nr">${String(n + 1).padStart(2, '0')}</div>`
     + `<div><h4>${esc(t.titel)}</h4></div></div></div>`).join('');
 
   $('#quellen').innerHTML = f.themen.flatMap(t => t.quellen.map(q =>
@@ -1633,7 +1636,7 @@ function ladeFolge(i, autoplay) {
 function zeichneArchiv() {
   $('#archivZahl').textContent = FOLGEN.length;
   $('#karten').innerHTML = FOLGEN.map((f, i) =>
-    `<button class="karte${i === aktuell ? ' laeuft' : ''}" data-i="${i}" data-slop="schwebe">`
+    `<button class="karte${i === aktuell ? ' laeuft' : ''}" data-i="${i}" data-slop="schwebe glas glow">`
     + `<span class="kicon">${KOPFHOERER}</span><span><h4 data-slop="schablone">${esc(f.titel)}</h4>`
     + `<span class="kmeta"><span>${esc(f.datumKurz)}</span><span>${esc(f.dauer)} Min</span>`
     + `<span>${f.themenZahl} Themen</span></span></span></button>`).join('');
@@ -1795,19 +1798,30 @@ function zeichneMeter() {
   const aktiveSeite = document.querySelector('.seite.an');
   const gesamt = {}, hier = {};
   document.querySelectorAll('[data-slop]').forEach(el => {
-    const k = el.dataset.slop;
-    el.dataset.nr = REGELNUMMER[k];
-    el.title = REGELN[k] ? REGELN[k][0] : k;
+    /* Mehrere Muster je Element, durch Leerzeichen getrennt. Ein Steckbrief
+       liegt hinter Milchglas, hebt sich beim Ueberfahren UND leuchtet — mit
+       nur einem Marker liesse sich davon zwei Drittel nicht benennen. */
+    const schluessel = el.dataset.slop.split(/\s+/).filter(k => REGELN[k])
+      .sort((a, b) => REGELNUMMER[a] - REGELNUMMER[b]);
+    el.dataset.nr = schluessel.map(k => REGELNUMMER[k]).join(' · ');
+    el.title = schluessel.map(k => REGELN[k][0]).join(' · ');
+
     // Nur static-Elemente brauchen die Hilfsklasse. Wer bereits fixed oder
     // absolute ist, ist schon Bezugspunkt fuer sein eigenes ::before.
-    if (getComputedStyle(el).position === 'static') el.classList.add('slop-rel');
-    gesamt[k] = (gesamt[k] || 0) + 1;
-    // Zaehlt als "auf dieser Seite", wenn es in der sichtbaren Seite liegt
-    // oder zum Rahmen gehoert, der auf allen Seiten steht.
-    const imRahmen = !el.closest('.seite');
-    if (imRahmen || (aktiveSeite && aktiveSeite.contains(el))) {
-      hier[k] = (hier[k] || 0) + 1;
+    const stil = getComputedStyle(el);
+    if (stil.position === 'static') el.classList.add('slop-rel');
+    // Wo der Inhalt beschnitten wird, laege die Nummer ausserhalb und waere
+    // unsichtbar — dort sitzt sie innen.
+    if (stil.overflowX !== 'visible' || stil.overflowY !== 'visible') {
+      el.classList.add('slop-innen');
     }
+
+    const imRahmen = !el.closest('.seite');
+    const zaehltHier = imRahmen || (aktiveSeite && aktiveSeite.contains(el));
+    schluessel.forEach(k => {
+      gesamt[k] = (gesamt[k] || 0) + 1;
+      if (zaehltHier) hier[k] = (hier[k] || 0) + 1;
+    });
   });
 
   /* Nach Nummer, aufsteigend. Vorher standen die Regeln mit den meisten
