@@ -58,9 +58,15 @@ html[data-modus="hell"] .blob{opacity:.12}
 .wrap{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:44px 28px 140px}
 .seite{display:none} .seite.an{display:block}
 
+/* Das Laufband ist so breit wie der Textcontainer, nicht wie der Bildschirm.
+   Ohne Maske endet der laufende Text an einer harten Kante — auf einem
+   grossen Monitor sieht das nach Fehler aus. Die Maske blendet ihn an beiden
+   Raendern aus, samt Rahmen und Flaeche. */
 .laufband{overflow:hidden;border-block:1px solid var(--linie);background:var(--bg2);
   margin:-44px -28px 40px;padding:9px 0;font-size:11.5px;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--leise)}
+  text-transform:uppercase;color:var(--leise);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%)}
 .laufband div{display:inline-block;white-space:nowrap;animation:laufen 34s linear infinite}
 .laufband span{margin:0 26px} .laufband b{color:var(--akzent);font-weight:600}
 @keyframes laufen{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -328,13 +334,22 @@ pre.protokoll{background:var(--bg2);border:1px solid var(--linie);
   font-variant-numeric:tabular-nums}
 .ms-rolle{margin:14px 0 0;font-size:14px;color:var(--leise)}
 .ms-listen{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:15px}
+.ms-listen.drei{grid-template-columns:1fr 1fr 1fr;gap:22px}
+.ms-listen .ms-kann h4{color:var(--akzent)}
+.ms-listen .ms-wir{border-left:1px solid var(--linie);padding-left:20px}
+.ms-listen .ms-wir h4::after{content:" — unsere Festlegung";letter-spacing:0;
+  text-transform:none;font-weight:400;opacity:.7}
 .ms-listen h4{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--leise);margin-bottom:8px}
 .ms-listen ul{margin:0 0 0 17px;font-size:13.5px;line-height:1.55}
 .ms-listen li{margin-bottom:7px}
 .ms-listen code{font-size:12px;background:var(--bg2);padding:1px 4px;
   border-radius:4px;font-family:ui-monospace,'SF Mono',Menlo,monospace}
-@media(max-width:820px){.ms-listen{grid-template-columns:1fr}.ms-preis{text-align:left}}
+@media(max-width:1100px){.ms-listen.drei{grid-template-columns:1fr 1fr}
+  .ms-listen .ms-wir{border-left:0;padding-left:0;grid-column:1/-1;
+    border-top:1px solid var(--linie);padding-top:14px}}
+@media(max-width:820px){.ms-listen,.ms-listen.drei{grid-template-columns:1fr}
+  .ms-preis{text-align:left}}
 
 /* ------------------------------ Kostenprotokoll --------------------------- */
 .kostenblock{margin-top:46px;padding-top:32px;border-top:1px solid var(--linie)}
@@ -363,6 +378,18 @@ pre.protokoll{background:var(--bg2);border:1px solid var(--linie);
 .ktab .erkl{display:block;color:var(--leise);font-size:12.5px;margin-top:3px;
   font-weight:400;line-height:1.45}
 .ktab tr:last-child td{border-bottom:0}
+.ktab .anteil{width:150px}
+.ktab td.anteil{display:flex;align-items:center;gap:9px}
+.ktab .balken{flex:1;height:5px;background:var(--linie);border-radius:99px;
+  overflow:hidden;min-width:50px}
+.ktab .balken i{display:block;height:100%;background:var(--akzent);border-radius:99px}
+.ktab .anteil em{font-style:normal;font-size:12px;color:var(--leise);
+  font-variant-numeric:tabular-nums;min-width:44px;text-align:right}
+.ktab .ksummenzeile td{border-top:2px solid var(--linie);border-bottom:0;
+  padding-top:13px}
+.kunter{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--leise);margin:26px 0 6px;font-weight:600}
+@media(max-width:820px){.ktab .anteil{display:none}}
 @media(max-width:820px){
   .ktab .menge,.ktab .stimme{display:none}
   .ktab{font-size:13px}
@@ -1174,10 +1201,7 @@ body.ruhig *{animation:none !important;transition:none !important}
         </div>
         <div class="ms-preis"><div>abgerechnet<br><span>je Zeichen</span></div></div>
       </div>
-      <div class="ms-listen">
-        <div><h4>Kann</h4><ul><li>Versteht Regieanweisungen im Text — <code>[sarcastic]</code>, <code>[laughs]</code>, <code>[thoughtful]</code> und fünf weitere</li><li>Regie wirkt auch auf Deutsch. Das steht in keiner Doku — alle Beispiele dort sind englisch. Wir haben es gehört und gemessen</li><li>Drei deutsche Stimmen für Bernhard, Lisa und Elara</li></ul></div>
-        <div><h4>Kann nicht</h4><ul><li>Höchstens zwölf Anweisungen je Folge, sonst wird das Spiel zur Masche</li><li>Deutlich teurer als Deepgram — rund das Dreifache je Folge</li></ul></div>
-      </div>
+      <div class="ms-listen drei"><div class="ms-kann"><h4>Kann</h4><ul><li>Versteht <strong>Regieanweisungen im Text</strong> — Audio-Tags wie <code>[laughs]</code> oder <code>[sighs]</code> werden gespielt, nicht vorgelesen</li><li>Regler für Stabilität und Stil (<code>stability</code>, <code>style</code>)</li><li>Öffentliche Stimmbibliothek: Die drei genutzten Stimmen ließen sich direkt ansprechen, ohne sie ins Konto zu übernehmen</li></ul></div><div class="ms-nicht"><h4>Kann nicht</h4><ul><li>Rund das <strong>Dreifache</strong> von Deepgram je Folge — 1,12 $ gegenüber 0,34 $ bei gleicher Textlänge</li><li>Die Verbrauchsanzeige des Kontos hinkt nach; sie taugt nicht zur Kostenkontrolle während eines Laufs</li></ul></div><div class="ms-wir"><h4>So setzen wir es ein</h4><ul><li>Acht Anweisungen zugelassen: <code>[sarcastic]</code>, <code>[laughs]</code>, <code>[chuckles]</code>, <code>[sighs]</code>, <code>[curious]</code>, <code>[thoughtful]</code>, <code>[annoyed]</code>, <code>[short pause]</code></li><li>Höchstens zwölf je Folge (<code>REGIE_MAX</code> in <code>script.py</code>) — sonst wird das Spiel zur Masche. Unsere Regel, keine Grenze des Anbieters</li><li><strong>Dass die Regie auf Deutsch wirkt, steht in keiner Doku</strong> — alle Beispiele dort sind englisch. Wir haben es gehört und festgehalten</li></ul></div></div>
     </div><div class="mstein zweit">
       <div class="ms-kopf">
         <div>
@@ -1187,10 +1211,7 @@ body.ruhig *{animation:none !important;transition:none !important}
         </div>
         <div class="ms-preis"><div>abgerechnet<br><span>je 1.000 Zeichen</span></div></div>
       </div>
-      <div class="ms-listen">
-        <div><h4>Kann</h4><ul><li>Sieben deutsche Stimmen, davon drei weibliche</li><li>Günstig und schnell; lief bis zum 26.08. im Regelbetrieb</li></ul></div>
-        <div><h4>Kann nicht</h4><ul><li><strong>Keine Regieanweisungen.</strong> Aura-2 liest <code>[lacht]</code> wörtlich vor — „Klammer auf lacht Klammer zu“. Deshalb steht im Code die Vorgabe, dass ein Anbieter Regie erst zu sehen bekommt, wenn er sie ausdrücklich versteht</li><li>Kein Emotionsregler. Lebendigkeit entsteht im Manuskript: Auslassungspunkte als Denkpause, gelegentliche Füllwörter, kurze Sätze</li></ul></div>
-      </div>
+      <div class="ms-listen drei"><div class="ms-kann"><h4>Kann</h4><ul><li><strong>Sieben muttersprachlich deutsche Stimmen</strong> — fünf weibliche, zwei männliche. Keine englischen Sprecher, die Deutsch sprechen, und damit keine Färbung</li><li>Rund ein Drittel des Preises von ElevenLabs bei gleicher Textlänge</li></ul></div><div class="ms-nicht"><h4>Kann nicht</h4><ul><li><strong>Keine Regieanweisungen.</strong> Aura-2 liest <code>[lacht]</code> wörtlich vor — „Klammer auf lacht Klammer zu“</li><li>Kein Emotions- oder Stilregler</li><li>Kein <code>speed</code>-Parameter für Deutsch: <code>speed=1.15</code> beantwortet die Schnittstelle mit HTTP 400. Die Dokumentation nennt dafür nur Englisch und Spanisch</li></ul></div><div class="ms-wir"><h4>So setzen wir es ein</h4><ul><li>Bleibt als Rückfallebene eingerichtet — der Wechsel zurück ist ein Wort in der Konfiguration</li><li>Das Sprechtempo entsteht beim Zusammenschnitt (+12 %), nicht im Modell. Genau deshalb fiel der fehlende Parameter nicht ins Gewicht</li><li>Lebendigkeit entsteht im Manuskript: Auslassungspunkte als Denkpause, sparsame Füllwörter, kurze Sätze. Das ist auch Deepgrams eigene Empfehlung</li></ul></div></div>
     </div>
   </div>
 
@@ -1218,6 +1239,18 @@ body.ruhig *{animation:none !important;transition:none !important}
       wird trotzdem gezählt, damit die Zeile nicht fehlt, wenn sich das ändert.</p>
 
     <h3>Bei welchem Anbieter</h3>
+    <table class="ktab">
+      <tr><th>Anbieter</th><th class="num">Aufrufe</th><th>Menge</th>
+          <th class="num">Kosten</th><th class="anteil">Anteil</th></tr>
+      <tr><td><strong>Deepgram</strong><span class="erkl">Aura-2, Aura-2 (Julius), Rechnungsabgleich</span></td><td class="num">13</td><td class="menge">122.686 Zeichen</td><td class="num">3,42 €</td><td class="anteil"><span class="balken"><i style="width:66.8%"></i></span><em>66,8 %</em></td></tr><tr><td><strong>ElevenLabs</strong><span class="erkl">Flash v2.5, v3</span></td><td class="num">4</td><td class="menge">19.626 Zeichen</td><td class="num">1,68 €</td><td class="anteil"><span class="balken"><i style="width:32.7%"></i></span><em>32,7 %</em></td></tr><tr><td><strong>Z.ai</strong><span class="erkl">GLM 5.3 Flash</span></td><td class="num">19</td><td class="menge">40.768 ein / 110.907 aus</td><td class="num">0,03 €</td><td class="anteil"><span class="balken"><i style="width:0.6%"></i></span><em>0,5 %</em></td></tr><tr><td><strong>OpenRouter</strong><span class="erkl">Ox Alpha</span></td><td class="num">334</td><td class="menge">1.368.671 ein / 658.509 aus</td><td class="num">0,00 €</td><td class="anteil"><span class="balken"><i style="width:0.6%"></i></span><em>0,0 %</em></td></tr><tr><td><strong>Tavily</strong><span class="erkl">Suche</span></td><td class="num">97</td><td class="menge">—</td><td class="num">0,00 €</td><td class="anteil"><span class="balken"><i style="width:0.6%"></i></span><em>0,0 %</em></td></tr>
+      <tr class="ksummenzeile"><td><strong>Zusammen</strong></td>
+          <td class="num">467</td>
+          <td class="menge">—</td>
+          <td class="num">5,13 €</td>
+          <td class="anteil"><em>100 %</em></td></tr>
+    </table>
+
+    <h4 class="kunter">Aufgeschlüsselt nach Modell</h4>
     <table class="ktab">
       <tr><th>Anbieter</th><th>Modell</th><th class="num">Aufrufe</th>
           <th>Menge</th><th class="num">Kosten</th></tr>
