@@ -165,16 +165,32 @@ html[data-modus="hell"] .wortmarke .slop{text-shadow:0 0 16px rgba(79,122,0,.30)
 .vlabel{font-size:10.5px;letter-spacing:.19em;text-transform:uppercase;
   color:var(--leise);margin-bottom:16px}
 .vlogos{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
-.vlogo{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--linie);
-  border-radius:10px;padding:9px 15px 9px 12px;opacity:.55;transition:opacity .22s;
-  background:color-mix(in srgb,var(--flaeche) 55%,transparent);
-  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.vlogo:hover{opacity:.9}
-.vlogo svg{width:26px;height:26px;flex:none;fill:currentColor;color:var(--leise)}
-.vtext{display:flex;flex-direction:column;line-height:1.15;text-align:left}
-.vtext b{font-size:14px;font-weight:800;letter-spacing:.06em;color:var(--text)}
-.vtext{font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;
-  color:var(--leise)}
+.vlogos{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+  align-items:stretch}
+.vlogo{display:inline-flex;align-items:center;gap:11px;padding:11px 16px 11px 13px;
+  border:1px solid var(--linie);border-radius:11px;
+  background:color-mix(in srgb,var(--flaeche) 58%,transparent);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  filter:grayscale(.75);opacity:.62;transition:filter .25s,opacity .25s,transform .25s}
+.vlogo:hover{filter:none;opacity:1;transform:translateY(-2px)}
+.vlogo svg{width:30px;height:30px;flex:none}
+.vtext{display:flex;flex-direction:column;line-height:1.12;text-align:left}
+.vtext b{font-size:15px;font-weight:800;letter-spacing:.04em;color:var(--text)}
+.vtext em{font-style:normal;font-size:9px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--leise);margin-top:3px}
+.vtext i{font-style:normal;font-size:8px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--leise);opacity:.65;margin-top:2px}
+
+/* Jede Marke traegt ihre eigene Schriftanmutung — so wie echte Leisten
+   Wortmarken aus fuenf verschiedenen Handschriften nebeneinanderstellen. */
+.vlogo-amt .vtext b{font-family:Georgia,'Times New Roman',serif;font-weight:700;
+  letter-spacing:.08em}
+.vlogo-institut .vtext b{font-family:Georgia,'Times New Roman',serif;
+  font-style:italic;font-weight:700;letter-spacing:0}
+.vlogo-kg .vtext b{letter-spacing:.16em;font-weight:600}
+.vlogo-ag .vtext b{font-family:ui-monospace,'SF Mono',Menlo,monospace;
+  font-size:14px;letter-spacing:.02em}
+.vlogo-holding .vtext b{font-weight:300;letter-spacing:.22em;font-size:14px}
 
 .faq{margin-top:44px;padding-top:30px;border-top:1px solid var(--linie)}
 .faq > h3{font-size:12px;letter-spacing:.18em;text-transform:uppercase;
@@ -668,7 +684,7 @@ body.ruhig *{animation:none !important;transition:none !important}
 
   <div class="vertrauen" data-slop="logos">
     <div class="vlabel">Vertraut von führenden Organisationen</div>
-    <div class="vlogos"><span class="vlogo"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="11"/><circle cx="16" cy="16" r="5"/></svg><span class="vtext"><b>BFS</b>Bundesamt für Schlagworte</span></span><span class="vlogo"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 5l11 19H5z"/><path d="M16 12l5 9h-10z" fill="none"/></svg><span class="vtext"><b>IFAR</b>Institut für angewandte Redundanz</span></span><span class="vlogo"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4l10 6v12l-10 6-10-6V10z"/></svg><span class="vtext"><b>S&amp;S</b>Synergie &amp; Söhne</span></span><span class="vlogo"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="19" width="5" height="9" rx="1"/><rect x="13" y="12" width="5" height="16" rx="1"/><rect x="21" y="5" width="5" height="23" rx="1"/></svg><span class="vtext"><b>VP</b>Vereinigte Platzhalter</span></span><span class="vlogo"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4l12 12-12 12L4 16z"/><circle cx="16" cy="16" r="3" fill="none"/></svg><span class="vtext"><b>GNH</b>Global Nichts Holding</span></span></div>
+    <div class="vlogos"><span class="vlogo vlogo-amt"><svg viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="g0" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4A6FA5"/><stop offset="1" stop-color="#2E4A73"/></linearGradient></defs><circle cx="20" cy="20" r="18" fill="none" stroke="url(#g0)" stroke-width="1.4"/><circle cx="20" cy="20" r="15.2" fill="none" stroke="url(#g0)" stroke-width=".9" stroke-dasharray="1.2 2.6" opacity=".85"/><path d="M13.5 14.5h13a1.8 1.8 0 011.8 1.8v6.4a1.8 1.8 0 01-1.8 1.8h-6.6L16 28v-3.5h-2.5a1.8 1.8 0 01-1.8-1.8v-6.4a1.8 1.8 0 011.8-1.8z" fill="url(#g0)"/><path d="M15.6 18.2h8.8M15.6 21h5.6" stroke="var(--flaeche)" stroke-width="1.3" stroke-linecap="round"/></svg><span class="vtext"><b>BFS</b><em>Bundesamt für Schlagworte</em><i>Amt für Begriffspflege</i></span></span><span class="vlogo vlogo-institut"><svg viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8B6BB1"/><stop offset="1" stop-color="#5C4482"/></linearGradient></defs><circle cx="20" cy="20" r="16" fill="none" stroke="url(#g1)" stroke-width="2"/><circle cx="20" cy="20" r="11" fill="none" stroke="url(#g1)" stroke-width="2" opacity=".75"/><circle cx="20" cy="20" r="6.5" fill="none" stroke="url(#g1)" stroke-width="2" opacity=".5"/><circle cx="20" cy="20" r="2.5" fill="url(#g1)" opacity=".35"/></svg><span class="vtext"><b>IFAR</b><em>Institut für angewandte Redundanz</em><i>Forschung, Forschung</i></span></span><span class="vlogo vlogo-kg"><svg viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C99A3F"/><stop offset="1" stop-color="#8A6620"/></linearGradient></defs><path d="M20 5c-6 0-11 4.5-11 10s5 10 11 10" fill="none" stroke="url(#g2)" stroke-width="3.4" stroke-linecap="round"/><path d="M20 15c6 0 11 4.5 11 10s-5 10-11 10" fill="none" stroke="url(#g2)" stroke-width="3.4" stroke-linecap="round" opacity=".7"/></svg><span class="vtext"><b>S&amp;S</b><em>Synergie &amp; Söhne</em><i>seit 1987</i></span></span><span class="vlogo vlogo-ag"><svg viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6E7B8B"/><stop offset="1" stop-color="#464F5A"/></linearGradient></defs><rect x="5" y="8" width="30" height="24" rx="2" fill="none" stroke="url(#g3)" stroke-width="2"/><path d="M5 8l30 24M35 8L5 32" stroke="url(#g3)" stroke-width="1.6" opacity=".55"/></svg><span class="vtext"><b>VP</b><em>Vereinigte Platzhalter</em><i>AG &amp; Co. KGaA</i></span></span><span class="vlogo vlogo-holding"><svg viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="g4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3E9C8F"/><stop offset="1" stop-color="#256B61"/></linearGradient></defs><circle cx="20" cy="20" r="15.5" fill="none" stroke="url(#g4)" stroke-width="2"/><path d="M4.5 20h31M20 4.5c4.6 4.6 4.6 26.4 0 31M20 4.5c-4.6 4.6-4.6 26.4 0 31" fill="none" stroke="url(#g4)" stroke-width="1.3" opacity=".65"/><circle cx="20" cy="20" r="3.6" fill="var(--flaeche)"/><circle cx="20" cy="20" r="3.6" fill="none" stroke="url(#g4)" stroke-width="1.1" stroke-dasharray="1 1.8"/></svg><span class="vtext"><b>GNH</b><em>Global Nichts Holding</em><i>worldwide</i></span></span></div>
   </div>
 
   <div class="trenner">Show Notes</div>
