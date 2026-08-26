@@ -429,7 +429,13 @@ pre.protokoll{background:var(--bg2);border:1px solid var(--linie);
 .meterbtn{position:fixed;right:22px;bottom:22px;z-index:60;border:0;cursor:pointer;
   border-radius:999px;padding:13px 20px;font:inherit;font-size:13.5px;font-weight:700;
   background:#FF3B6B;color:#fff;box-shadow:0 8px 26px rgba(255,59,107,.42)}
-body.slop-an [data-slop]{outline:1.5px dashed #FF3B6B;outline-offset:5px;position:relative}
+/* Die Nummer sitzt absolut im markierten Element, dafuer muss das Element
+   positioniert sein. `position:relative` pauschal zu setzen war ein Fehler:
+   Es ueberschreibt das `fixed` der Leiste und der Farbflecken; beide fallen
+   dann in den Textfluss, und die Seite zerlegt sich, sobald das Meter an ist.
+   Die Hilfsklasse setzt das Skript nur dort, wo die Position `static` ist. */
+body.slop-an [data-slop]{outline:1.5px dashed #FF3B6B;outline-offset:5px}
+body.slop-an [data-slop].slop-rel{position:relative}
 body.slop-an [data-slop]::before{content:attr(data-nr);position:absolute;top:-9px;
   left:-9px;z-index:30;background:#FF3B6B;color:#fff;font-size:10px;font-weight:700;
   line-height:1;padding:4px 6px;border-radius:5px;letter-spacing:0}
@@ -1633,6 +1639,9 @@ function zeichneMeter() {
     const k = el.dataset.slop;
     el.dataset.nr = REGELNUMMER[k];
     el.title = REGELN[k] ? REGELN[k][0] : k;
+    // Nur static-Elemente brauchen die Hilfsklasse. Wer bereits fixed oder
+    // absolute ist, ist schon Bezugspunkt fuer sein eigenes ::before.
+    if (getComputedStyle(el).position === 'static') el.classList.add('slop-rel');
     gesamt[k] = (gesamt[k] || 0) + 1;
     // Zaehlt als "auf dieser Seite", wenn es in der sichtbaren Seite liegt
     // oder zum Rahmen gehoert, der auf allen Seiten steht.
