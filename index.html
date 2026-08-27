@@ -324,6 +324,14 @@ body.laeuft .tbtn.gross{animation:ring 2.6s ease-out infinite}
   color:#fff;cursor:pointer}
 .mab:disabled{opacity:.45;cursor:default}
 
+.qthema{margin-bottom:14px}
+.qthema:last-child{margin-bottom:0}
+.qtitel{font-size:12.5px;font-weight:600;line-height:1.35;margin-bottom:6px;
+  color:var(--text)}
+.qthema .quelle{display:inline-flex;align-items:center;gap:5px;
+  margin:0 6px 5px 0;padding:4px 9px;font-size:12px}
+.qthema .quelle .s{color:var(--gedaempft)}
+
 .archivkopf{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;
   color:var(--leise);margin-bottom:20px}
 .karten{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -1447,7 +1455,7 @@ body.ruhig *{animation:none !important;transition:none !important}
       <div><span class="zz">2.163</span><span class="zl">Fakten aus Quellen gelöst</span></div>
       <div><span class="zz">1.141</span><span class="zl">Einzelprüfungen gelaufen</span></div>
       <div><span class="zz">30</span><span class="zl">aktive Quellen</span></div>
-      <div><span class="zz">827</span><span class="zl">Testfunktionen im Code</span></div>
+      <div><span class="zz">835</span><span class="zl">Testfunktionen im Code</span></div>
     </div>
     <p class="leise">Die Zahl der nie gesendeten Themen ist die wichtigste davon: Sie
       ist der Vorrat, aus dem die Auswahl schöpft. Solange er wächst, muss kein Thema
@@ -1734,10 +1742,17 @@ function ladeFolge(i, autoplay) {
     `<div class="thema" data-slop="nummern glow"><div class="kopf"><div class="nr">${String(n + 1).padStart(2, '0')}</div>`
     + `<div><h4>${esc(t.titel)}</h4></div></div></div>`).join('');
 
-  $('#quellen').innerHTML = f.themen.flatMap(t => t.quellen.map(q =>
-    `<a class="quelle" href="${esc(q.url)}" target="_blank" rel="noopener">${PFEIL}`
-    + `<span><span class="t">${esc(t.titel)}</span><span class="s">${esc(q.name)}</span></span></a>`
-  )).join('');
+  /* Nach Thema gruppiert, nicht je Quelle wiederholt.
+   *
+   * Vorher stand der Titel in jeder Zeile - bei vier Quellen zum selben
+   * Thema also viermal derselbe lange Satz untereinander. Was man lesen
+   * wollte (welches Haus?), stand rechts und ging darin unter. */
+  $('#quellen').innerHTML = f.themen.filter(t => t.quellen.length).map(t =>
+    `<div class="qthema"><div class="qtitel">${esc(t.titel)}</div>`
+    + t.quellen.map(q =>
+        `<a class="quelle" href="${esc(q.url)}" target="_blank" rel="noopener">`
+        + `${PFEIL}<span class="s">${esc(q.name)}</span></a>`).join('')
+    + `</div>`).join('');
 
   $('#transkript').innerHTML = f.transkript.map(z =>
     `<div class="zeile"><div class="wer ${z.rolle}">${esc(z.wer)}</div>`
@@ -1787,7 +1802,7 @@ $('#abspielen').onclick = () => audio.paused ? audio.play().catch(() => {}) : au
  * vollständig vor - abschicken muss der Mensch, und das ist auch gut so:
  * Sonst legt jeder Fehlklick eine Meldung an.
  */
-const MELDE_REPO = 'Raketenmann87/ki-podcast';
+const MELDE_REPO = 'Raketenmann87/slopresso-web';
 let meldeZeit = 0;
 
 function meldungOeffnen() {
