@@ -909,7 +909,7 @@ body.ruhig *{animation:none !important;transition:none !important}
     <h2>Wie eine Folge entsteht</h2>
     <p>Jeden Werktag um 6 Uhr startet der Lauf auf GitHub Actions. Ohne einen
       Handgriff. Neun Schritte von der Meldung bis zur fertigen MP3:</p>
-    <div class="diagramm" data-slop="bruch schwebe"><svg viewBox="0 0 1176 456" role="img" aria-labelledby="ablauf-title ablauf-desc" xmlns="http://www.w3.org/2000/svg">
+    <div class="diagramm" data-slop="bruch schwebe stapel"><svg viewBox="0 0 1176 456" role="img" aria-labelledby="ablauf-title ablauf-desc" xmlns="http://www.w3.org/2000/svg">
   <title id="ablauf-title">Wie eine slopresso-Folge entsteht</title>
   <desc id="ablauf-desc">Ablauf in neun Schritten über vier Beteiligte: Quellen liefern Meldungen, der Code sichtet und wählt aus, das Sprachmodell löst Fakten heraus und schreibt das Manuskript, neun Filter im Code prüfen es, dann sprechen drei Stimmen und der Schnitt legt Musik darunter.</desc>
   <defs>
@@ -1102,7 +1102,11 @@ body.ruhig *{animation:none !important;transition:none !important}
       <div class="bu">Vier Beteiligte: Die Quellen liefern Meldungen. Der Code sichtet
         und wählt aus — deterministisch, ohne Modellaufruf. Das Sprachmodell löst
         Fakten heraus und schreibt. Neun Filter im Code prüfen das Ergebnis. Dann
-        sprechen drei Stimmen, und der Schnitt legt Musik darunter.</div>
+        sprechen drei Stimmen, und der Schnitt legt Musik darunter.
+        <br><span class="leise">In der untersten Zeile jedes Kastens steht ein
+        Werkzeugname — <em>feedparser</em>, <em>rapidfuzz</em>, <em>ffmpeg</em>.
+        Ohne die Aufgabe daneben wären das bloße Ausweise; hier tragen sie, weil
+        der Kasten darüber sagt, wofür sie da sind.</span></div>
     </div>
     <h3>Aufbau einer Folge</h3>
     <div class="diagramm" data-slop="bruch schwebe"><svg viewBox="0 0 1176 460" role="img" aria-labelledby="folge-title folge-desc" xmlns="http://www.w3.org/2000/svg">
@@ -1190,6 +1194,79 @@ body.ruhig *{animation:none !important;transition:none !important}
         für sechzig Prozent der Information. Ein gedehnter Maßstab ohne Markierung
         wäre eine Lüge über die Dauer.</div>
     </div>
+  </div>
+
+  <div class="hgab" id="technik">
+    <h2>Wie es technisch läuft</h2>
+    <p>Vier Stellen, an denen das System etwas tut, das man ihm nicht ansieht.
+      Die Werkzeuge stehen nur dort, wo der Satz ohne sie unvollständig wäre —
+      eine Liste von Bibliotheksnamen wäre ein Ausweis, keine Erklärung.</p>
+
+    <h3>Der Betrieb hält sich selbst am Laufen</h3>
+    <p>Der Morgenlauf startet über einen Zeitplan bei GitHub Actions. Am 27. August
+      ist er <strong>nicht gestartet</strong> — GitHub hat ihn stillschweigend
+      verworfen. Die gemessenen Startzeiten davor:</p>
+    <table class="tab">
+      <tr><th>geplant</th><th>gelaufen</th><th>Verspätung</th></tr>
+      <tr><td>04:00 UTC</td><td class="leise">04:37</td><td class="leise">+37 min</td></tr>
+      <tr><td>04:00 UTC</td><td class="leise">04:35</td><td class="leise">+35 min</td></tr>
+      <tr><td>04:00 UTC</td><td class="leise">fiel aus</td><td class="leise">—</td></tr>
+      <tr><td>23:00 UTC</td><td class="leise">04:06</td><td class="leise">+5 h 06</td></tr>
+    </table>
+    <p class="leise">Alle Zeitpläne lagen auf der vollen Stunde — genau dann stehen
+      bei GitHub weltweit Millionen Aufträge an. Ein Zeitplan auf Minute 37 kam mit
+      einer Minute Verspätung durch. Seitdem liegen alle sechs Zeitpläne auf krummen
+      Minuten, gestaffelt in Ablaufreihenfolge, und der Morgenlauf hat einen
+      <strong>zweiten Termin</strong> als Netz. Der prüft zuerst, ob die Sendung schon
+      steht, und bricht dann ab — sonst überschriebe er die fertige Folge, und die
+      Themen des ersten Laufs wären gesperrt. Steht um 7:52 immer noch nichts, stößt
+      ein Wächter den Lauf selbst an.</p>
+
+    <h3>Aus dreitausend Meldungen werden sechs Themen</h3>
+    <p>Jede neue Meldung wird gegen dreißig Tage Themenbestand gehalten. Der Abgleich
+      läuft in Stufen, und die erste ist reine Rechenarbeit: Zwei Titel werden auf
+      Wortebene verglichen, über <em>rapidfuzz</em>. Über 85 Prozent Ähnlichkeit gilt
+      als dasselbe Thema, unter 55 Prozent als verschieden — beides ohne Modellaufruf.
+      Nur was dazwischen liegt, geht ans Sprachmodell.</p>
+    <p class="leise"><strong>Im Lauf vom 27. August fielen 74 von 92 Entscheidungen
+      ohne Modell.</strong> Das ist kein Sparzwang, sondern eine Frage der
+      Wiederholbarkeit: Ein Zeichenvergleich entscheidet heute wie morgen gleich.</p>
+
+    <h3>Aus Text wird Ton</h3>
+    <p>Das Manuskript wird nicht am Stück vertont, sondern in Sprechabschnitten —
+      rund 75 je Folge. Jeder geht einzeln an die Sprachausgabe, mit der Stimme
+      seiner Rolle. Dazwischen liegen zwei verschiedene Pausen: 0,35 Sekunden beim
+      Sprecherwechsel, 0,15 innerhalb derselben Rolle. Man hört den Unterschied,
+      ohne ihn benennen zu können.</p>
+    <table class="tab">
+      <tr><th>Schritt</th><th>Was dabei passiert</th></tr>
+      <tr><td>Aussprache</td><td class="leise">Geschrieben <em>slopresso</em>,
+        gesprochen <em>SLOPPRESSO</em>. Die Umschrift hängt am Anbieter: Großschreibung
+        erhöht bei einem die Betonung, beim anderen wird sie buchstabiert. Jeder
+        bringt seine eigene Liste mit.</td></tr>
+      <tr><td>Regieanweisungen</td><td class="leise">Klammern wie <em>[lacht]</em>
+        gehen nur an Anbieter, die sie verstehen. Bei allen anderen werden sie
+        <strong>entfernt</strong>, sonst liest die Stimme das Wort vor.</td></tr>
+      <tr><td>Tempo</td><td class="leise">Alles zwölf Prozent schneller, die Ansagerin
+        noch einmal fünfzehn darüber. Nicht beim Sprechen eingestellt, sondern beim
+        Zusammenschnitt gestreckt — die Tonhöhe bleibt.</td></tr>
+      <tr><td>Musik</td><td class="leise">Der Jingle läuft elf Sekunden allein, dann
+        geht er um achtzehn Dezibel herunter und liegt unter dem Vorspann. Wann er
+        endet, entscheidet nicht eine Sekundenzahl, sondern das Ende des
+        Ansagerinnen-Blocks.</td></tr>
+      <tr><td>Lautstärke</td><td class="leise">Am Ende gemessen und um einen festen
+        Betrag angehoben. Der übliche Weg — ein dynamischer Durchgang — verfehlte
+        sein Ziel um 3,4 Dezibel.</td></tr>
+    </table>
+
+    <h3>Wenn beim Hören etwas auffällt</h3>
+    <p>Im Abspieler oben sitzt ein Knopf. Wer ihn drückt, hält die Folge an; die
+      Stelle wird auf die Sekunde festgehalten. Zwei Sätze dazu, und die Meldung
+      landet im Repository — mit Folge, Zeitstempel und Text.</p>
+    <p class="leise">Sie wird <strong>nicht automatisch umgesetzt</strong>. Wer an der
+      nächsten Folge arbeitet, bekommt die offenen Meldungen vorgelegt und entscheidet
+      einzeln. Was für den einen ein Fehler ist, ist für den anderen der Charakter der
+      Sendung.</p>
   </div>
 
   <div class="hgab" id="woher">
@@ -1370,7 +1447,7 @@ body.ruhig *{animation:none !important;transition:none !important}
       <div><span class="zz">2.163</span><span class="zl">Fakten aus Quellen gelöst</span></div>
       <div><span class="zz">1.141</span><span class="zl">Einzelprüfungen gelaufen</span></div>
       <div><span class="zz">30</span><span class="zl">aktive Quellen</span></div>
-      <div><span class="zz">800</span><span class="zl">Testfunktionen im Code</span></div>
+      <div><span class="zz">827</span><span class="zl">Testfunktionen im Code</span></div>
     </div>
     <p class="leise">Die Zahl der nie gesendeten Themen ist die wichtigste davon: Sie
       ist der Vorrat, aus dem die Auswahl schöpft. Solange er wächst, muss kein Thema
@@ -1893,7 +1970,7 @@ $('#modusbtn').onclick = () =>
   setzeModus(document.documentElement.dataset.modus === 'dunkel' ? 'hell' : 'dunkel');
 
 /* -------------------------------- Slop-Meter ---------------------------- */
-const REGELN = {"look": ["Vorlagen-Aussehen statt eigener Handschrift", "Maschinell erzeugte Oberflächen laufen auf eine Handvoll Muster hinaus, unabhängig davon, worum es geht. Diese hier ist eines davon, unverändert übernommen: fast schwarzer Grund, ein einziger greller Akzent.", "Sieht aus wie tausend andere — und genau daran erkennt man es."], "hero": ["Der Aufmacher ist die Schablonen-Antwort", "Vier große Zahlen mit kleiner Beschriftung und Farbverlauf. Das Muster sagt nichts über den Gegenstand aus, es sieht nur nach Produkt aus. Es steht hier, weil es immer irgendwie passt.", "Große Zahl, kleines Wort darunter — die Antwort, wenn niemandem etwas eingefallen ist."], "nummern": ["Nummerierung, wo es keine Reihenfolge gibt", "01, 02, 03 auf den Themen einer Folge. Die Nummern behaupten eine Abfolge, die es nicht gibt: Thema drei kommt nicht nach Thema eins, es ist nur ein weiteres Thema.", "Nummeriert wird, was aufeinander folgt. Sonst ist es Deko im Zahlengewand."], "motion": ["Alles bewegt sich", "Laufband, wandernder Farbverlauf in der Überschrift, Glanz über dem Titelbild, pulsierender Abspielknopf. Keine dieser Bewegungen trägt etwas bei.", "Bewegung zieht den Blick. Wenn alles sich bewegt, zieht sie ihn nirgendwohin."], "glow": ["Leuchten statt Hierarchie", "Überschriften, Kacheln, Knöpfe, Auszeichnungen, die Wortmarke — alles leuchtet. Das Auge findet nichts mehr zuerst.", "Wenn jedes Element hervorgehoben ist, ist keines hervorgehoben."], "verzicht": ["Nichts weggelassen", "Laufband, Auszeichnungen, Farbflecken im Hintergrund und eine Kachelreihe — alles gleichzeitig, alles gleich laut. Jede Idee, die jemand hatte, ist noch drin.", "Gestalten heißt weglassen. Hier wurde nur addiert."], "werbung": ["Werbetext statt Beschriftung", "„Wir kuratieren nahtlos die relevantesten Signale aus dem KI-Ökosystem“ — der Satz verkauft, statt zu sagen, was die Seite tut. Ehrlich wäre: täglicher Nachrichtenüberblick, zehn Minuten, Quellen verlinkt.", "Wer nichts Konkretes zu sagen hat, sagt es besonders schön."], "qualitaet": ["Qualität behauptet statt geliefert", "„AI-Powered“, „Enterprise-Ready“, „Zero-Touch-Pipeline“, „100 % automatisiert“. Belegen würde die Folge selbst — Laufzeit, Kosten, Quellenliste, Prüfprotokoll.", "Gute Arbeit braucht keinen Aufkleber, auf dem „gute Arbeit“ steht."], "emoji": ["Emoji tragen die Struktur", "🚀, 💡, 🔗, 📝 als Abschnittssymbole. Eine Rakete steht vor der Zusammenfassung, weil irgendein Symbol hin musste.", "Gliederung soll etwas über den Inhalt verraten, nicht ihn schmücken."], "denglisch": ["Englisch, wo Deutsch genügt", "„Deep-Dive-Themen“, „Kuratierte Topics“, „Zero-Touch-Pipeline“, „Realtime-Ingestion“. Gemeint sind Themen, eine Sendung und ein Ablauf.", "Die englischen Wörter machen nichts klarer. Sie sollen nach Produkt klingen."], "deko": ["Dekoration, die nichts trägt", "Drei animierte Farbflecken hinter jeder Seite. Sie zeigen nichts an, gliedern nichts und ändern sich nicht mit dem Inhalt.", "Da, damit die Fläche nicht leer wirkt. Ein leeres Feld wäre ehrlicher."], "schwebe": ["Alles hebt sich beim Überfahren", "Jede Kachel, jede Karte, jede Tabellenzeile springt unter dem Zeiger nach oben. Bei einer anklickbaren Karte ist das eine Rückmeldung; bei einer Zahlenkachel, die nichts tut, ist es eine Behauptung.", "Ein Element, das reagiert, verspricht, dass etwas passiert."], "mittelstand": ["Die Floskel aus der Ausschreibung", "„Was bedeutet das für den Mittelstand?“ läuft hier im Laufband mit. Die Ausschreibung führt genau diesen Satz als Ärgernis auf; bei podpresso steht er dreimal je Folge.", "Der Satz klingt nach Einordnung und ist die Abwesenheit davon."], "schablone": ["Titel und Zusammenfassung nach Schablone", "Der Titel lautet immer „Thema A, Thema B, und Thema C“, die Zusammenfassung besteht aus drei Sätzen, deren dritter mit „Und …“ beginnt. Beim Wettbewerber trifft das auf 20 von 20 ausgewerteten Folgen zu. Diese Seite erzeugt es absichtlich genauso.", "Eine Form, die immer passt, passt nirgends besonders gut."], "laufband": ["Nachrichtenband ohne Nachrichten", "Ein Streifen, der endlos durchläuft und Wörter wie „Live“, „Trending“ und „+400 %“ zeigt. Er suggeriert, dass laufend etwas hereinkommt. Tatsächlich stehen dort immer dieselben sieben Einträge, und die Zahl ist an nichts gemessen.", "Bewegung ist kein Beleg für Aktualität. Ein Datum wäre einer."], "glas": ["Milchglas auf allem", "Halbdurchsichtige Flächen mit Unschärfe dahinter, dazu ein heller Rand. Der Effekt tut so, als läge etwas darunter, das man ahnen soll — dahinter liegt nichts.", "Glas zeigt, was dahinter ist. Wenn dahinter nichts ist, ist es nur teurer Nebel."], "dreier": ["Genau drei Karten nebeneinander", "Symbol oben, Überschrift, zwei Zeilen Text — dreimal. Nicht zwei, nicht vier. Die Zahl kommt nicht aus dem Inhalt, sondern daher, dass drei Karten in eine Reihe passen.", "Wenn die Gliederung vom Raster kommt statt vom Inhalt, merkt man es spätestens beim vierten Punkt."], "logos": ["Vertrauensleiste ohne Vertrauen", "„Vertraut von führenden Organisationen“ und fünf Wortmarken. <strong>Sämtliche Namen und Zeichen hier sind frei erfunden</strong> — Bundesamt für Schlagworte, Institut für angewandte Redundanz, Global Nichts Holding. Auf echten Seiten stehen dort gern Firmen, die den Dienst einmal ausprobiert haben, und niemand fragt nach.", "Fremde Namen belegen nichts. Belegen würde, was die Sache selbst leistet."], "faq": ["Fragen, die niemand gestellt hat", "Eine Aufklappliste am Seitenende gehört zum Standardgerüst — Hero, drei Karten, Logos, FAQ. Die Fragen sind so gewählt, dass die Antwort ohnehin ins Verkaufsgespräch passt.", "Eine echte häufige Frage kommt von außen. Diese kommen von innen."], "serif": ["Das eine kursive Serifenwort", "Ein einzelnes Wort in kursiver Serifenschrift, mitten in einer sonst serifenlosen Seite. Es soll Handschrift andeuten, wo keine ist — und steht in fast jeder Aufzählung maschinell erzeugter Gestaltung.", "Ein Stilbruch, der überall gleich aussieht, ist keiner."], "bruch": ["Fremdkörper im Dunkelmodus", "Die beiden Ablaufdiagramme sind für hellen Grund gezeichnet und stehen als weiße Fläche in einer fast schwarzen Seite. Ehrlicher wäre, sie für beide Modi zu zeichnen — das war uns die Zeit vor der Vorführung nicht wert.", "Ein bewusst in Kauf genommener Mangel ist immer noch ein Mangel."]};
+const REGELN = {"look": ["Vorlagen-Aussehen statt eigener Handschrift", "Maschinell erzeugte Oberflächen laufen auf eine Handvoll Muster hinaus, unabhängig davon, worum es geht. Diese hier ist eines davon, unverändert übernommen: fast schwarzer Grund, ein einziger greller Akzent.", "Sieht aus wie tausend andere — und genau daran erkennt man es."], "hero": ["Der Aufmacher ist die Schablonen-Antwort", "Vier große Zahlen mit kleiner Beschriftung und Farbverlauf. Das Muster sagt nichts über den Gegenstand aus, es sieht nur nach Produkt aus. Es steht hier, weil es immer irgendwie passt.", "Große Zahl, kleines Wort darunter — die Antwort, wenn niemandem etwas eingefallen ist."], "nummern": ["Nummerierung, wo es keine Reihenfolge gibt", "01, 02, 03 auf den Themen einer Folge. Die Nummern behaupten eine Abfolge, die es nicht gibt: Thema drei kommt nicht nach Thema eins, es ist nur ein weiteres Thema.", "Nummeriert wird, was aufeinander folgt. Sonst ist es Deko im Zahlengewand."], "motion": ["Alles bewegt sich", "Laufband, wandernder Farbverlauf in der Überschrift, Glanz über dem Titelbild, pulsierender Abspielknopf. Keine dieser Bewegungen trägt etwas bei.", "Bewegung zieht den Blick. Wenn alles sich bewegt, zieht sie ihn nirgendwohin."], "glow": ["Leuchten statt Hierarchie", "Überschriften, Kacheln, Knöpfe, Auszeichnungen, die Wortmarke — alles leuchtet. Das Auge findet nichts mehr zuerst.", "Wenn jedes Element hervorgehoben ist, ist keines hervorgehoben."], "verzicht": ["Nichts weggelassen", "Laufband, Auszeichnungen, Farbflecken im Hintergrund und eine Kachelreihe — alles gleichzeitig, alles gleich laut. Jede Idee, die jemand hatte, ist noch drin.", "Gestalten heißt weglassen. Hier wurde nur addiert."], "werbung": ["Werbetext statt Beschriftung", "„Wir kuratieren nahtlos die relevantesten Signale aus dem KI-Ökosystem“ — der Satz verkauft, statt zu sagen, was die Seite tut. Ehrlich wäre: täglicher Nachrichtenüberblick, zehn Minuten, Quellen verlinkt.", "Wer nichts Konkretes zu sagen hat, sagt es besonders schön."], "qualitaet": ["Qualität behauptet statt geliefert", "„AI-Powered“, „Enterprise-Ready“, „Zero-Touch-Pipeline“, „100 % automatisiert“. Belegen würde die Folge selbst — Laufzeit, Kosten, Quellenliste, Prüfprotokoll.", "Gute Arbeit braucht keinen Aufkleber, auf dem „gute Arbeit“ steht."], "emoji": ["Emoji tragen die Struktur", "🚀, 💡, 🔗, 📝 als Abschnittssymbole. Eine Rakete steht vor der Zusammenfassung, weil irgendein Symbol hin musste.", "Gliederung soll etwas über den Inhalt verraten, nicht ihn schmücken."], "denglisch": ["Englisch, wo Deutsch genügt", "„Deep-Dive-Themen“, „Kuratierte Topics“, „Zero-Touch-Pipeline“, „Realtime-Ingestion“. Gemeint sind Themen, eine Sendung und ein Ablauf.", "Die englischen Wörter machen nichts klarer. Sie sollen nach Produkt klingen."], "deko": ["Dekoration, die nichts trägt", "Drei animierte Farbflecken hinter jeder Seite. Sie zeigen nichts an, gliedern nichts und ändern sich nicht mit dem Inhalt.", "Da, damit die Fläche nicht leer wirkt. Ein leeres Feld wäre ehrlicher."], "schwebe": ["Alles hebt sich beim Überfahren", "Jede Kachel, jede Karte, jede Tabellenzeile springt unter dem Zeiger nach oben. Bei einer anklickbaren Karte ist das eine Rückmeldung; bei einer Zahlenkachel, die nichts tut, ist es eine Behauptung.", "Ein Element, das reagiert, verspricht, dass etwas passiert."], "mittelstand": ["Die Floskel aus der Ausschreibung", "„Was bedeutet das für den Mittelstand?“ läuft hier im Laufband mit. Die Ausschreibung führt genau diesen Satz als Ärgernis auf; bei podpresso steht er dreimal je Folge.", "Der Satz klingt nach Einordnung und ist die Abwesenheit davon."], "schablone": ["Titel und Zusammenfassung nach Schablone", "Der Titel lautet immer „Thema A, Thema B, und Thema C“, die Zusammenfassung besteht aus drei Sätzen, deren dritter mit „Und …“ beginnt. Beim Wettbewerber trifft das auf 20 von 20 ausgewerteten Folgen zu. Diese Seite erzeugt es absichtlich genauso.", "Eine Form, die immer passt, passt nirgends besonders gut."], "laufband": ["Nachrichtenband ohne Nachrichten", "Ein Streifen, der endlos durchläuft und Wörter wie „Live“, „Trending“ und „+400 %“ zeigt. Er suggeriert, dass laufend etwas hereinkommt. Tatsächlich stehen dort immer dieselben sieben Einträge, und die Zahl ist an nichts gemessen.", "Bewegung ist kein Beleg für Aktualität. Ein Datum wäre einer."], "glas": ["Milchglas auf allem", "Halbdurchsichtige Flächen mit Unschärfe dahinter, dazu ein heller Rand. Der Effekt tut so, als läge etwas darunter, das man ahnen soll — dahinter liegt nichts.", "Glas zeigt, was dahinter ist. Wenn dahinter nichts ist, ist es nur teurer Nebel."], "dreier": ["Genau drei Karten nebeneinander", "Symbol oben, Überschrift, zwei Zeilen Text — dreimal. Nicht zwei, nicht vier. Die Zahl kommt nicht aus dem Inhalt, sondern daher, dass drei Karten in eine Reihe passen.", "Wenn die Gliederung vom Raster kommt statt vom Inhalt, merkt man es spätestens beim vierten Punkt."], "logos": ["Vertrauensleiste ohne Vertrauen", "„Vertraut von führenden Organisationen“ und fünf Wortmarken. <strong>Sämtliche Namen und Zeichen hier sind frei erfunden</strong> — Bundesamt für Schlagworte, Institut für angewandte Redundanz, Global Nichts Holding. Auf echten Seiten stehen dort gern Firmen, die den Dienst einmal ausprobiert haben, und niemand fragt nach.", "Fremde Namen belegen nichts. Belegen würde, was die Sache selbst leistet."], "faq": ["Fragen, die niemand gestellt hat", "Eine Aufklappliste am Seitenende gehört zum Standardgerüst — Hero, drei Karten, Logos, FAQ. Die Fragen sind so gewählt, dass die Antwort ohnehin ins Verkaufsgespräch passt.", "Eine echte häufige Frage kommt von außen. Diese kommen von innen."], "serif": ["Das eine kursive Serifenwort", "Ein einzelnes Wort in kursiver Serifenschrift, mitten in einer sonst serifenlosen Seite. Es soll Handschrift andeuten, wo keine ist — und steht in fast jeder Aufzählung maschinell erzeugter Gestaltung.", "Ein Stilbruch, der überall gleich aussieht, ist keiner."], "stapel": ["Der Werkzeugkasten als Ausweis", "Namen von Bibliotheken und Diensten aufgereiht, damit die Seite technisch aussieht. Welche Aufgabe damit gelöst wurde, steht nicht dabei — und ohne die Aufgabe ist der Name nur ein Wort. Auf dieser Seite stehen die Werkzeuge deshalb nur dort, wo der Satz ohne sie unvollständig wäre.", "Bibliotheksnamen als Kompetenzbeweis, ohne die Aufgabe dazu."], "bruch": ["Fremdkörper im Dunkelmodus", "Die beiden Ablaufdiagramme sind für hellen Grund gezeichnet und stehen als weiße Fläche in einer fast schwarzen Seite. Ehrlicher wäre, sie für beide Modi zu zeichnen — das war uns die Zeit vor der Vorführung nicht wert.", "Ein bewusst in Kauf genommener Mangel ist immer noch ein Mangel."]};
 /* ---------------------------------------------------------------------
    Manche Muster stehen nicht im Markup, sondern in globalen Stilregeln:
    `.hgab p:hover` faerbt jeden Absatz, `.hgab li:hover` schiebt jeden
