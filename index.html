@@ -300,6 +300,30 @@ body.laeuft .tbtn.gross{animation:ring 2.6s ease-out infinite}
 .zeile .wer{font-size:12.5px;font-weight:700;padding-top:2px}
 .wer.er{color:var(--akzent)} .wer.na{color:var(--akzent2)} .wer.an{color:var(--leise)}
 
+.melden svg{stroke:var(--warn,#c9772f)}
+.melden:hover svg{stroke:var(--warn,#c9772f);opacity:1}
+
+.meldung{margin-top:14px;padding:12px;border:1px solid var(--linie);
+  border-radius:var(--radius);background:color-mix(in srgb,var(--flaeche) 60%,transparent)}
+.mkopf{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.mzeit{font-variant-numeric:tabular-nums;font-weight:600;font-size:13px;
+  padding:2px 8px;border-radius:4px;background:var(--flaeche);border:1px solid var(--linie)}
+.mhinweis{font-size:12.5px;color:var(--gedaempft);flex:1}
+.mzu{background:none;border:0;font-size:20px;line-height:1;color:var(--gedaempft);
+  cursor:pointer;padding:0 4px}
+.mzu:hover{color:var(--text)}
+.meldung textarea{width:100%;font:inherit;font-size:13.5px;padding:8px;
+  border:1px solid var(--linie);border-radius:6px;background:var(--grund);
+  color:var(--text);resize:vertical}
+.meldung textarea:focus{outline:2px solid var(--akzent);outline-offset:1px}
+.mfuss{display:flex;align-items:center;justify-content:space-between;
+  gap:10px;margin-top:8px}
+.mklein{font-size:11.5px;color:var(--gedaempft)}
+.mab{font:inherit;font-size:13px;font-weight:600;padding:6px 14px;
+  border-radius:6px;border:1px solid var(--akzent);background:var(--akzent);
+  color:#fff;cursor:pointer}
+.mab:disabled{opacity:.45;cursor:default}
+
 .archivkopf{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;
   color:var(--leise);margin-bottom:20px}
 .karten{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -659,8 +683,29 @@ body.ruhig *{animation:none !important;transition:none !important}
         <button class="tbtn" id="vor" aria-label="15 Sekunden vor">
           <svg viewBox="0 0 24 24"><path d="M13 5l6 7-6 7"/><path d="M5 5l6 7-6 7"/></svg></button>
         <button class="tempo" id="tempo" aria-label="Abspielgeschwindigkeit">1×</button>
+        <button class="tbtn melden" id="melden"
+          aria-label="Diese Stelle melden" title="Diese Stelle melden">
+          <svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/>
+            <path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg>
+        </button>
       </div>
       <div class="pfehler" id="pfehler"></div>
+
+      <!-- Meldeformular. Erscheint erst auf Klick, damit der Player ruhig
+           bleibt - der Normalfall ist Hoeren, nicht Melden. -->
+      <form class="meldung" id="meldung" hidden>
+        <div class="mkopf">
+          <span class="mzeit" id="mZeit">0:00</span>
+          <span class="mhinweis">Was ist hier komisch?</span>
+          <button type="button" class="mzu" id="mZu" aria-label="Abbrechen">×</button>
+        </div>
+        <textarea id="mText" rows="2" maxlength="500"
+          placeholder="Zum Beispiel: Bernhard buchstabiert den Namen. Oder: Der Übergang klingt abgehackt."></textarea>
+        <div class="mfuss">
+          <span class="mklein" id="mStelle"></span>
+          <button type="submit" class="mab" id="mAb">Melden</button>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -1653,6 +1698,67 @@ const SYM_PLAY = '<path d="M8 5v14l11-7z"/>';
 const SYM_PAUSE = '<path d="M7 4h4v16H7zM13 4h4v16h-4z"/>';
 
 $('#abspielen').onclick = () => audio.paused ? audio.play().catch(() => {}) : audio.pause();
+
+/* ---------------------------- Stelle melden -----------------------------
+ * Björn am 27.08.: „einen zusätzlichen Button im Player […] das tool merkt
+ * sich die zeit, an der der nutzer geklickt hat."
+ *
+ * Warum der Umweg über ein GitHub-Issue und kein Formular, das direkt
+ * schreibt: Diese Seite ist statisch und liegt auf GitHub Pages. Es gibt
+ * keinen Server, der etwas entgegennehmen könnte, und ein Zugangsschlüssel
+ * im Browser wäre für jeden lesbar. Der Issue-Link füllt das Formular
+ * vollständig vor - abschicken muss der Mensch, und das ist auch gut so:
+ * Sonst legt jeder Fehlklick eine Meldung an.
+ */
+const MELDE_REPO = 'Raketenmann87/ki-podcast';
+let meldeZeit = 0;
+
+function meldungOeffnen() {
+  meldeZeit = audio.currentTime || 0;
+  if (!audio.paused) audio.pause();          // Hinhören, dann schreiben.
+  const f = FOLGEN[aktuell];
+  $('#mZeit').textContent = mmss(meldeZeit);
+  $('#mStelle').textContent = f ? `${f.datumLang} · bei ${mmss(meldeZeit)}` : '';
+  $('#meldung').hidden = false;
+  $('#mText').focus();
+}
+
+function meldungSchliessen() {
+  $('#meldung').hidden = true;
+  $('#mText').value = '';
+}
+
+$('#melden').onclick = meldungOeffnen;
+$('#mZu').onclick = meldungSchliessen;
+
+$('#meldung').addEventListener('submit', e => {
+  e.preventDefault();
+  const text = $('#mText').value.trim();
+  if (!text) { $('#mText').focus(); return; }
+
+  const f = FOLGEN[aktuell] || {};
+  const stelle = mmss(meldeZeit);
+  const titel = `Folge ${f.datum || '?'} bei ${stelle}: ${text.slice(0, 60)}`;
+  const rumpf = [
+    `**Folge:** ${f.datumLang || f.datum || 'unbekannt'}`,
+    `**Stelle:** ${stelle} (Sekunde ${Math.round(meldeZeit)})`,
+    `**Titel:** ${f.titel || '—'}`,
+    '',
+    '**Was aufgefallen ist:**',
+    text,
+    '',
+    '---',
+    '_Gemeldet über den Knopf im Player._',
+  ].join('\n');
+
+  const url = `https://github.com/${MELDE_REPO}/issues/new`
+    + `?labels=hoermeldung`
+    + `&title=${encodeURIComponent(titel)}`
+    + `&body=${encodeURIComponent(rumpf)}`;
+
+  window.open(url, '_blank', 'noopener');
+  meldungSchliessen();
+});
 $('#zurueck').onclick = () => setzeZeit(audio.currentTime - 15);
 $('#vor').onclick = () => setzeZeit(audio.currentTime + 15);
 $('#tempo').onclick = () => {
