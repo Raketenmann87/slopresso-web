@@ -390,6 +390,11 @@ body.laeuft .tbtn.gross{animation:ring 2.6s ease-out infinite}
   border:1px solid var(--linie);border-radius:999px;padding:5px 12px;transition:.18s}
 .hgnav a:hover{color:var(--akzent);border-color:var(--akzent)}
 .hgab p.warnung{border-left:3px solid #E8A33D;padding:4px 0 4px 15px;color:var(--leise)}
+/* Ein Satz, auf den sich der Abschnitt zusammenziehen laesst. Kein Kasten,
+   kein Symbol - nur Luft darum und die Textfarbe des Fliesstexts. Wer ihn
+   auszeichnen wollte, machte aus einer Aussage ein Schild. */
+.hgab p.merksatz{margin:18px 0;padding:0 0 0 15px;border-left:3px solid var(--akzent);
+  font-size:16px;line-height:1.5;color:var(--text)}
 .hinweisbox{background:var(--bg2);border:1px solid var(--linie);
   border-radius:var(--radius);padding:16px 20px;margin:18px 0;font-size:14.5px;
   color:var(--leise);max-width:72ch}
@@ -797,7 +802,7 @@ body.ruhig *{animation:none !important;transition:none !important}
       <span class="badge">Behind the Scenes</span>
       <span class="badge" data-slop="qualitaet">100 % transparent</span>
     </div>
-    <nav class="hgnav" data-slop="schwebe glas"><a href="#aufgabe">Die Aufgabe</a><a href="#name">Der Name</a><a href="#wer">Wer spricht</a><a href="#ablauf">Wie eine Folge entsteht</a><a href="#woher">Woher die Meldungen kommen</a><a href="#auswahl">Warum vier bis sechs Themen</a><a href="#fakten">Die Faktenprüfung</a><a href="#pruefungen">Neun Prüfungen im Code</a><a href="#entscheidungen">Entscheidungen und ihre Gründe</a><a href="#modellprinzip">Welches Modell</a><a href="#zahlen">Das System in Zahlen</a><a href="#schiefgegangen">Was schiefgegangen ist</a><a href="#vergleich">Was uns von podpresso unterscheidet</a></nav>
+    <nav class="hgnav" data-slop="schwebe glas"><a href="#aufgabe">Die Aufgabe</a><a href="#name">Der Name</a><a href="#wer">Wer spricht</a><a href="#ablauf">Wie eine Folge entsteht</a><a href="#modellarbeit">Wo ein Modell arbeitet</a><a href="#workflow">Workflow oder Agent</a><a href="#woher">Woher die Meldungen kommen</a><a href="#auswahl">Warum vier bis sechs Themen</a><a href="#fakten">Die Faktenprüfung</a><a href="#pruefungen">Neun Prüfungen im Code</a><a href="#entscheidungen">Entscheidungen und ihre Gründe</a><a href="#modellprinzip">Welches Modell</a><a href="#zahlen">Das System in Zahlen</a><a href="#schiefgegangen">Was schiefgegangen ist</a><a href="#vergleich">Was uns von podpresso unterscheidet</a></nav>
   </div>
 
   <div class="hgab" id="aufgabe">
@@ -996,7 +1001,7 @@ body.ruhig *{animation:none !important;transition:none !important}
   <text x="383" y="216" fill="#4f5d75" font-size="6" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="middle">MOD</text>
   <text x="422" y="230" fill="#2d3142" font-size="9" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Fakten lösen</text>
   <text x="422" y="244" fill="#4f5d75" font-size="6.5" font-family="'Geist Mono', monospace" text-anchor="middle">Zahlen · Fristen</text>
-  <text x="422" y="256" fill="#7a8399" font-size="6.5" font-family="'Geist Mono', monospace" text-anchor="middle">Ox Alpha</text>
+  <text x="422" y="256" fill="#7a8399" font-size="6.5" font-family="'Geist Mono', monospace" text-anchor="middle">GLM 5.3</text>
   <rect x="376" y="258" width="16" height="8" rx="2" fill="#5e7a9b"/>
   <text x="384" y="264" fill="#ffffff" font-size="5" font-weight="700" font-family="'Geist Mono', monospace" text-anchor="middle">DB</text>
   <rect x="452" y="258" width="16" height="8" rx="2" fill="#b8915a"/>
@@ -1029,7 +1034,7 @@ body.ruhig *{animation:none !important;transition:none !important}
   <text x="719" y="216" fill="#4f5d75" font-size="6" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="middle">MOD</text>
   <text x="758" y="230" fill="#2d3142" font-size="9" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Manuskript</text>
   <text x="758" y="244" fill="#4f5d75" font-size="6.5" font-family="'Geist Mono', monospace" text-anchor="middle">1.700 Wörter</text>
-  <text x="758" y="256" fill="#7a8399" font-size="6.5" font-family="'Geist Mono', monospace" text-anchor="middle">Ox Alpha</text>
+  <text x="758" y="256" fill="#7a8399" font-size="6.5" font-family="'Geist Mono', monospace" text-anchor="middle">GLM 5.3</text>
   <rect x="712" y="258" width="16" height="8" rx="2" fill="#b8915a"/>
   <text x="720" y="264" fill="#ffffff" font-size="5" font-weight="700" font-family="'Geist Mono', monospace" text-anchor="middle">TB</text>
   <rect x="788" y="258" width="16" height="8" rx="2" fill="#9c6b50"/>
@@ -1051,7 +1056,7 @@ body.ruhig *{animation:none !important;transition:none !important}
   <text x="943" y="296" fill="#4f5d75" font-size="6" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="middle">TON</text>
   <text x="982" y="310" fill="#2d3142" font-size="9" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Drei Stimmen</text>
   <text x="982" y="324" fill="#4f5d75" font-size="6.5" font-family="'Geist Mono', monospace" text-anchor="middle">Bernhard·Lisa·Elara</text>
-  <text x="982" y="336" fill="#7a8399" font-size="6.5" font-family="'Geist Mono', monospace" text-anchor="middle">Deepgram</text>
+  <text x="982" y="336" fill="#7a8399" font-size="6.5" font-family="'Geist Mono', monospace" text-anchor="middle">ElevenLabs</text>
   <rect x="936" y="338" width="16" height="8" rx="2" fill="#9c6b50"/>
   <text x="944" y="344" fill="#ffffff" font-size="5" font-weight="700" font-family="'Geist Mono', monospace" text-anchor="middle">FL</text>
   <rect x="1012" y="338" width="16" height="8" rx="2" fill="#6e6479"/>
@@ -1071,9 +1076,9 @@ body.ruhig *{animation:none !important;transition:none !important}
   <text x="496" y="372" fill="#2d3142" font-size="7" font-weight="600" font-family="'Geist Mono', monospace" letter-spacing="0.06em">CODE</text>
   <text x="524" y="372" fill="#4f5d75" font-size="7" font-family="'Geist Mono', monospace">= feste Regeln, kein Modell</text>
   <text x="768" y="372" fill="#2d3142" font-size="7" font-weight="600" font-family="'Geist Mono', monospace" letter-spacing="0.06em">MODELL</text>
-  <text x="806" y="372" fill="#4f5d75" font-size="7" font-family="'Geist Mono', monospace">= Ox Alpha schreibt</text>
+  <text x="806" y="372" fill="#4f5d75" font-size="7" font-family="'Geist Mono', monospace">= GLM 5.3 schreibt</text>
   <text x="990" y="372" fill="#2d3142" font-size="7" font-weight="600" font-family="'Geist Mono', monospace" letter-spacing="0.06em">TON</text>
-  <text x="1013" y="372" fill="#4f5d75" font-size="7" font-family="'Geist Mono', monospace">= Deepgram + ffmpeg</text>
+  <text x="1013" y="372" fill="#4f5d75" font-size="7" font-family="'Geist Mono', monospace">= ElevenLabs + ffmpeg</text>
   <text x="144" y="393" fill="#4f5d75" font-size="7" font-family="'Geist Mono', monospace" letter-spacing="0.14em">WAS FLIESST</text>
   <text x="144" y="402" fill="#7a8399" font-size="6" font-family="'Geist Mono', monospace">links rein, rechts raus</text>
   <rect x="260" y="386" width="16" height="8" rx="2" fill="#7c8f6f"/>
@@ -1199,31 +1204,214 @@ body.ruhig *{animation:none !important;transition:none !important}
     </div>
   </div>
 
+  <div class="hgab" id="modellarbeit">
+    <h2>Wo ein Modell arbeitet — und wo nicht</h2>
+    <p>Die Kette hat dreizehn Schritte. In <strong>fünf</strong> davon wird ein
+      Sprachmodell aufgerufen, in den übrigen acht rechnet Python. Das ist keine
+      Sparmaßnahme, sondern eine Arbeitsteilung mit einer Regel dahinter:</p>
+    <p class="merksatz"><strong>Ob etwas neu ist, entscheidet Code.
+      Wie es klingt, entscheidet ein Modell.</strong></p>
+    <p>Ein Mengenvergleich entscheidet heute wie morgen gleich. Ein Modell,
+      gefragt „ist das neu?“, antwortet zu oft ja — und genau daran ist der
+      Wettbewerber gescheitert: derselbe Kauf an drei Tagen, einmal mit sieben,
+      einmal mit acht Milliarden.</p>
+
+    <table class="tab">
+      <tr><th>Schritt</th><th>Wer arbeitet</th><th>Was genau passiert</th></tr>
+      <tr><td><strong>Feeds holen</strong></td><td class="leise">Code</td>
+        <td>Dreißig Quellen über <em>feedparser</em>. Keine Bewertung, nur
+          holen und ablegen.</td></tr>
+      <tr><td><strong>Dubletten</strong></td><td class="leise">Code, im Zweifel Modell</td>
+        <td>Titel-Vergleich über <em>rapidfuzz</em>. Über 85 Prozent gilt als
+          dasselbe Thema, unter 55 als verschieden — beides ohne Modell. Nur der
+          Graubereich dazwischen geht an das kleine Modell.</td></tr>
+      <tr><td><strong>Fakten lösen</strong></td><td>Modell, klein</td>
+        <td>Aus der Meldung werden einzelne Fakten herausgelöst: Beträge,
+          Fristen, Akteure, Kennzahlen. Jeder bekommt eine Rolle und eine
+          Normalform — „$8bn“ wird zu 8000000000&nbsp;USD. Das Modell
+          <em>extrahiert</em>, es bewertet nicht.</td></tr>
+      <tr><td><strong>Fortsetzung</strong></td><td>Code entscheidet, Modell formuliert</td>
+        <td>Ein Mengenvergleich der Fakten sagt, <em>ob</em> etwas neu ist. Erst
+          danach formuliert das mittlere Modell den Kernsatz auf Deutsch — und
+          nur das.</td></tr>
+      <tr><td><strong>Auswahl</strong></td><td class="leise">Code</td>
+        <td>Punktevergabe nach Aktualität, Quellenzahl, Kategorie. Kein
+          Modellaufruf, keine Zufälligkeit.</td></tr>
+      <tr><td><strong>Gegenprüfung</strong></td><td class="leise">Websuche</td>
+        <td>Jede Zahl wird über <em>Tavily</em> gegen eine unabhängige Quelle
+          gehalten. Am 28.&nbsp;August waren das sechs Suchen.</td></tr>
+      <tr><td><strong>Manuskript</strong></td><td><strong>Modell, groß</strong></td>
+        <td>Der eine teure Aufruf des Tages. Aus Themen, Fakten, Rückverweisen
+          und den letzten fünf Manuskripten entsteht ein Dialog für drei
+          Stimmen. Am 28.&nbsp;August: 43.769 Token, 0,0088&nbsp;€.</td></tr>
+      <tr><td><strong>Formprüfung</strong></td><td class="leise">Code</td>
+        <td>Elf Prüfungen: verbotene Wendungen, fehlende Namen, ausgeschriebene
+          Zahlen, doppelte Zahlwörter. Was durchfällt, geht als konkrete Klage
+          zurück ans Modell.</td></tr>
+      <tr><td><strong>Faktenprüfung</strong></td><td><strong>Modell, mittel</strong></td>
+        <td>Ein <em>zweites</em> Modell liest das Manuskript Satz für Satz gegen
+          die Faktenliste. Jede Tatsachenbehauptung bekommt ein Urteil: gedeckt,
+          nicht gedeckt, weicht ab. Am 28.&nbsp;August: 45 Behauptungen geprüft.</td></tr>
+      <tr><td><strong>Korrekturrunde</strong></td><td>Modell, groß</td>
+        <td>Die Befunde gehen zurück an das schreibende Modell. Bleibt nach zwei
+          Runden etwas offen, streicht der Code den Satz — Satz für Satz, nicht
+          den ganzen Block.</td></tr>
+      <tr><td><strong>Vertonung</strong></td><td class="leise">Sprachausgabe</td>
+        <td>Kein Sprachmodell. ElevenLabs spricht die Abschnitte einzeln, je
+          Rolle eine Stimme. Der teuerste Posten der Folge: 1,01&nbsp;€.</td></tr>
+      <tr><td><strong>Schnitt und Ablage</strong></td><td class="leise">Code</td>
+        <td><em>ffmpeg</em> legt Musik darunter, gleicht die Lautheit an,
+          misst die Dauer. Danach wandert alles ins Archiv.</td></tr>
+      <tr><td><strong>Rhetorik</strong></td><td>Modell, mittel</td>
+        <td>Alle vier Folgen: Ein Modell liest die letzten vier Manuskripte
+          nebeneinander und sucht, was sich wiederholt. Ändert nie etwas —
+          es meldet nur.</td></tr>
+    </table>
+
+    <p class="leise">Die Größen <em>klein</em>, <em>mittel</em> und <em>groß</em>
+      sind Aufgabenklassen, keine Modellnamen. Welches Modell dahintersteht,
+      entscheidet die Konfiguration — der Code kennt keinen Modellnamen.</p>
+  </div>
+
+  <div class="hgab" id="workflow">
+    <h2>Workflow oder Agent?</h2>
+    <p><strong>slopresso ist ein Workflow.</strong> Der Unterschied ist nicht
+      akademisch, und er lässt sich an einer Frage festmachen:
+      <em>Wer entscheidet, was als Nächstes passiert?</em></p>
+    <p>Bei einem <strong>Agenten</strong> entscheidet das Modell selbst — es
+      wählt Werkzeuge, geht Umwege, wiederholt Schritte, bis es meint, fertig zu
+      sein. Bei einem <strong>Workflow</strong> steht der Weg vorher fest, im
+      Code. Das Modell wird gerufen, erledigt eine eng umrissene Aufgabe und gibt
+      zurück.</p>
+    <p>Hier steht der Weg in einer einzigen Datei, und er ist an jedem Tag
+      derselbe. Kein Modellaufruf entscheidet, welcher Schritt folgt. Kein Modell
+      wählt ein Werkzeug. Kein Modell darf abbrechen.</p>
+    <p class="warnung">Das ist eine Entscheidung, keine Einschränkung. Diese
+      Sendung geht werktags um sechs Uhr ohne Aufsicht raus. Ein Ablauf, der
+      jeden Morgen denselben Weg nimmt, lässt sich prüfen; einer, der sich seinen
+      Weg selbst sucht, nur beobachten.</p>
+
+    <h3>Die Begriffe, und wo sie hier vorkommen</h3>
+    <table class="tab">
+      <tr><th>Begriff</th><th>Bei slopresso</th></tr>
+      <tr><td><strong>Single- / Multi-Agent</strong></td>
+        <td><span class="leise">Weder noch.</span> Es gibt keinen Agenten,
+          sondern fünf Modellaufrufe mit je einer festen Aufgabe. Mehrere
+          <em>Rollen</em> gibt es trotzdem: extrahieren, formulieren, schreiben,
+          prüfen, beurteilen.</td></tr>
+      <tr><td><strong>Orchestrator / Worker</strong></td>
+        <td>Der Orchestrator ist <strong>Python, kein Modell</strong>. Er ruft
+          die Schritte, misst ihre Dauer, bucht ihre Kosten und fängt ihre
+          Fehler. Genau das macht den Lauf nachvollziehbar.</td></tr>
+      <tr><td><strong>Routing</strong></td>
+        <td>Vorhanden, aber deterministisch: Jeder Schritt fordert eine
+          Größenklasse an, die Konfiguration bildet sie auf ein Modell ab.
+          Kein Modell entscheidet, welches Modell arbeitet.</td></tr>
+      <tr><td><strong>Prompt Chaining</strong></td>
+        <td><strong>Das Hauptmuster.</strong> Fakten lösen → Fortsetzung
+          formulieren → Manuskript schreiben → prüfen → korrigieren. Jeder
+          Schritt arbeitet auf dem Ergebnis des vorigen.</td></tr>
+      <tr><td><strong>Parallelisierung</strong></td>
+        <td>Bewusst kaum. Alle Schritte schreiben dieselbe Datenbankdatei;
+          zwei gleichzeitig wären ein Konflikt in einer Binärdatei. Parallel
+          läuft nur, was nichts schreibt — die Websuchen der Gegenprüfung.</td></tr>
+      <tr><td><strong>Evaluator / Optimizer</strong></td>
+        <td><strong>Zweimal vorhanden.</strong> Die Faktenprüfung liest, was das
+          schreibende Modell geliefert hat, und schickt Befunde zurück — bis zu
+          zwei Runden, dann greift der Code. Die Rhetorikprüfung tut dasselbe
+          über vier Folgen hinweg, ändert aber nie selbst etwas.</td></tr>
+      <tr><td><strong>Handoff</strong></td>
+        <td>Übergeben wird über die <strong>Datenbank</strong>, nicht über
+          Kontext. Das ist robust — und die Stelle, an der am 28.&nbsp;August
+          etwas verlorenging: Die Faktenprüfung bekam nur die Themen des Tages,
+          nicht die des Wochenrückblicks, und hielt belegte Sätze für
+          unbelegt.</td></tr>
+      <tr><td><strong>Tools &amp; Funktionen</strong></td>
+        <td>Kein Modell wählt hier ein Werkzeug. Websuche, Sprachausgabe und
+          Schnitt ruft der Code — an fest bestimmten Stellen, mit fest
+          bestimmten Argumenten.</td></tr>
+      <tr><td><strong>Memory / Kontext</strong></td>
+        <td>Das Gedächtnis ist die Datenbank, nicht das Kontextfenster. In den
+          Prompt geht nur, was der Schritt braucht: beim Schreiben die Fakten der
+          gewählten Themen und die letzten fünf Manuskripte als
+          <em>Negativbeispiele</em>. Die dreitausend Rohmeldungen sieht das
+          Modell nie.</td></tr>
+      <tr><td><strong>Guardrails</strong></td>
+        <td>Mehrschichtig: die Verbotsliste im Prompt, dieselbe Liste noch
+          einmal als Prüfung im Code, die Faktenprüfung, die Kontingentsicherung
+          vor jeder Vertonung und eine Notfallfrist, die um 7:30 lieber ein
+          Manuskript ohne Ton abliefert als gar nichts.</td></tr>
+      <tr><td><strong>Human in the Loop</strong></td>
+        <td><strong>Im Lauf selbst: keiner.</strong> Das ist der Punkt der
+          Aufgabe. Der Mensch kommt davor und danach — er entscheidet über
+          Prompt-Regeln, über die Befunde der Rhetorikprüfung und über die
+          Meldungen aus dem Player. Und er hat zwei Knöpfe, wenn der Zeitplan
+          streikt.</td></tr>
+      <tr><td><strong>Fehlerbehandlung</strong></td>
+        <td>Je Fehlerart eine Antwort: Überlast wird wiederholt, ein
+          abgeschaltetes Modell führt zum nächsten der Kette, ein ausgefallener
+          Sprachanbieter zum nächsten, eine gerissene Frist zum Notfallpfad.
+          Jeder Schritt darf scheitern, ohne den Lauf mitzunehmen — außer dem
+          Manuskript, ohne das es keine Sendung gibt.</td></tr>
+    </table>
+  </div>
+
   <div class="hgab" id="technik">
     <h2>Wie es technisch läuft</h2>
     <p>Vier Stellen, an denen das System etwas tut, das man ihm nicht ansieht.
       Die Werkzeuge stehen nur dort, wo der Satz ohne sie unvollständig wäre —
       eine Liste von Bibliotheksnamen wäre ein Ausweis, keine Erklärung.</p>
 
-    <h3>Der Betrieb hält sich selbst am Laufen</h3>
-    <p>Der Morgenlauf startet über einen Zeitplan bei GitHub Actions. Am 27. August
-      ist er <strong>nicht gestartet</strong> — GitHub hat ihn stillschweigend
-      verworfen. Die gemessenen Startzeiten davor:</p>
+    <h3>Der wunde Punkt: die Zeitpläne</h3>
+    <p>Der Morgenlauf startet über einen Zeitplan bei GitHub Actions. <strong>Darauf
+      ist kein Verlass.</strong> Am 27.&nbsp;und 28.&nbsp;August fiel er ganz aus —
+      GitHub hat ihn stillschweigend verworfen, ohne Eintrag, ohne Meldung. Gemessen
+      über fünf Tage, alle Zeiten UTC:</p>
     <table class="tab">
-      <tr><th>geplant</th><th>gelaufen</th><th>Verspätung</th></tr>
-      <tr><td>04:00 UTC</td><td class="leise">04:37</td><td class="leise">+37 min</td></tr>
-      <tr><td>04:00 UTC</td><td class="leise">04:35</td><td class="leise">+35 min</td></tr>
-      <tr><td>04:00 UTC</td><td class="leise">fiel aus</td><td class="leise">—</td></tr>
-      <tr><td>23:00 UTC</td><td class="leise">04:06</td><td class="leise">+5 h 06</td></tr>
+      <tr><th>geplant</th><th>Workflow</th><th>gelaufen</th><th>Verspätung</th></tr>
+      <tr><td>24.08. 08:37</td><td class="leise">Sammeln</td><td class="leise">11:17</td><td class="leise">+2 h 40</td></tr>
+      <tr><td>27.08. 02:37</td><td class="leise">Sammeln</td><td class="leise">04:06</td><td class="leise">+1 h 29</td></tr>
+      <tr><td>27.08. 05:38</td><td class="leise">Website</td><td class="leise">16:46</td><td><strong>+11 h 08</strong></td></tr>
+      <tr><td>27.08. 05:52</td><td class="leise">Wächter</td><td class="leise">16:50</td><td><strong>+10 h 58</strong></td></tr>
+      <tr><td>28.08. 02:37</td><td class="leise">Sammeln</td><td class="leise">04:26</td><td class="leise">+1 h 49</td></tr>
+      <tr><td>28.08. 04:17</td><td class="leise">Morgenlauf</td><td><strong>fiel aus</strong></td><td>—</td></tr>
+      <tr><td>28.08. 05:23</td><td class="leise">Morgenlauf, 2. Termin</td><td><strong>fiel aus</strong></td><td>—</td></tr>
     </table>
-    <p class="leise">Alle Zeitpläne lagen auf der vollen Stunde — genau dann stehen
-      bei GitHub weltweit Millionen Aufträge an. Ein Zeitplan auf Minute 37 kam mit
-      einer Minute Verspätung durch. Seitdem liegen alle sechs Zeitpläne auf krummen
-      Minuten, gestaffelt in Ablaufreihenfolge, und der Morgenlauf hat einen
-      <strong>zweiten Termin</strong> als Netz. Der prüft zuerst, ob die Sendung schon
-      steht, und bricht dann ab — sonst überschriebe er die fertige Folge, und die
-      Themen des ersten Laufs wären gesperrt. Steht um 7:52 immer noch nichts, stößt
-      ein Wächter den Lauf selbst an.</p>
+    <p class="leise">Sieben von elf geplanten Läufen kamen mehr als eine halbe Stunde
+      zu spät. Was in so einer Messung gar nicht auftaucht, wurde nie ausgelöst —
+      GitHub protokolliert verworfene Zeitpläne nicht.</p>
+
+    <p class="warnung">Der schwerste Befund steht in Zeile vier. Der <strong>Wächter</strong>
+      ist die Absicherung des ganzen Betriebs: Liegt um 7:52 keine Sendung vor, stößt er
+      den Lauf selbst an. Am 27.&nbsp;August kam er zehn Stunden zu spät. Eine
+      Absicherung, die am selben unzuverlässigen Dienst hängt wie das, was sie absichern
+      soll, ist keine.</p>
+
+    <h3>Was wir dagegen tun</h3>
+    <p>Zuerst das Naheliegende, und es hat nur halb geholfen: Alle Zeitpläne liegen
+      inzwischen auf <strong>krummen Minuten</strong> statt auf der vollen Stunde — dort
+      stehen bei GitHub weltweit Millionen Aufträge an. Der Morgenlauf hat einen
+      <strong>zweiten Termin</strong> als Netz, und ein vorgeschalteter Schritt bricht
+      ab, wenn die Sendung schon steht, damit das Netz die fertige Folge nicht
+      überschreibt.</p>
+    <p>Am 28.&nbsp;August fielen trotzdem <em>beide</em> Termine aus.</p>
+    <p class="merksatz"><strong>Die Antwort darauf ist kein weiterer Dienst, sondern
+      ein Knopf.</strong></p>
+    <p>Auf dem Rechner liegen zwei Verknüpfungen. <strong>Podcast-Folge starten</strong>
+      sieht nach, ob die Folge von heute schon vorliegt, ob gerade schon ein Lauf
+      unterwegs ist und ob überhaupt genug Themen bereitstehen — und holt den
+      Sammellauf selbst nach, wenn es zu wenige sind. Danach startet es den Morgenlauf
+      und zeigt zu. <strong>Meldungen sammeln</strong> ist der zweite, für den Fall,
+      dass nur vorbereitet werden soll.</p>
+    <p class="leise">Erwogen und verworfen wurde ein eigener Auslöser auf dem Heimserver.
+      Er hätte das Problem sauberer gelöst, aber er wäre ein zweiter Dienst, der laufen,
+      überwacht und gewartet werden will — für eine Sendung, die als Kursaufgabe
+      begonnen hat. Ein Knopf, den ein Mensch drückt, wenn er merkt, dass nichts
+      gekommen ist, kostet nichts und fällt nicht aus.</p>
+    <p class="warnung">Der Zeitplan bleibt daneben bestehen. Läuft er durch, meldet der
+      Knopf „liegt schon vor“ und tut nichts. Er ist die Rückfallebene, nicht der
+      Regelweg — und die ehrliche Antwort auf die Frage, wie zuverlässig ein Betrieb
+      ist, der auf fremder Infrastruktur läuft.</p>
 
     <h3>Aus dreitausend Meldungen werden sechs Themen</h3>
     <p>Jede neue Meldung wird gegen dreißig Tage Themenbestand gehalten. Der Abgleich
