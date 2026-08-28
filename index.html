@@ -632,6 +632,115 @@ body.ruhig *{animation:none !important;transition:none !important}
   .player{flex-direction:column;text-align:center}
   .zeile{grid-template-columns:1fr;gap:2px}
   .akkinhalt{padding-left:4px}
+  /* Ab hier sitzt die Leiste unten am Rand, 66px hoch. Der Meter-Knopf blieb
+     bei bottom:22px stehen und lag damit auf zwei Navigationsknoepfen.
+     Gefunden am 28.08. beim Durchmessen der Handy-Ansicht. */
+  .meterbtn{bottom:80px;right:14px}
+}
+/* Rollrahmen um die Kostentabellen. Auf grossen Schirmen faellt er nicht auf;
+   auf dem Telefon scrollt darin die sechsspaltige Tabelle „Je Folge" quer,
+   statt die ganze Seite mitzunehmen. Ohne ihn lief die Seite „Modelle" auf
+   390px um 90 Pixel aus dem Bild. */
+.tabrolle{max-width:100%}
+
+/* ======================= Telefon: unter 520 Pixel =========================
+   Bis zum 28.08. endete die kleinste Media Query bei 620px und das Layout
+   wechselte bei 820px. Ein Telefon mit 375 bis 430 Pixeln lief damit auf den
+   Tablet-Regeln - und auf Schriftgroessen, die fuer einen Monitor gedacht
+   sind. Gemessen: 55 CSS-Regeln unter 13px, `.quelle-regel` allein 22x je
+   Seite, `.beleg` 21x.
+
+   🔴 Was hier NICHT passiert: Layout-Muster geradeziehen. Der vordere Teil
+   der Seite ist absichtlich schlecht gebaut, das ist der Gegenstand der
+   Sendung. Alle 22 Slop-Regeln behalten ihre Fundstelle; `web/pruefe_web.py`
+   muss weiterhin ohne Befund durchlaufen. Geaendert werden ausschliesslich
+   Schriftgroessen, Zeilenhoehen, Sperrungen und Tippflaechen.
+
+   Bewusst klein GELASSEN: `.vtext i/em` (8/9px, die erfundenen Logo-Unter-
+   zeilen) und die pinke Nummernmarke des Slop-Meters. Beide sind Teil des
+   Witzes, nicht Text zum Lesen. */
+@media(max-width:520px){
+
+  /* --- Rand: 28px links und rechts sind auf 375px zu viel Luft ---------- */
+  .wrap{padding:30px 16px 120px}
+  .laufband{margin:-30px -16px 30px;font-size:13px;letter-spacing:.1em}
+
+  /* --- Kleintexte: alles Gelesene auf mindestens 13px ------------------- */
+  .hgnavtitel,.regel .num{font-size:13px}
+  .archivkopf,.kachel .label,.ktab th,.mk-daten dt,.mk-label,.ms-daten dt,
+  .ms-listen h4,.ms-status,.person .rolle,.qgruppe,.tab th,.vlabel,
+  .zahlenraster .zl{font-size:13px;line-height:1.4}
+  .kostenreihe .kl,.person dt,.regel .anz,.seitenbadges .badge{font-size:13px}
+  .badge,.klabel,.kmeta,.mklein,.quelle .s,.zeiten{font-size:13.5px}
+  .diagramm .bu,.ktab .anteil em,.ms-listen code,.ms-preis,.person .stimme,
+  .qthema .quelle,.regel .quelle-regel{font-size:13.5px;line-height:1.5}
+  .kostenblock .fussnote,.ktab .erkl,.ktab .menge,.meterseite,.mhinweis,
+  .mk-kopf code,.mk-preis,.ms-kopf code,.qtitel,.regel .beleg,
+  .zeile .wer{font-size:14px;line-height:1.5}
+  pre.protokoll{font-size:13.5px;line-height:1.5}
+
+  /* Gesperrte Versalien werden auf 375px schnell zweizeilig. Groesser, aber
+     enger gesetzt - dann steht die Zeile wieder. */
+  .hgab > h2,.faq > h3,.kostenblock h2{font-size:13px;letter-spacing:.1em}
+  .trenner{font-size:13px;letter-spacing:.14em;margin:30px 0 6px}
+
+  /* --- Tippflaechen: nichts unter 40px hoch ----------------------------- */
+  .tbtn{width:44px;height:44px}
+  .tbtn.gross{width:60px;height:60px}
+  .tempo{font-size:13.5px;padding:10px 14px;min-width:64px}
+  .hgnav a{font-size:13.5px;padding:9px 14px}
+  .quelle{padding:12px 0}
+  /* Die Quellen-Pillen tragen eine eigene, staerkere Regel (`.qthema .quelle`)
+     und blieben deshalb bei 30px. Auf 36px sind sie mit dem Daumen sicher zu
+     treffen, ohne wie Knoepfe auszusehen. */
+  .qthema .quelle{padding:8px 11px}
+  .mzu{font-size:24px;padding:6px 10px}
+  .mab{padding:10px 18px}
+  /* Der Schliessknopf des Slop-Meters mass 11x20 - der kleinste Klickpunkt
+     der ganzen Seite, und ausgerechnet der, den man zum Zumachen braucht. */
+  .panel .zu{width:44px;height:44px;top:14px;right:12px;font-size:26px}
+  .panel{padding:26px 18px 90px}
+  /* Der Fortschrittsregler war 16px hoch. Zum Spulen mit dem Daumen zu duenn;
+     die sichtbare Schiene bleibt schmal, nur die Trefferflaeche waechst. */
+  .leiste{height:30px;margin:12px 0 3px}
+
+  /* Fuenf Knoepfe nebeneinander auf 360px: 5x56 + 4x8 = 312px. Passt auch
+     auf das schmalste gaengige Telefon. */
+  .rail{gap:8px}
+  .railbtn{width:56px;min-height:44px;font-size:11.5px;padding:8px 0}
+
+  /* --- Tabellen ---------------------------------------------------------
+     Gemessen auf 375px: die Kostentabelle „Je Folge" war 623px breit, die
+     Zeitplan-Tabelle 381px. Beide liefen quer aus dem Bild.
+
+     Der Grund war nicht die Datenmenge, sondern `white-space:nowrap` in den
+     KOPFzellen: „Vertonungen" und „ausgeliefert" durften nicht umbrechen und
+     zwangen Spalten auf 121 bis 126px, obwohl darin nur „1,03 €" steht. Auf
+     dem Telefon darf die Ueberschrift zweizeilig werden; die Zahlen darunter
+     bleiben in einer Zeile. */
+  .ktab{font-size:13px}
+  .ktab td,.ktab th{padding-left:6px;padding-right:6px}
+  .ktab th,.ktab th.num{white-space:normal}
+  /* Auf 360px reichte auch das noch nicht: die Prozess-Tabelle der Seite
+     „Warum" brauchte 352px, weil einzelne lange Woerter die schmalste
+     moegliche Spalte bestimmen. `hyphens` trennt an Silbengrenzen (die Seite
+     ist als lang="de" ausgezeichnet), `anywhere` greift nur, wenn selbst das
+     nicht reicht - und senkt als einziger Wert die Mindestbreite der Spalte. */
+  .tab td{hyphens:auto;overflow-wrap:anywhere}
+  .ktab td{overflow-wrap:normal}
+  .ktab td.tag{white-space:nowrap}
+  /* In den KOPFzellen darf `anywhere` nicht gelten: „ausgeliefert" brach dort
+     zu „AUSGELI / EFERT". Silbentrennung setzt einen Bindestrich und trennt
+     an der richtigen Stelle - die Seite ist als lang="de" ausgezeichnet.
+     Die weite Sperrung der Versalien wird dafuer auf dem Telefon enger. */
+  .ktab th,.tab th{hyphens:auto;overflow-wrap:normal;letter-spacing:.03em}
+  /* Der Rahmen greift bis an den Bildschirmrand, damit die Tabelle die volle
+     Breite nutzt. Oben und links bleibt Platz, sonst schneidet der Rollrahmen
+     die pinke Nummer des Slop-Meters ab. */
+  .tabrolle{overflow-x:auto;max-width:none;margin:0 -16px;padding:14px 16px 2px}
+  .tab{font-size:13px}
+  .tab td,.tab th{padding-left:6px;padding-right:6px}
+  .tab th{white-space:normal}
 }
 </style>
 </head>
@@ -823,7 +932,7 @@ body.ruhig *{animation:none !important;transition:none !important}
       Er erscheint sieben Tage die Woche, dauert 11 bis 16 Minuten und bringt 13 bis 15
       Themen je Folge. Die Aufgabe lautet, es besser zu machen — und „besser“ ist nicht
       Geschmackssache, sondern in sechs Kriterien festgeschrieben.</p>
-    <table class="tab tab-nr"><tr><td class="knr">1</td><td>Keine Schablone</td><td class="leise">Kein Gerüst, das sich Folge für Folge wiederholt. Keine Standardsätze wie „Was bedeutet das für einen deutschen Mittelständler?“</td></tr><tr><td class="knr">2</td><td>Keine Wiederholung ohne Neuigkeit</td><td class="leise">Ein Thema kommt nur wieder, wenn es substanziell neue Fakten gibt. Eine tiefere Erklärung zählt nicht.</td></tr><tr><td class="knr">3</td><td>Richtiger Rückbezug</td><td class="leise">Wer auf früher verweist, verweist auf den letzten Stand — nicht auf irgendeinen.</td></tr><tr><td class="knr">4</td><td>Aufrufbare Quellen</td><td class="leise">Jedes Thema nennt Quellen, die man anklicken kann.</td></tr><tr><td class="knr">5</td><td>Keine unbelegten Zahlen</td><td class="leise">Jede Zahl und jeder Eigenname steht in einer der gelisteten Quellen.</td></tr><tr><td class="knr">6</td><td>Nachgewiesene Kosten</td><td class="leise">Bei gleicher Qualität gewinnt die günstigere Lösung. Nicht jede Aufgabe braucht das teuerste Modell.</td></tr></table>
+    <div class="tabrolle"><table class="tab tab-nr"><tr><td class="knr">1</td><td>Keine Schablone</td><td class="leise">Kein Gerüst, das sich Folge für Folge wiederholt. Keine Standardsätze wie „Was bedeutet das für einen deutschen Mittelständler?“</td></tr><tr><td class="knr">2</td><td>Keine Wiederholung ohne Neuigkeit</td><td class="leise">Ein Thema kommt nur wieder, wenn es substanziell neue Fakten gibt. Eine tiefere Erklärung zählt nicht.</td></tr><tr><td class="knr">3</td><td>Richtiger Rückbezug</td><td class="leise">Wer auf früher verweist, verweist auf den letzten Stand — nicht auf irgendeinen.</td></tr><tr><td class="knr">4</td><td>Aufrufbare Quellen</td><td class="leise">Jedes Thema nennt Quellen, die man anklicken kann.</td></tr><tr><td class="knr">5</td><td>Keine unbelegten Zahlen</td><td class="leise">Jede Zahl und jeder Eigenname steht in einer der gelisteten Quellen.</td></tr><tr><td class="knr">6</td><td>Nachgewiesene Kosten</td><td class="leise">Bei gleicher Qualität gewinnt die günstigere Lösung. Nicht jede Aufgabe braucht das teuerste Modell.</td></tr></table></div>
     <p class="leise">Wir haben 20 Folgen des Amtsinhabers ausgewertet, zwei davon mit
       vollständigem Transkript. Jedes der sechs Kriterien ließ sich dort als verletzt
       belegen. Was daraus folgte, steht weiter unten unter
@@ -1228,7 +1337,7 @@ body.ruhig *{animation:none !important;transition:none !important}
       Wettbewerber gescheitert: derselbe Kauf an drei Tagen, einmal mit sieben,
       einmal mit acht Milliarden.</p>
 
-    <table class="tab">
+    <div class="tabrolle"><table class="tab">
       <tr><th>Schritt</th><th>Wer arbeitet</th><th>Was genau passiert</th></tr>
       <tr><td><strong>Feeds holen</strong></td><td class="leise">Code</td>
         <td>Dreißig Quellen über <em>feedparser</em>. Keine Bewertung, nur
@@ -1278,7 +1387,7 @@ body.ruhig *{animation:none !important;transition:none !important}
         <td>Alle vier Folgen: Ein Modell liest die letzten vier Manuskripte
           nebeneinander und sucht, was sich wiederholt. Ändert nie etwas —
           es meldet nur.</td></tr>
-    </table>
+    </table></div>
 
     <p class="leise">Die Größen <em>klein</em>, <em>mittel</em> und <em>groß</em>
       sind Aufgabenklassen, keine Modellnamen. Welches Modell dahintersteht,
@@ -1304,7 +1413,7 @@ body.ruhig *{animation:none !important;transition:none !important}
       Weg selbst sucht, nur beobachten.</p>
 
     <h3>Die Begriffe, und wo sie hier vorkommen</h3>
-    <table class="tab">
+    <div class="tabrolle"><table class="tab">
       <tr><th>Begriff</th><th>Bei slopresso</th></tr>
       <tr><td><strong>Single- / Multi-Agent</strong></td>
         <td><span class="leise">Weder noch.</span> Es gibt keinen Agenten,
@@ -1365,7 +1474,7 @@ body.ruhig *{animation:none !important;transition:none !important}
           Sprachanbieter zum nächsten, eine gerissene Frist zum Notfallpfad.
           Jeder Schritt darf scheitern, ohne den Lauf mitzunehmen — außer dem
           Manuskript, ohne das es keine Sendung gibt.</td></tr>
-    </table>
+    </table></div>
   </div>
 
   <div class="hgab" id="betrieb">
@@ -1379,7 +1488,7 @@ body.ruhig *{animation:none !important;transition:none !important}
       ist kein Verlass.</strong> Am 27.&nbsp;und 28.&nbsp;August fiel er ganz aus —
       GitHub hat ihn stillschweigend verworfen, ohne Eintrag, ohne Meldung. Gemessen
       über fünf Tage, alle Zeiten UTC:</p>
-    <table class="tab">
+    <div class="tabrolle"><table class="tab">
       <tr><th>geplant</th><th>Workflow</th><th>gelaufen</th><th>Verspätung</th></tr>
       <tr><td>24.08. 08:37</td><td class="leise">Sammeln</td><td class="leise">11:17</td><td class="leise">+2 h 40</td></tr>
       <tr><td>27.08. 02:37</td><td class="leise">Sammeln</td><td class="leise">04:06</td><td class="leise">+1 h 29</td></tr>
@@ -1388,7 +1497,7 @@ body.ruhig *{animation:none !important;transition:none !important}
       <tr><td>28.08. 02:37</td><td class="leise">Sammeln</td><td class="leise">04:26</td><td class="leise">+1 h 49</td></tr>
       <tr><td>28.08. 04:17</td><td class="leise">Morgenlauf</td><td><strong>fiel aus</strong></td><td>—</td></tr>
       <tr><td>28.08. 05:23</td><td class="leise">Morgenlauf, 2. Termin</td><td><strong>fiel aus</strong></td><td>—</td></tr>
-    </table>
+    </table></div>
     <p class="leise">Sieben von elf geplanten Läufen kamen mehr als eine halbe Stunde
       zu spät. Was in so einer Messung gar nicht auftaucht, wurde nie ausgelöst —
       GitHub protokolliert verworfene Zeitpläne nicht.</p>
@@ -1458,7 +1567,7 @@ body.ruhig *{animation:none !important;transition:none !important}
       seiner Rolle. Dazwischen liegen zwei verschiedene Pausen: 0,35 Sekunden beim
       Sprecherwechsel, 0,15 innerhalb derselben Rolle. Man hört den Unterschied,
       ohne ihn benennen zu können.</p>
-    <table class="tab">
+    <div class="tabrolle"><table class="tab">
       <tr><th>Schritt</th><th>Was dabei passiert</th></tr>
       <tr><td>Aussprache</td><td class="leise">Geschrieben <em>slopresso</em>,
         gesprochen <em>SLOPPRESSO</em>. Die Umschrift hängt am Anbieter: Großschreibung
@@ -1477,7 +1586,7 @@ body.ruhig *{animation:none !important;transition:none !important}
       <tr><td>Lautstärke</td><td class="leise">Fest angehoben, nicht dynamisch
         normiert — warum, steht bei den
         <a href="#entscheidungen">Entscheidungen</a>.</td></tr>
-    </table>
+    </table></div>
 
 </div>
 
@@ -1514,7 +1623,7 @@ body.ruhig *{animation:none !important;transition:none !important}
     <p>Die Zielgruppe sind <strong>KI-Manager und solche, die es werden</strong>.
       Das ist keine Absichtserklärung, sondern steuert die Punktevergabe. Jede
       Meldung bekommt Punkte nach ihrer Kategorie:</p>
-    <table class="tab" data-slop="schwebe">
+    <div class="tabrolle"><table class="tab" data-slop="schwebe">
       <tr><th>Kategorie</th><th class="num">Punkte</th><th>Warum</th></tr>
       <tr><td>Werkzeuge</td><td class="num">3,0</td><td class="leise">Etwas, das
         die Hörer selbst anfassen können</td></tr>
@@ -1528,7 +1637,7 @@ body.ruhig *{animation:none !important;transition:none !important}
         aber selten diese Woche wichtig</td></tr>
       <tr><td>Kurioses</td><td class="num">0,5</td><td class="leise">Darf
         vorkommen, trägt aber keine Folge</td></tr>
-    </table>
+    </table></div>
     <p><strong>Werkzeuge und Regulierung schlagen Markt im Verhältnis drei zu
       eins.</strong> Deshalb landen Themen in der Sendung, die ein allgemeines
       Publikum langweilen würden — etwa ein Vergleich der GPU-Anbieter CoreWeave,
@@ -1536,7 +1645,7 @@ body.ruhig *{animation:none !important;transition:none !important}
       Wer nur mitlesen will, nicht.</p>
 
     <h3>Drei Stränge, damit nicht alles gleich klingt</h3>
-    <table class="tab">
+    <div class="tabrolle"><table class="tab">
       <tr><th>Strang</th><th>Inhalt</th><th class="num">je Folge</th></tr>
       <tr><td>A — Allgemein</td><td class="leise">Was es Neues gibt: Trends,
         Modelle, Neuerungen</td><td class="num">2–3</td></tr>
@@ -1544,7 +1653,7 @@ body.ruhig *{animation:none !important;transition:none !important}
         Aufsichtsbehörden, Urteile, Fristen</td><td class="num">mind. 1</td></tr>
       <tr><td>C — Deutsche Unternehmen</td><td class="leise">Praxis, Werkzeuge,
         Markt, DACH-Bezug</td><td class="num">1–2</td></tr>
-    </table>
+    </table></div>
     <p>Ein Thema aus Strang B <strong>verdrängt ein höher punktendes aus Strang
       A</strong>. Die Begründung steht im Konzept und ist der Kern der
       Zielgruppenentscheidung: Ein KI-Manager muss von einer Frist wissen, bevor
@@ -1588,10 +1697,10 @@ body.ruhig *{animation:none !important;transition:none !important}
     <h2>Neun Prüfungen im Code</h2>
     <p>Der Prompt allein reicht nicht. Was hier steht, hat das Modell mindestens
       einmal falsch gemacht — jede Prüfung hat einen echten Auslöser:</p>
-    <table class="tab">
+    <div class="tabrolle"><table class="tab">
       <tr><th>Prüfung</th><th>Der Fall, der sie ausgelöst hat</th></tr>
       <tr><td>Vorspann</td><td class="leise">Eröffnet die Ansagerin die Folge überhaupt?</td></tr><tr><td>Namen</td><td class="leise">Stellen sich beide mit Namen vor?</td></tr><tr><td>Vertauschte Rollen</td><td class="leise">„ERZÄHLER: Ich bin Lisa“ — eine männliche Stimme stellte sich als Lisa vor.</td></tr><tr><td>Erfundene Namensform</td><td class="leise">„Elisabeth hat recht“ — gemeint war Lisa.</td></tr><tr><td>Verabschiedung</td><td class="leise">Werden die Hörer am Schluss angesprochen?</td></tr><tr><td>Verbotene Wendungen</td><td class="leise">„Willkommen zu“ (nur die Ansagerin darf es), „Gamechanger“ und 14 weitere.</td></tr><tr><td>Kapitulation</td><td class="leise">Nachgeben und sofortiger Themenwechsel in derselben Zeile.</td></tr><tr><td>Ziffern</td><td class="leise">„2026“ statt „zweitausendsechsundzwanzig“ — die Sprachausgabe liest Ziffern unvorhersagbar.</td></tr><tr><td>Bezeichnungen und Namenslisten</td><td class="leise">„B200-Tarif“, „t3n“; fünf Anbieternamen in einer Zeile.</td></tr>
-    </table>
+    </table></div>
     <p class="leise">Zwei davon reparieren, statt zu melden: Zahlen und
       Nachkommastellen werden deterministisch ausgeschrieben — und zwar
       <em>nach</em> der Faktenprüfung, weil deren Korrekturrunden sonst wieder
@@ -1600,7 +1709,7 @@ body.ruhig *{animation:none !important;transition:none !important}
 
   <div class="hgab" id="entscheidungen">
     <h2>Entscheidungen und ihre Gründe</h2>
-    <table class="tab">
+    <div class="tabrolle"><table class="tab">
       <tr><th>Frage</th><th>Entscheidung und warum</th></tr>
       <tr><td>Themenauswahl</td><td class="leise">Deterministisches Punktesystem,
         <strong>kein Modellaufruf</strong>. Was ausgewählt wird, muss nachvollziehbar
@@ -1623,7 +1732,7 @@ body.ruhig *{animation:none !important;transition:none !important}
         verfehlte sein Ziel um 3,4 dB.</td></tr>
       <tr><td>Betrieb</td><td class="leise">GitHub Actions, werktags. Kein Rechner,
         der laufen muss, keine Person, die etwas anstoßen muss.</td></tr>
-    </table>
+    </table></div>
   </div>
 
   <div class="hgab" id="modellprinzip" data-slop="nummern">
@@ -1666,7 +1775,7 @@ body.ruhig *{animation:none !important;transition:none !important}
     <h2 data-slop="emoji nummern glow">Was schiefgegangen ist</h2>
     <p class="leise">Ein Showroom, der nur Erfolge zeigt, ist eine Broschüre. Diese
       drei Fehler haben das System geprägt:</p>
-    <table class="tab">
+    <div class="tabrolle"><table class="tab">
       <tr><th>Was passierte</th><th>Was daraus wurde</th></tr>
       <tr><td>Die fertige Folge verließ den Server nie</td><td class="leise">Der
         Morgenlauf erzeugte die Sendung, bezahlte dafür — und schrieb die MP3 nicht
@@ -1679,14 +1788,14 @@ body.ruhig *{animation:none !important;transition:none !important}
       <tr><td>Eine Stimme fehlte im Ablauf</td><td class="leise">Beim Anbieterwechsel
         kannte der neue Code die Ansagerin nicht — der nächste Lauf wäre beim Vorspann
         abgebrochen. Gefunden vor dem ersten Lauf, nicht danach.</td></tr>
-    </table>
+    </table></div>
   </div>
 
   <div class="hgab" id="vergleich">
     <h2>Was uns von podpresso unterscheidet</h2>
     <p class="leise">Aus der Auswertung von 20 Folgen des Wettbewerbers, belegt an
       zwei vollständigen Transkripten:</p>
-    <table class="tab">
+    <div class="tabrolle"><table class="tab">
       <tr><th>Dort belegt</th><th>Bei uns</th></tr>
       <tr><td>Dasselbe Thema dreimal in fünf Tagen — mit widersprüchlichen Zahlen
         (7 → 8 → 7 Milliarden), nie aufgelöst</td><td class="leise">Themensperre mit
@@ -1704,7 +1813,7 @@ body.ruhig *{animation:none !important;transition:none !important}
       <tr><td>Rückbezug auf einen überholten Stand</td><td class="leise">Der Rückverweis
         kommt aus der Datenbank — aus dem Kernsatz der letzten Sendung zum Thema, nicht
         aus dem Gedächtnis des Modells.</td></tr>
-    </table>
+    </table></div>
     <p class="leise" style="margin-top:18px">Und ja — diese Oberfläche hier ist
       absichtlich gebaut wie eine KI sie baut. Der Schalter unten rechts zeigt, an
       welcher Stelle welche Regel gebrochen wird. Das ist der einzige Teil des
@@ -1737,7 +1846,7 @@ body.ruhig *{animation:none !important;transition:none !important}
       Zuordnung steht in der Konfiguration und ist eine Zeile Änderung. Das ist
       die direkte Antwort auf Kriterium 6 der Ausschreibung — und der Grund,
       warum der Ausfall eines Anbieters kein Umbau ist.</p>
-    <table class="tab">
+    <div class="tabrolle"><table class="tab">
       <tr><th>Größe</th><th>Wofür — und worauf es ankommt</th></tr>
       <tr><td>klein</td><td class="leise">Themen zusammenführen, aufbereiten,
         Fakten herauslösen. Was zählt: verlässliches JSON und <strong>keine
@@ -1748,7 +1857,7 @@ body.ruhig *{animation:none !important;transition:none !important}
         passen.</td></tr>
       <tr><td>groß</td><td class="leise">Das Manuskript. Hier entsteht das
         Sprachgefühl.</td></tr>
-    </table>
+    </table></div>
     <p><strong>Die kritischste Größe ist „mittel“, nicht „groß“.</strong> Ein
       mittelmäßiges Manuskript ist langweilig. Eine schlampige Faktenprüfung
       lässt eine erfundene Zahl auf Sendung gehen. Genau daran ist der
@@ -1839,18 +1948,18 @@ body.ruhig *{animation:none !important;transition:none !important}
     </div>
 
     <h3>Wofür</h3>
-    <table class="ktab" data-slop="schwebe">
-      <tr><th>Schritt</th><th class="num">Aufrufe</th><th>Menge</th>
+    <div class="tabrolle"><table class="ktab" data-slop="schwebe">
+      <tr><th>Schritt</th><th class="num">Aufrufe</th><th class="menge">Menge</th>
           <th class="num">Kosten</th></tr>
       <tr><td><strong>Vertonung</strong><span class="erkl">Das Manuskript wird gesprochen. Abgerechnet je Zeichen.</span></td><td class="num">18</td><td class="menge">149.229 Zeichen</td><td class="num">6,68 €</td></tr><tr><td><strong>Vertonung, Nachlauf</strong><span class="erkl">Einzelne Abschnitte neu gesprochen, etwa nach einer Korrektur am Manuskript.</span></td><td class="num">1</td><td class="menge">15.261 Zeichen</td><td class="num">0,46 €</td></tr><tr><td><strong>Aufbereitung</strong><span class="erkl">Aus einer Rohmeldung werden Titel, Kern und Fakten gelöst.</span></td><td class="num">340</td><td class="menge">929.554 ein / 668.229 aus</td><td class="num">0,09 €</td></tr><tr><td><strong>Faktenprüfung</strong><span class="erkl">Jeder Satz des Manuskripts wird gegen die Quellen geprüft.</span></td><td class="num">35</td><td class="menge">388.815 ein / 183.385 aus</td><td class="num">0,02 €</td></tr><tr><td><strong>Manuskript</strong><span class="erkl">Der Dialog zwischen Bernhard und Lisa wird geschrieben.</span></td><td class="num">29</td><td class="menge">430.665 ein / 107.487 aus</td><td class="num">0,02 €</td></tr><tr><td><strong>Manuskript, Korrekturrunde</strong><span class="erkl">Länge, Rollen oder verbotene Wendungen stimmten nicht.</span></td><td class="num">19</td><td class="menge">194.527 ein / 68.481 aus</td><td class="num">0,01 €</td></tr><tr><td><strong>Themenbildung</strong><span class="erkl">Meldungen, die dasselbe Ereignis beschreiben, werden zu einem Thema zusammengefasst.</span></td><td class="num">129</td><td class="menge">57.175 ein / 9.126 aus</td><td class="num">0,01 €</td></tr><tr><td><strong>Faktenprüfung, Korrekturrunde</strong><span class="erkl">Ungedeckte Sätze gehen zurück ans Modell.</span></td><td class="num">17</td><td class="menge">177.512 ein / 45.065 aus</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>rhetorik</strong><span class="erkl">Kein Eintrag hinterlegt.</span></td><td class="num">1</td><td class="menge">13.481 ein / 2.502 aus</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>Prüfung</strong><span class="erkl">Prüflauf des Systems.</span></td><td class="num">1</td><td class="menge">46 ein / 113 aus</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>Gegenprüfung</strong><span class="erkl">Stichprobe gegen die Quelle, bevor eine Zahl ins Manuskript darf.</span></td><td class="num">121</td><td class="menge">—</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>Fortsetzung</strong><span class="erkl">Hat ein bekanntes Thema substanziell Neues? Nur dann darf es wieder gesendet werden.</span></td><td class="num">16</td><td class="menge">7.678 ein / 691 aus</td><td class="num" class="fastnull">0,00 €</td></tr><tr><td><strong>Selbsttest</strong><span class="erkl">Erreichbarkeit und Schlüssel des Anbieters.</span></td><td class="num">1</td><td class="menge">95 ein / 48 aus</td><td class="num" class="fastnull">0,00 €</td></tr>
-    </table>
+    </table></div>
     <p class="leise fussnote">Schritte mit 0,00 € sind nicht kostenlos gearbeitet
       worden — sie liefen über ein Modell, das derzeit nichts kostet. Der Betrag
       wird trotzdem gezählt, damit die Zeile nicht fehlt, wenn sich das ändert.</p>
 
     <h3>Bei welchem Anbieter</h3>
-    <table class="ktab" data-slop="schwebe">
-      <tr><th>Anbieter</th><th class="num">Aufrufe</th><th>Menge</th>
+    <div class="tabrolle"><table class="ktab" data-slop="schwebe">
+      <tr><th>Anbieter</th><th class="num">Aufrufe</th><th class="menge">Menge</th>
           <th class="num">Kosten</th><th class="anteil">Anteil</th></tr>
       <tr><td><strong>ElevenLabs</strong><span class="erkl">Flash v2.5, v3</span></td><td class="num">6</td><td class="menge">41.804 Zeichen</td><td class="num">3,72 €</td><td class="anteil"><span class="zeile"><span class="balken"><i style="width:50.9%"></i></span><em>50,9 %</em></span></td></tr><tr><td><strong>Deepgram</strong><span class="erkl">Aura-2, Aura-2 (Julius), Rechnungsabgleich</span></td><td class="num">13</td><td class="menge">122.686 Zeichen</td><td class="num">3,42 €</td><td class="anteil"><span class="zeile"><span class="balken"><i style="width:46.9%"></i></span><em>46,9 %</em></span></td></tr><tr><td><strong>Z.ai</strong><span class="erkl">GLM 5.3 Flash</span></td><td class="num">254</td><td class="menge">830.877 ein / 426.618 aus</td><td class="num">0,16 €</td><td class="anteil"><span class="zeile"><span class="balken"><i style="width:2.1%"></i></span><em>2,1 %</em></span></td></tr><tr><td><strong>OpenRouter</strong><span class="erkl">Ox Alpha</span></td><td class="num">334</td><td class="menge">1.368.671 ein / 658.509 aus</td><td class="num">0,00 €</td><td class="anteil"><span class="zeile"><span class="balken"><i style="width:0.6%"></i></span><em>0,0 %</em></span></td></tr><tr><td><strong>Tavily</strong><span class="erkl">Suche</span></td><td class="num">121</td><td class="menge">—</td><td class="num">0,00 €</td><td class="anteil"><span class="zeile"><span class="balken"><i style="width:0.6%"></i></span><em>0,0 %</em></span></td></tr>
       <tr class="ksummenzeile"><td><strong>Zusammen</strong></td>
@@ -1858,7 +1967,7 @@ body.ruhig *{animation:none !important;transition:none !important}
           <td class="menge">—</td>
           <td class="num">7,30 €</td>
           <td class="anteil"><span class="zeile"><em>100 %</em></span></td></tr>
-    </table>
+    </table></div>
 
     <p class="leise fussnote">Unter dem Anbieter stehen die Modelle, die dort
       liefen. Die Sprachausgabe rechnet je Zeichen ab, die Sprachmodelle je
@@ -1866,13 +1975,13 @@ body.ruhig *{animation:none !important;transition:none !important}
       anderes.</p>
 
     <h3>Je Folge</h3>
-    <table class="ktab" data-slop="schwebe">
-      <tr><th>Sendung</th><th>gesprochen mit</th>
+    <div class="tabrolle"><table class="ktab" data-slop="schwebe">
+      <tr><th>Sendung</th><th class="stimme">gesprochen mit</th>
           <th class="num">ausgeliefert</th>
           <th class="num">verworfen</th><th class="num">Vertonungen</th>
           <th class="num">gesamt</th></tr>
-      <tr><td>2026-08-28</td><td class="stimme">ElevenLabs v3</td><td class="num">1,03 €</td><td class="num">—</td><td class="num">1×</td><td class="num">1,03 €</td></tr><tr><td>2026-08-27</td><td class="stimme">ElevenLabs v3</td><td class="num">1,07 €</td><td class="num">—</td><td class="num">1×</td><td class="num">1,07 €</td></tr><tr><td>2026-08-26</td><td class="stimme">ElevenLabs v3</td><td class="num">1,00 €</td><td class="num">0,98 €</td><td class="num">3×</td><td class="num">1,99 €</td></tr><tr><td>2026-08-25</td><td class="stimme">Deepgram Aura-2</td><td class="num">0,28 €</td><td class="num">0,84 €</td><td class="num">5×</td><td class="num">1,12 €</td></tr><tr><td>2026-08-24</td><td class="stimme">Deepgram Aura-2</td><td class="num">0,28 €</td><td class="num">0,30 €</td><td class="num">4×</td><td class="num">0,58 €</td></tr>
-    </table>
+      <tr><td class="tag">2026-08-28</td><td class="stimme">ElevenLabs v3</td><td class="num">1,03 €</td><td class="num">—</td><td class="num">1×</td><td class="num">1,03 €</td></tr><tr><td class="tag">2026-08-27</td><td class="stimme">ElevenLabs v3</td><td class="num">1,07 €</td><td class="num">—</td><td class="num">1×</td><td class="num">1,07 €</td></tr><tr><td class="tag">2026-08-26</td><td class="stimme">ElevenLabs v3</td><td class="num">1,00 €</td><td class="num">0,98 €</td><td class="num">3×</td><td class="num">1,99 €</td></tr><tr><td class="tag">2026-08-25</td><td class="stimme">Deepgram Aura-2</td><td class="num">0,28 €</td><td class="num">0,84 €</td><td class="num">5×</td><td class="num">1,12 €</td></tr><tr><td class="tag">2026-08-24</td><td class="stimme">Deepgram Aura-2</td><td class="num">0,28 €</td><td class="num">0,30 €</td><td class="num">4×</td><td class="num">0,58 €</td></tr>
+    </table></div>
     <p class="leise fussnote">„Ausgeliefert“ ist die Fassung, die im Player
       liegt: die letzte Vertonung plus die Modellschritte dieser Folge.
       „Verworfen“ sind frühere Anläufe desselben Tages — Entwicklungsaufwand,
