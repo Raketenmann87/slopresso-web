@@ -385,7 +385,19 @@ body.laeuft .tbtn.gross{animation:ring 2.6s ease-out infinite}
 .fehlt{color:#FF6B6B;font-size:13px}
 @media(max-width:820px){.personen{grid-template-columns:1fr}}
 
-.hgnav{display:flex;flex-wrap:wrap;gap:7px;margin-top:22px}
+/* Fuenfzehn gleichrangige Links nebeneinander sind ein Wortteppich, kein
+   Inhaltsverzeichnis. Der Gruppentitel steht links in eigener Spalte - damit
+   sieht man die Ordnung der Seite, bevor man einen Link liest. Auf schmalen
+   Schirmen rutscht er ueber die Links, statt sie zu quetschen. */
+.hgnav{margin-top:22px}
+.hgnavgruppe{display:grid;grid-template-columns:132px 1fr;gap:6px 12px;
+  align-items:start;padding:7px 0;border-top:1px solid var(--linie)}
+.hgnavgruppe:first-child{border-top:0}
+.hgnavtitel{font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--leise);padding-top:5px}
+.hgnavlinks{display:flex;flex-wrap:wrap;gap:7px}
+@media(max-width:620px){.hgnavgruppe{grid-template-columns:1fr}
+  .hgnavtitel{padding-top:0}}
 .hgnav a{font-size:12.5px;color:var(--leise);text-decoration:none;background:var(--bg2);
   border:1px solid var(--linie);border-radius:999px;padding:5px 12px;transition:.18s}
 .hgnav a:hover{color:var(--akzent);border-color:var(--akzent)}
@@ -802,7 +814,7 @@ body.ruhig *{animation:none !important;transition:none !important}
       <span class="badge">Behind the Scenes</span>
       <span class="badge" data-slop="qualitaet">100 % transparent</span>
     </div>
-    <nav class="hgnav" data-slop="schwebe glas"><a href="#aufgabe">Die Aufgabe</a><a href="#name">Der Name</a><a href="#wer">Wer spricht</a><a href="#ablauf">Wie eine Folge entsteht</a><a href="#modellarbeit">Wo ein Modell arbeitet</a><a href="#workflow">Workflow oder Agent</a><a href="#woher">Woher die Meldungen kommen</a><a href="#auswahl">Warum vier bis sechs Themen</a><a href="#fakten">Die Faktenprüfung</a><a href="#pruefungen">Neun Prüfungen im Code</a><a href="#entscheidungen">Entscheidungen und ihre Gründe</a><a href="#modellprinzip">Welches Modell</a><a href="#zahlen">Das System in Zahlen</a><a href="#schiefgegangen">Was schiefgegangen ist</a><a href="#vergleich">Was uns von podpresso unterscheidet</a></nav>
+    <nav class="hgnav" data-slop="schwebe glas"><div class="hgnavgruppe"><span class="hgnavtitel">Die Sendung</span><span class="hgnavlinks"><a href="#aufgabe">Die Aufgabe</a><a href="#name">Der Name</a><a href="#wer">Wer spricht</a></span></div><div class="hgnavgruppe"><span class="hgnavtitel">Wie sie entsteht</span><span class="hgnavlinks"><a href="#ablauf">Neun Schritte</a><a href="#modellarbeit">Wo ein Modell arbeitet</a><a href="#workflow">Workflow oder Agent</a></span></div><div class="hgnavgruppe"><span class="hgnavtitel">Der Betrieb</span><span class="hgnavlinks"><a href="#betrieb">Wo es hakt</a><a href="#schiefgegangen">Was schiefging</a></span></div><div class="hgnavgruppe"><span class="hgnavtitel">Woher der Stoff kommt</span><span class="hgnavlinks"><a href="#technik">Zwei Stellen, die man nicht sieht</a><a href="#woher">Die Quellen</a><a href="#auswahl">Warum vier bis sechs Themen</a></span></div><div class="hgnavgruppe"><span class="hgnavtitel">Was geprüft wird</span><span class="hgnavlinks"><a href="#fakten">Die Faktenprüfung</a><a href="#pruefungen">Elf Prüfungen im Code</a></span></div><div class="hgnavgruppe"><span class="hgnavtitel">Was wir entschieden haben</span><span class="hgnavlinks"><a href="#entscheidungen">Entscheidungen und Gründe</a><a href="#modellprinzip">Welches Modell</a><a href="#zahlen">Das System in Zahlen</a><a href="#vergleich">Der Vergleich mit podpresso</a></span></div></nav>
   </div>
 
   <div class="hgab" id="aufgabe">
@@ -1222,9 +1234,9 @@ body.ruhig *{animation:none !important;transition:none !important}
         <td>Dreißig Quellen über <em>feedparser</em>. Keine Bewertung, nur
           holen und ablegen.</td></tr>
       <tr><td><strong>Dubletten</strong></td><td class="leise">Code, im Zweifel Modell</td>
-        <td>Titel-Vergleich über <em>rapidfuzz</em>. Über 85 Prozent gilt als
-          dasselbe Thema, unter 55 als verschieden — beides ohne Modell. Nur der
-          Graubereich dazwischen geht an das kleine Modell.</td></tr>
+        <td>Ein Titel-Vergleich entscheidet die klaren Fälle ohne Modell. Nur
+          der Graubereich dazwischen geht an das kleine Modell — die Schwellen
+          stehen weiter unten.</td></tr>
       <tr><td><strong>Fakten lösen</strong></td><td>Modell, klein</td>
         <td>Aus der Meldung werden einzelne Fakten herausgelöst: Beträge,
           Fristen, Akteure, Kennzahlen. Jeder bekommt eine Rolle und eine
@@ -1356,11 +1368,11 @@ body.ruhig *{animation:none !important;transition:none !important}
     </table>
   </div>
 
-  <div class="hgab" id="technik">
-    <h2>Wie es technisch läuft</h2>
-    <p>Vier Stellen, an denen das System etwas tut, das man ihm nicht ansieht.
-      Die Werkzeuge stehen nur dort, wo der Satz ohne sie unvollständig wäre —
-      eine Liste von Bibliotheksnamen wäre ein Ausweis, keine Erklärung.</p>
+  <div class="hgab" id="betrieb">
+    <h2>Der Betrieb — und wo er hakt</h2>
+    <p>Die Sendung entsteht werktags ohne Aufsicht. Das funktioniert, solange
+      der Dienst mitspielt, auf dem sie läuft. Genau da liegt die offene
+      Flanke.</p>
 
     <h3>Der wunde Punkt: die Zeitpläne</h3>
     <p>Der Morgenlauf startet über einen Zeitplan bei GitHub Actions. <strong>Darauf
@@ -1413,6 +1425,23 @@ body.ruhig *{animation:none !important;transition:none !important}
       Regelweg — und die ehrliche Antwort auf die Frage, wie zuverlässig ein Betrieb
       ist, der auf fremder Infrastruktur läuft.</p>
 
+    <h3>Wenn beim Hören etwas auffällt</h3>
+    <p>Im Abspieler oben sitzt ein Knopf. Wer ihn drückt, hält die Folge an; die
+      Stelle wird auf die Sekunde festgehalten. Zwei Sätze dazu, und die Meldung
+      landet im Repository — mit Folge, Zeitstempel und Text.</p>
+    <p class="leise">Sie wird <strong>nicht automatisch umgesetzt</strong>. Wer an der
+      nächsten Folge arbeitet, bekommt die offenen Meldungen vorgelegt und entscheidet
+      einzeln. Was für den einen ein Fehler ist, ist für den anderen der Charakter der
+      Sendung.</p>
+    </div>
+
+  <div class="hgab" id="technik">
+    <h2>Zwei Stellen, die man nicht sieht</h2>
+    <p>Zwei Vorgänge, an denen mehr Arbeit hängt, als das Ergebnis vermuten
+      lässt. Die Werkzeuge stehen nur dort, wo der Satz ohne sie unvollständig
+      wäre — eine Liste von Bibliotheksnamen wäre ein Ausweis, keine
+      Erklärung.</p>
+
     <h3>Aus dreitausend Meldungen werden sechs Themen</h3>
     <p>Jede neue Meldung wird gegen dreißig Tage Themenbestand gehalten. Der Abgleich
       läuft in Stufen, und die erste ist reine Rechenarbeit: Zwei Titel werden auf
@@ -1445,20 +1474,12 @@ body.ruhig *{animation:none !important;transition:none !important}
         geht er um achtzehn Dezibel herunter und liegt unter dem Vorspann. Wann er
         endet, entscheidet nicht eine Sekundenzahl, sondern das Ende des
         Ansagerinnen-Blocks.</td></tr>
-      <tr><td>Lautstärke</td><td class="leise">Am Ende gemessen und um einen festen
-        Betrag angehoben. Der übliche Weg — ein dynamischer Durchgang — verfehlte
-        sein Ziel um 3,4 Dezibel.</td></tr>
+      <tr><td>Lautstärke</td><td class="leise">Fest angehoben, nicht dynamisch
+        normiert — warum, steht bei den
+        <a href="#entscheidungen">Entscheidungen</a>.</td></tr>
     </table>
 
-    <h3>Wenn beim Hören etwas auffällt</h3>
-    <p>Im Abspieler oben sitzt ein Knopf. Wer ihn drückt, hält die Folge an; die
-      Stelle wird auf die Sekunde festgehalten. Zwei Sätze dazu, und die Meldung
-      landet im Repository — mit Folge, Zeitstempel und Text.</p>
-    <p class="leise">Sie wird <strong>nicht automatisch umgesetzt</strong>. Wer an der
-      nächsten Folge arbeitet, bekommt die offenen Meldungen vorgelegt und entscheidet
-      einzeln. Was für den einen ein Fehler ist, ist für den anderen der Charakter der
-      Sendung.</p>
-  </div>
+</div>
 
   <div class="hgab" id="woher">
     <h2>Woher die Meldungen kommen</h2>
