@@ -652,6 +652,36 @@ body.ruhig *{animation:none !important;transition:none !important}
    390px um 90 Pixel aus dem Bild. */
 .tabrolle{max-width:100%}
 
+/* ===================== Wer mit dem Finger bedient =========================
+   `pointer:coarse` trifft jedes Geraet, das per Beruehrung bedient wird -
+   unabhaengig davon, wie breit es gerade ist. Das ist hier der richtige
+   Schnitt: Ein Daumen bleibt gleich gross, ob das Telefon hoch oder quer
+   gehalten wird. Die Schriftgroessen weiter unten haengen dagegen am Platz,
+   nicht am Zeigegeraet.
+
+   Gemessen am 28.08. auf einem Telefon im Querformat (780x360): der
+   Schliessknopf des Slop-Meters war dort wieder 11x20 Pixel gross, weil die
+   erste Fassung dieser Regeln nur an der Breite hing. */
+@media (pointer:coarse){
+  .tbtn{width:44px;height:44px}
+  .tbtn.gross{width:60px;height:60px}
+  .tempo{font-size:13.5px;padding:10px 14px;min-width:64px}
+  .hgnav a{font-size:13.5px;padding:9px 14px}
+  .quelle{padding:12px 0}
+  /* Die Quellen-Pillen tragen eine eigene, staerkere Regel und blieben
+     deshalb bei 30px. Auf 36px sind sie sicher zu treffen, ohne wie Knoepfe
+     auszusehen. */
+  .qthema .quelle{padding:8px 11px}
+  .mzu{font-size:24px;padding:10px 14px}
+  .mab{padding:10px 18px}
+  /* Der kleinste Klickpunkt der ganzen Seite - und ausgerechnet der, den man
+     zum Zumachen braucht. */
+  .panel .zu{width:44px;height:44px;top:14px;right:12px;font-size:26px}
+  /* Zum Spulen mit dem Daumen war der Regler zu duenn. Die sichtbare Schiene
+     bleibt schmal, nur die Trefferflaeche waechst. */
+  .leiste{height:30px;margin:12px 0 3px}
+}
+
 /* ======================= Telefon: unter 520 Pixel =========================
    Bis zum 28.08. endete die kleinste Media Query bei 620px und das Layout
    wechselte bei 820px. Ein Telefon mit 375 bis 430 Pixeln lief damit auf den
@@ -668,7 +698,12 @@ body.ruhig *{animation:none !important;transition:none !important}
    Bewusst klein GELASSEN: `.vtext i/em` (8/9px, die erfundenen Logo-Unter-
    zeilen) und die pinke Nummernmarke des Slop-Meters. Beide sind Teil des
    Witzes, nicht Text zum Lesen. */
-@media(max-width:520px){
+/* Die zweite Bedingung ist das Telefon im QUERFORMAT: dann ist es 780 oder
+   932 Pixel breit, aber nur 360 bis 430 hoch. Ohne sie fiel die Schrift
+   beim Drehen des Geraets auf 10px zurueck - am 28.08. auf 780x360
+   gemessen: 199 Textstellen unter 13px. `pointer:coarse` haelt gekippte
+   Desktop-Fenster heraus, ein Tablet (Hoehe ueber 520) ebenso. */
+@media (max-width:520px), (max-height:520px) and (pointer:coarse){
 
   /* --- Rand: 28px links und rechts sind auf 375px zu viel Luft ---------- */
   .wrap{padding:30px 16px 120px}
@@ -692,26 +727,12 @@ body.ruhig *{animation:none !important;transition:none !important}
      enger gesetzt - dann steht die Zeile wieder. */
   .hgab > h2,.faq > h3,.kostenblock h2{font-size:13px;letter-spacing:.1em}
   .trenner{font-size:13px;letter-spacing:.14em;margin:30px 0 6px}
+  /* Die Groesse des Tempo-Knopfs stand nur im Finger-Block. Schrift gehoert
+     aber an den Platz: in einem schmalen Fenster mit Maus blieb sie sonst
+     bei 12px. */
+  .tempo{font-size:13.5px}
 
-  /* --- Tippflaechen: nichts unter 40px hoch ----------------------------- */
-  .tbtn{width:44px;height:44px}
-  .tbtn.gross{width:60px;height:60px}
-  .tempo{font-size:13.5px;padding:10px 14px;min-width:64px}
-  .hgnav a{font-size:13.5px;padding:9px 14px}
-  .quelle{padding:12px 0}
-  /* Die Quellen-Pillen tragen eine eigene, staerkere Regel (`.qthema .quelle`)
-     und blieben deshalb bei 30px. Auf 36px sind sie mit dem Daumen sicher zu
-     treffen, ohne wie Knoepfe auszusehen. */
-  .qthema .quelle{padding:8px 11px}
-  .mzu{font-size:24px;padding:6px 10px}
-  .mab{padding:10px 18px}
-  /* Der Schliessknopf des Slop-Meters mass 11x20 - der kleinste Klickpunkt
-     der ganzen Seite, und ausgerechnet der, den man zum Zumachen braucht. */
-  .panel .zu{width:44px;height:44px;top:14px;right:12px;font-size:26px}
   .panel{padding:26px 18px 90px}
-  /* Der Fortschrittsregler war 16px hoch. Zum Spulen mit dem Daumen zu duenn;
-     die sichtbare Schiene bleibt schmal, nur die Trefferflaeche waechst. */
-  .leiste{height:30px;margin:12px 0 3px}
 
   /* Fuenf Knoepfe nebeneinander auf 360px: 5x56 + 4x8 = 312px. Passt auch
      auf das schmalste gaengige Telefon. */
